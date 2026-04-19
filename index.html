@@ -19,8 +19,8 @@
 
       <nav class="nav">
         <button class="nav-btn active" data-view="dashboard">Startsida</button>
-        <button class="nav-btn" data-view="workout">Dagens pass</button>
-        <button class="nav-btn" data-view="calculator">Viktberäkning</button>
+        <button class="nav-btn" data-view="programs">Upplägg</button>
+        <button class="nav-btn" data-view="workout">Starta pass</button>
         <button class="nav-btn" data-view="library">Övningsbank</button>
         <button class="nav-btn" data-view="history">Historik</button>
         <button class="nav-btn" data-view="settings">Inställningar</button>
@@ -28,7 +28,7 @@
 
       <div class="sidebar-card">
         <h3>Snabbinfo</h3>
-        <p>All data sparas lokalt i din webbläsare. Perfekt för GitHub Pages.</p>
+        <p>All data sparas lokalt i webbläsaren. Perfekt för GitHub Pages.</p>
       </div>
     </aside>
 
@@ -36,10 +36,10 @@
       <section class="view active" id="dashboard">
         <header class="hero card">
           <div>
-            <p class="eyebrow">Mobilvänlig träningssida</p>
-            <h2>Byggd för att funka direkt på GitHub Pages</h2>
+            <p class="eyebrow">Version 3</p>
+            <h2>Passläge med set-för-set-loggning</h2>
             <p class="muted">
-              Logga pass, räkna ut startvikt för 12 reps utifrån failure-set, spara historik och håll koll på dina vanligaste övningar.
+              Välj 4, 5 eller 6 dagars upplägg. Under passet loggar du ett set i taget. När set 3 markeras som to failure går sidan automatiskt vidare till nästa övning.
             </p>
           </div>
           <div class="hero-stats">
@@ -52,212 +52,123 @@
               <strong id="totalExercises">0</strong>
             </div>
             <div class="stat">
-              <span class="stat-label">Senaste rekommendationer</span>
-              <strong id="savedRecommendations">0</strong>
+              <span class="stat-label">Aktivt upplägg</span>
+              <strong id="activeProgramDays">-</strong>
             </div>
           </div>
         </header>
 
         <div class="dashboard-grid">
           <article class="card">
-            <h3>Kom igång</h3>
+            <h3>Så fungerar passet</h3>
             <ol class="simple-list">
-              <li>Öppna <strong>Dagens pass</strong> och logga sets.</li>
-              <li>Markera sista setet som <strong>failure</strong>.</li>
-              <li>Öppna <strong>Viktberäkning</strong> för startvikt till 12 reps.</li>
-              <li>Spara passet så hamnar det i historiken.</li>
+              <li>Välj upplägg under <strong>Upplägg</strong>.</li>
+              <li>Starta dagens pass.</li>
+              <li>Logga <strong>set 1</strong>, sedan <strong>set 2</strong>, sedan <strong>set 3</strong>.</li>
+              <li>På set 3 markerar du <strong>to failure</strong>.</li>
+              <li>Systemet hoppar direkt vidare till nästa övning.</li>
             </ol>
           </article>
 
           <article class="card">
-            <h3>Senaste rekommendationer</h3>
-            <div id="dashboardRecommendations" class="stack muted">
-              Inga rekommendationer sparade ännu.
-            </div>
+            <h3>Valt upplägg</h3>
+            <div id="dashboardProgram" class="stack muted">Inget upplägg valt ännu.</div>
           </article>
 
           <article class="card">
             <h3>Senaste pass</h3>
-            <div id="dashboardHistory" class="stack muted">
-              Ingen historik ännu.
-            </div>
+            <div id="dashboardHistory" class="stack muted">Ingen historik ännu.</div>
           </article>
         </div>
+      </section>
+
+      <section class="view" id="programs">
+        <div class="section-head">
+          <div>
+            <p class="eyebrow">Välj upplägg</p>
+            <h2>4, 5 eller 6 dagars schema</h2>
+          </div>
+        </div>
+        <div class="program-grid" id="programGrid"></div>
       </section>
 
       <section class="view" id="workout">
         <div class="section-head">
           <div>
-            <p class="eyebrow">Logga träningen</p>
-            <h2>Dagens pass</h2>
+            <p class="eyebrow">Aktivt pass</p>
+            <h2>Starta pass</h2>
+          </div>
+          <div class="button-row">
+            <button type="button" class="secondary" id="startWorkoutBtn">Starta dagens pass</button>
+            <button type="button" class="ghost" id="resetCurrentWorkoutBtn">Börja om passet</button>
           </div>
         </div>
 
         <div class="card">
-          <form id="workoutForm" class="form-grid">
-            <label>
-              Övning
-              <input type="text" id="workoutExercise" placeholder="Till exempel Bänkpress" required />
-            </label>
-
-            <label>
-              Muskelgrupp
-              <select id="workoutMuscle">
-                <option value="Bröst">Bröst</option>
-                <option value="Rygg">Rygg</option>
-                <option value="Ben">Ben</option>
-                <option value="Axlar">Axlar</option>
-                <option value="Armar">Armar</option>
-                <option value="Mage">Mage</option>
-              </select>
-            </label>
-
-            <label>
-              Set 1 vikt (kg)
-              <input type="number" id="set1Weight" min="0" step="0.5" />
-            </label>
-
-            <label>
-              Set 1 reps
-              <input type="number" id="set1Reps" min="0" step="1" />
-            </label>
-
-            <label>
-              Set 2 vikt (kg)
-              <input type="number" id="set2Weight" min="0" step="0.5" />
-            </label>
-
-            <label>
-              Set 2 reps
-              <input type="number" id="set2Reps" min="0" step="1" />
-            </label>
-
-            <label>
-              Set 3 vikt (kg)
-              <input type="number" id="set3Weight" min="0" step="0.5" />
-            </label>
-
-            <label>
-              Set 3 reps
-              <input type="number" id="set3Reps" min="0" step="1" />
-            </label>
-
-            <label>
-              Set 4 vikt (kg)
-              <input type="number" id="set4Weight" min="0" step="0.5" />
-            </label>
-
-            <label>
-              Set 4 reps
-              <input type="number" id="set4Reps" min="0" step="1" />
-            </label>
-
-            <label>
-              Vilket set var failure?
-              <select id="failureSet">
-                <option value="0">Inget</option>
-                <option value="1">Set 1</option>
-                <option value="2">Set 2</option>
-                <option value="3">Set 3</option>
-                <option value="4">Set 4</option>
-              </select>
-            </label>
-
-            <label>
-              Anteckning
-              <input type="text" id="workoutNote" placeholder="Kändes tungt / lätt / bra teknik" />
-            </label>
-
-            <div class="button-row full">
-              <button type="submit">Spara pass</button>
-              <button type="button" class="secondary" id="fillDemoWorkout">Fyll med exempel</button>
-              <button type="reset" class="ghost">Rensa</button>
-            </div>
-          </form>
-
-          <div id="workoutFeedback" class="message hidden"></div>
-        </div>
-
-        <div class="card">
-          <h3>Senast sparade pass</h3>
-          <div id="latestWorkoutPreview" class="stack muted">Inget sparat ännu.</div>
-        </div>
-      </section>
-
-      <section class="view" id="calculator">
-        <div class="section-head">
-          <div>
-            <p class="eyebrow">Failure → 12 reps</p>
-            <h2>Automatisk viktberäkning</h2>
+          <div id="workoutNotReady" class="message">
+            Välj först ett upplägg under fliken <strong>Upplägg</strong>, och tryck sedan på <strong>Starta dagens pass</strong>.
           </div>
-        </div>
 
-        <div class="calculator-grid">
-          <article class="card">
-            <form id="calculatorForm" class="form-grid">
-              <label>
-                Övning
-                <input type="text" id="calcExercise" placeholder="Till exempel Hantelrodd" />
-              </label>
-
-              <label>
-                Failure-vikt (kg)
-                <input type="number" id="calcWeight" min="0" step="0.5" required />
-              </label>
-
-              <label>
-                Reps till failure
-                <input type="number" id="calcReps" min="1" max="30" step="1" required />
-              </label>
-
-              <label>
-                Avrunda till
-                <select id="calcRound">
-                  <option value="2.5">2,5 kg</option>
-                  <option value="1.25">1,25 kg</option>
-                  <option value="5">5 kg</option>
-                  <option value="0.5">0,5 kg</option>
-                </select>
-              </label>
-
-              <label>
-                Säkerhetsmarginal
-                <select id="calcSafety">
-                  <option value="0">Ingen</option>
-                  <option value="2.5">-2,5 kg</option>
-                  <option value="5">-5 kg</option>
-                </select>
-              </label>
-
-              <div class="button-row full">
-                <button type="submit">Räkna ut</button>
-                <button type="button" class="secondary" id="useLatestFailure">Använd senaste failure-set</button>
+          <div id="workoutRunner" class="hidden">
+            <div class="runner-top">
+              <div>
+                <p class="eyebrow">Pågående övning</p>
+                <h3 id="currentExerciseName">-</h3>
+                <p class="muted" id="currentExerciseMeta">-</p>
               </div>
-            </form>
-
-            <div id="calcResult" class="result-box hidden"></div>
-          </article>
-
-          <article class="card">
-            <h3>Så fungerar det</h3>
-            <div class="info-box">
-              <p><strong>1RM</strong> uppskattas med Epley-formeln:</p>
-              <p class="formula">1RM = vikt × (1 + reps / 30)</p>
-              <p>Därefter räknas en ungefärlig 12-repsvikt fram:</p>
-              <p class="formula">12RM ≈ 1RM / 1,4</p>
-              <p>Slutligen avrundas vikten till vald stegstorlek och eventuell säkerhetsmarginal dras bort.</p>
+              <div class="progress-box">
+                <span id="exerciseProgress">0 / 0</span>
+              </div>
             </div>
 
-            <div class="mini-card">
-              <h4>Exempel</h4>
-              <p>80 kg × 8 reps till failure ger ungefär:</p>
-              <ul class="simple-list">
-                <li>1RM: 101,3 kg</li>
-                <li>12RM: 72,4 kg</li>
-                <li>Startvikt nästa pass: 72,5 kg</li>
-              </ul>
+            <div class="recommend-card">
+              <h4>Rekommendation från senaste loggningen</h4>
+              <div id="exerciseRecommendation" class="muted">Ingen tidigare loggning för den här övningen ännu.</div>
             </div>
-          </article>
+
+            <div class="card-inner">
+              <div class="set-step">
+                <div>
+                  <p class="eyebrow">Aktuellt set</p>
+                  <h4 id="currentSetTitle">Set 1 av 3</h4>
+                </div>
+                <div class="set-pill" id="setStepPill">Set 1</div>
+              </div>
+
+              <form id="setLoggerForm" class="form-grid">
+                <label>
+                  Vikt (kg)
+                  <input type="number" id="setWeight" min="0" step="0.5" />
+                </label>
+                <label>
+                  Reps
+                  <input type="number" id="setReps" min="0" step="1" />
+                </label>
+
+                <label class="full checkbox-row hidden" id="failureWrap">
+                  <input type="checkbox" id="setFailure" />
+                  Detta set var to failure
+                </label>
+
+                <label class="full">
+                  Anteckning
+                  <input type="text" id="exerciseNote" placeholder="Valfritt" />
+                </label>
+
+                <div class="button-row full">
+                  <button type="button" class="secondary" id="fillRecommendedBtn">Fyll rekommenderat</button>
+                  <button type="submit" id="saveSetBtn">Spara set</button>
+                </div>
+              </form>
+
+              <div class="logged-sets-box">
+                <h4>Loggade set</h4>
+                <div id="loggedSetsPreview" class="muted">Inga set loggade ännu.</div>
+              </div>
+            </div>
+          </div>
+
+          <div id="workoutComplete" class="message hidden"></div>
         </div>
       </section>
 
@@ -283,7 +194,6 @@
             </select>
             <button type="button" class="secondary" id="resetLibrary">Återställ</button>
           </div>
-
           <div id="exerciseLibrary" class="library-grid"></div>
         </div>
       </section>
@@ -301,7 +211,6 @@
             <button type="button" class="secondary" id="exportData">Exportera data</button>
             <button type="button" class="danger" id="clearHistory">Rensa historik</button>
           </div>
-
           <div id="historyList" class="history-list muted">Ingen historik ännu.</div>
         </div>
       </section>
@@ -320,7 +229,6 @@
               Ditt namn
               <input type="text" id="userName" placeholder="Till exempel Alex" />
             </label>
-
             <label>
               Standardavrundning
               <select id="defaultRound">
@@ -330,7 +238,6 @@
                 <option value="0.5">0,5 kg</option>
               </select>
             </label>
-
             <label>
               Standard säkerhetsmarginal
               <select id="defaultSafety">
@@ -339,18 +246,13 @@
                 <option value="5">-5 kg</option>
               </select>
             </label>
-
-            <div class="button-row full">
-              <button type="submit">Spara inställningar</button>
-            </div>
+            <div class="button-row full"><button type="submit">Spara inställningar</button></div>
           </form>
-
           <div id="settingsMessage" class="message hidden"></div>
         </div>
       </section>
     </main>
   </div>
-
   <script src="script.js"></script>
 </body>
 </html>
