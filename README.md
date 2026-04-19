@@ -1,10 +1,10 @@
-# Min Träning – version 3
+# Min Träning – version 4
 
-Den här versionen innehåller:
-- större övningsbank
-- flik för 4, 5 och 6 dagars upplägg
-- set-för-set-loggning
-- exakt 3 set per övning
-- rekommenderad vikt och reps från senaste failure-set för samma övning
-- automatisk övergång till nästa övning efter set 3
+Nytt i denna version:
+- egna övningar i övningsbanken
+- eget tvåveckorsupplägg
+- välj antal pass per vecka
+- välj muskelgrupper och övningar för varje pass
+- viktförslag för set 1 och 2 med 10–12 reps
+- viktförslag för set 3 utifrån senaste failure-set
 - lokal lagring i webbläsaren
