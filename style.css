@@ -1,0 +1,406 @@
+* {
+  box-sizing: border-box;
+}
+
+:root {
+  --bg: #0f172a;
+  --panel: #ffffff;
+  --panel-soft: #f8fafc;
+  --panel-border: #e2e8f0;
+  --text: #0f172a;
+  --muted: #475569;
+  --accent: #2563eb;
+  --accent-2: #1d4ed8;
+  --danger: #dc2626;
+  --danger-2: #b91c1c;
+  --radius: 24px;
+  --shadow: 0 12px 32px rgba(15, 23, 42, 0.08);
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  min-height: 100%;
+}
+
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  background:
+    radial-gradient(circle at top, rgba(37, 99, 235, 0.18), transparent 25%),
+    linear-gradient(180deg, #0f172a 0%, #111827 100%);
+  color: var(--text);
+}
+
+button, input, select {
+  font: inherit;
+}
+
+.app-shell {
+  width: min(1280px, calc(100% - 28px));
+  margin: 14px auto;
+  display: grid;
+  grid-template-columns: 290px 1fr;
+  gap: 20px;
+}
+
+.sidebar,
+.card {
+  background: var(--panel);
+  border: 1px solid rgba(226, 232, 240, 0.7);
+  box-shadow: var(--shadow);
+}
+
+.sidebar {
+  border-radius: 30px;
+  padding: 22px;
+  position: sticky;
+  top: 14px;
+  height: fit-content;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 20px;
+}
+
+.brand-badge {
+  width: 54px;
+  height: 54px;
+  border-radius: 18px;
+  display: grid;
+  place-items: center;
+  background: linear-gradient(135deg, var(--accent), var(--accent-2));
+  color: white;
+  font-weight: 800;
+}
+
+.brand-label,
+.eyebrow {
+  margin: 0 0 4px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: 0.75rem;
+  color: var(--muted);
+}
+
+.brand h1,
+.content h2,
+.content h3,
+.content h4 {
+  margin: 0;
+}
+
+.nav {
+  display: grid;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.nav-btn {
+  border: 1px solid var(--panel-border);
+  background: var(--panel-soft);
+  color: var(--text);
+  border-radius: 16px;
+  padding: 13px 14px;
+  text-align: left;
+  cursor: pointer;
+  font-weight: 700;
+}
+
+.nav-btn.active {
+  background: linear-gradient(135deg, var(--accent), var(--accent-2));
+  color: white;
+  border-color: transparent;
+}
+
+.sidebar-card {
+  border-radius: 20px;
+  background: var(--panel-soft);
+  padding: 16px;
+  line-height: 1.5;
+}
+
+.content {
+  display: grid;
+  gap: 18px;
+}
+
+.view {
+  display: none;
+  gap: 18px;
+}
+
+.view.active {
+  display: grid;
+}
+
+.card {
+  border-radius: var(--radius);
+  padding: 22px;
+}
+
+.hero {
+  display: grid;
+  grid-template-columns: 1.3fr 1fr;
+  gap: 18px;
+  align-items: center;
+}
+
+.muted {
+  color: var(--muted);
+  line-height: 1.6;
+}
+
+.hero-stats,
+.dashboard-grid,
+.calculator-grid,
+.library-grid {
+  display: grid;
+  gap: 16px;
+}
+
+.hero-stats {
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.stat,
+.exercise-card,
+.history-item,
+.mini-card {
+  background: var(--panel-soft);
+  border: 1px solid var(--panel-border);
+  border-radius: 20px;
+  padding: 16px;
+}
+
+.stat-label {
+  display: block;
+  color: var(--muted);
+  font-size: 0.88rem;
+  margin-bottom: 6px;
+}
+
+.stat strong {
+  font-size: 1.8rem;
+}
+
+.dashboard-grid {
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.section-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: end;
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.form-grid label,
+.stack {
+  display: grid;
+  gap: 8px;
+}
+
+.full {
+  grid-column: 1 / -1;
+}
+
+input,
+select {
+  width: 100%;
+  border: 1px solid var(--panel-border);
+  border-radius: 15px;
+  background: white;
+  padding: 12px 14px;
+}
+
+.button-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+button {
+  border: none;
+  border-radius: 15px;
+  padding: 13px 16px;
+  cursor: pointer;
+  font-weight: 700;
+  background: var(--accent);
+  color: white;
+}
+
+button:hover {
+  background: var(--accent-2);
+}
+
+button.secondary {
+  background: #e2e8f0;
+  color: #0f172a;
+}
+
+button.secondary:hover {
+  background: #cbd5e1;
+}
+
+button.ghost {
+  background: transparent;
+  color: var(--text);
+  border: 1px solid var(--panel-border);
+}
+
+button.ghost:hover {
+  background: var(--panel-soft);
+}
+
+button.danger {
+  background: var(--danger);
+}
+
+button.danger:hover {
+  background: var(--danger-2);
+}
+
+.message,
+.result-box {
+  margin-top: 16px;
+  border-radius: 18px;
+  padding: 16px;
+  background: var(--panel-soft);
+  border: 1px solid var(--panel-border);
+}
+
+.hidden {
+  display: none;
+}
+
+.result-grid {
+  display: grid;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.result-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  border-bottom: 1px solid var(--panel-border);
+  padding-bottom: 10px;
+}
+
+.result-row:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.calculator-grid {
+  grid-template-columns: 1.1fr 0.9fr;
+}
+
+.info-box {
+  border-radius: 18px;
+  background: var(--panel-soft);
+  border: 1px solid var(--panel-border);
+  padding: 16px;
+  line-height: 1.6;
+}
+
+.formula {
+  font-weight: 700;
+  overflow-wrap: anywhere;
+}
+
+.toolbar {
+  display: grid;
+  grid-template-columns: 1.2fr 0.8fr auto;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.library-grid {
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.exercise-card h4 {
+  margin-bottom: 8px;
+}
+
+.badge {
+  display: inline-block;
+  padding: 6px 10px;
+  background: #dbeafe;
+  color: #1d4ed8;
+  border-radius: 999px;
+  font-size: 0.82rem;
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+
+.history-list {
+  display: grid;
+  gap: 12px;
+  margin-top: 16px;
+}
+
+.history-top {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  align-items: center;
+}
+
+.simple-list {
+  margin: 10px 0 0;
+  padding-left: 18px;
+  line-height: 1.7;
+}
+
+@media (max-width: 1080px) {
+  .app-shell {
+    grid-template-columns: 1fr;
+  }
+
+  .sidebar {
+    position: static;
+  }
+
+  .hero,
+  .dashboard-grid,
+  .calculator-grid,
+  .library-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 700px) {
+  .app-shell {
+    width: min(100% - 16px, 1280px);
+    margin: 8px auto;
+    gap: 12px;
+  }
+
+  .sidebar,
+  .card {
+    border-radius: 22px;
+    padding: 16px;
+  }
+
+  .form-grid,
+  .toolbar,
+  .hero-stats {
+    grid-template-columns: 1fr;
+  }
+
+  .history-top,
+  .result-row {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
