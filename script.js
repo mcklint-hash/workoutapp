@@ -13,8 +13,39 @@ function roundToStep(v,step){return Math.round(v/step)*step;}
 function findProgramById(id){return getAllPrograms().find(p=>p.id===id)||null;}
 function getCurrentProgramDay(s){const p=findProgramById(s.selectedProgramId); return p ? p.days[s.currentProgramDayIndex] : null;}
 function getLatestExerciseLog(name){const s=getState(); for(const w of s.workouts){const f=w.exercises.find(e=>e.exercise===name); if(f) return f;} return null;}
-function getProgressionBoost(reps){if(reps>=15)return 2; if(reps>=13)return 1; return 0;}
-function getRecommendationForExercise(name){const s=getState(); const log=getLatestExerciseLog(name); if(!log) return null; const failure=log.sets[2]; if(!failure||!failure.weight||!failure.reps) return null; const step=Number(s.settings.defaultRound||2.5); const boost=getProgressionBoost(Number(failure.reps)); const set3=roundToStep(Number(failure.weight)+boost*step, step); const set2=Math.max(0, roundToStep(set3-step, step)); const set1=Math.max(0, roundToStep(set3-step*2, step)); return {lastWeight:Number(failure.weight), lastReps:Number(failure.reps), boostSteps:boost, set1,set2,set3};}
+function getRecommendationForExercise(name){
+  const s=getState();
+  const log=getLatestExerciseLog(name);
+  if(!log) return null;
+
+  const failure=log.sets[2];
+  if(!failure||!failure.weight||!failure.reps) return null;
+
+  const step=Number(s.settings.defaultRound||2.5);
+  const lastWeight=Number(failure.weight);
+  const lastReps=Number(failure.reps);
+
+  // Progression för set 3:
+  // 5–6 reps = behåll vikt
+  // 7+ reps = öka 5%, men minst ett steg
+  let set3 = lastWeight;
+  let increaseApplied = 0;
+
+  if(lastReps >= 7){
+    const rawIncrease = lastWeight * 0.05;
+    const increase = Math.max(rawIncrease, step);
+    set3 = roundToStep(lastWeight + increase, step);
+    increaseApplied = set3 - lastWeight;
+  }
+
+  // Set 1 och 2 räknas bakåt från nya set 3-vikten
+  // Set 2 ≈ 10 reps
+  // Set 1 ≈ 12 reps
+  const set2 = Math.max(0, roundToStep(set3 * 0.90, step));
+  const set1 = Math.max(0, roundToStep(set3 * 0.80, step));
+
+  return { lastWeight, lastReps, set1, set2, set3, increaseApplied };
+}
 function switchView(id){document.querySelectorAll(".view").forEach(v=>v.classList.toggle("active",v.id===id)); document.querySelectorAll(".nav-btn").forEach(b=>b.classList.toggle("active",b.dataset.view===id));}
 document.querySelectorAll(".nav-btn").forEach(b=>b.addEventListener("click",()=>switchView(b.dataset.view)));
 
@@ -31,9 +62,24 @@ function renderHistory(){historyList.innerHTML=getState().workouts.length?getSta
 function updateWorkoutProgramStatus(){const s=getState(); const p=findProgramById(s.selectedProgramId); const day=getCurrentProgramDay(s); workoutProgramStatus.innerHTML=p?`Valt upplägg: <strong>${p.name}</strong>${day?` • Aktiv dag: <strong>${day.name}</strong>`:""}`:"Inget upplägg valt ännu."; }
 
 function startWorkout(){const s=getState(); const p=findProgramById(s.selectedProgramId); const d=getCurrentProgramDay(s); if(!p||!d) return false; s.activeWorkout={programId:p.id,programName:p.name,dayName:d.name,currentExerciseIndex:0,currentSetIndex:0,exercises:d.exercises.map(name=>({exercise:name,sets:[{weight:"",reps:""},{weight:"",reps:""},{weight:"",reps:""}],failure:false,note:""}))}; setState(s); return true;}
-function renderWorkout(){const s=getState(); updateWorkoutProgramStatus(); workoutComplete.classList.add("hidden"); if(!s.selectedProgramId){workoutNotReady.classList.remove("hidden"); workoutRunner.classList.add("hidden"); workoutNotReady.innerHTML='Välj först ett upplägg under fliken <strong>Upplägg</strong>, och tryck sedan på <strong>Starta dagens pass</strong>.'; return;} if(!s.activeWorkout){workoutNotReady.classList.remove("hidden"); workoutRunner.classList.add("hidden"); const d=getCurrentProgramDay(s); workoutNotReady.innerHTML=`Valt upplägg finns. Aktiv dag: <strong>${d?d.name:"-"}</strong>. Tryck på <strong>Starta dagens pass</strong>.`; return;} const w=s.activeWorkout; const entry=w.exercises[w.currentExerciseIndex]; if(!entry){workoutRunner.classList.add("hidden"); workoutNotReady.classList.add("hidden"); workoutComplete.classList.remove("hidden"); workoutComplete.innerHTML=`<strong>Passet är klart.</strong><br>${w.dayName} sparades i historiken.`; return;} workoutNotReady.classList.add("hidden"); workoutRunner.classList.remove("hidden"); currentExerciseName.textContent=entry.exercise; currentExerciseMeta.textContent=`${w.dayName} • 3 set per övning`; exerciseProgress.textContent=`${w.currentExerciseIndex+1} / ${w.exercises.length}`; const human=w.currentSetIndex+1; currentSetTitle.textContent=`Set ${human} av 3`; setStepPill.textContent=`Set ${human}`; failureWrap.classList.toggle("hidden", human!==3); const rec=getRecommendationForExercise(entry.exercise); if(!rec){exerciseRecommendation.innerHTML="Ingen tidigare loggning för den här övningen ännu.";} else {const prog=rec.boostSteps>0?`<div><strong>Progression:</strong> +${rec.boostSteps} steg på set 3 eftersom du klarade ${rec.lastReps} reps.</div>`:`<div><strong>Progression:</strong> ingen höjning ännu.</div>`; exerciseRecommendation.innerHTML=`<div><strong>Senast:</strong> ${formatKg(rec.lastWeight)} × ${rec.lastReps} reps på failure-setet.</div>${prog}<div style="margin-top:8px;"><strong>Nästa gång:</strong></div><div>Set 1: <strong>${formatKg(rec.set1)}</strong> för <strong>10–12</strong></div><div>Set 2: <strong>${formatKg(rec.set2)}</strong> för <strong>10–12</strong></div><div>Set 3: <strong>${formatKg(rec.set3)}</strong> för <strong>till failure</strong></div>`;} setWeight.value=entry.sets[w.currentSetIndex].weight||""; setReps.value=entry.sets[w.currentSetIndex].reps||""; setFailure.checked=human===3; exerciseNote.value=entry.note||""; loggedSetsPreview.innerHTML=entry.sets.map((set,i)=>set.weight||set.reps?`<div>Set ${i+1}: ${set.weight||0} kg × ${set.reps||0} reps</div>`:"").filter(Boolean).join("") || "Inga set loggade ännu."; }
+function renderWorkout(){const s=getState(); updateWorkoutProgramStatus(); workoutComplete.classList.add("hidden"); if(!s.selectedProgramId){workoutNotReady.classList.remove("hidden"); workoutRunner.classList.add("hidden"); workoutNotReady.innerHTML='Välj först ett upplägg under fliken <strong>Upplägg</strong>, och tryck sedan på <strong>Starta dagens pass</strong>.'; return;} if(!s.activeWorkout){workoutNotReady.classList.remove("hidden"); workoutRunner.classList.add("hidden"); const d=getCurrentProgramDay(s); workoutNotReady.innerHTML=`Valt upplägg finns. Aktiv dag: <strong>${d?d.name:"-"}</strong>. Tryck på <strong>Starta dagens pass</strong>.`; return;} const w=s.activeWorkout; const entry=w.exercises[w.currentExerciseIndex]; if(!entry){workoutRunner.classList.add("hidden"); workoutNotReady.classList.add("hidden"); workoutComplete.classList.remove("hidden"); workoutComplete.innerHTML=`<strong>Passet är klart.</strong><br>${w.dayName} sparades i historiken.`; return;} workoutNotReady.classList.add("hidden"); workoutRunner.classList.remove("hidden"); currentExerciseName.textContent=entry.exercise; currentExerciseMeta.textContent=`${w.dayName} • 3 set per övning`; exerciseProgress.textContent=`${w.currentExerciseIndex+1} / ${w.exercises.length}`; const human=w.currentSetIndex+1; currentSetTitle.textContent=`Set ${human} av 3`; setStepPill.textContent=`Set ${human}`; failureWrap.classList.toggle("hidden", human!==3); const rec=getRecommendationForExercise(entry.exercise); if(!rec){exerciseRecommendation.innerHTML="Ingen tidigare loggning för den här övningen ännu.";} else {
+  const progressionText = rec.increaseApplied > 0
+    ? `<div><strong>Progression:</strong> +${formatKg(rec.increaseApplied)} på set 3 eftersom du klarade ${rec.lastReps} reps.</div>`
+    : `<div><strong>Progression:</strong> behåll samma vikt på set 3.</div>`;
+  exerciseRecommendation.innerHTML=`<div><strong>Senast:</strong> ${formatKg(rec.lastWeight)} × ${rec.lastReps} reps på failure-setet.</div>${progressionText}<div style="margin-top:8px;"><strong>Nästa gång:</strong></div><div>Set 1: <strong>${formatKg(rec.set1)}</strong> för <strong>12 reps</strong></div><div>Set 2: <strong>${formatKg(rec.set2)}</strong> för <strong>10 reps</strong></div><div>Set 3: <strong>${formatKg(rec.set3)}</strong> för <strong>5–7 reps</strong></div>`;
+} setWeight.value=entry.sets[w.currentSetIndex].weight||""; setReps.value=entry.sets[w.currentSetIndex].reps||""; setFailure.checked=human===3; exerciseNote.value=entry.note||""; loggedSetsPreview.innerHTML=entry.sets.map((set,i)=>set.weight||set.reps?`<div>Set ${i+1}: ${set.weight||0} kg × ${set.reps||0} reps</div>`:"").filter(Boolean).join("") || "Inga set loggade ännu."; }
 startWorkoutBtn.onclick=()=>{if(startWorkout()) renderAll();}; resetCurrentWorkoutBtn.onclick=()=>{const s=getState(); s.activeWorkout=null; setState(s); renderAll();};
-fillRecommendedBtn.onclick=()=>{const s=getState(); if(!s.activeWorkout) return; const entry=s.activeWorkout.exercises[s.activeWorkout.currentExerciseIndex]; const rec=getRecommendationForExercise(entry.exercise); if(!rec) return; const idx=s.activeWorkout.currentSetIndex; if(idx===0){setWeight.value=rec.set1; setReps.value=12;} if(idx===1){setWeight.value=rec.set2; setReps.value=12;} if(idx===2){setWeight.value=rec.set3; setReps.value=10;}};
+fillRecommendedBtn.onclick=()=>{
+  const s=getState();
+  if(!s.activeWorkout) return;
+  const entry=s.activeWorkout.exercises[s.activeWorkout.currentExerciseIndex];
+  const rec=getRecommendationForExercise(entry.exercise);
+  if(!rec) return;
+  const idx=s.activeWorkout.currentSetIndex;
+  if(idx===0){ setWeight.value=rec.set1; setReps.value=12; }
+  if(idx===1){ setWeight.value=rec.set2; setReps.value=10; }
+  if(idx===2){ setWeight.value=rec.set3; setReps.value=6; }
+};
 setLoggerForm.addEventListener("submit", e=>{e.preventDefault(); const s=getState(); const w=s.activeWorkout; if(!w) return; const entry=w.exercises[w.currentExerciseIndex]; const idx=w.currentSetIndex; const weight=Number(setWeight.value); const reps=Number(setReps.value); if(!weight||!reps) return; entry.sets[idx]={weight,reps}; entry.note=exerciseNote.value.trim(); if(idx===2){entry.failure=setFailure.checked; w.currentExerciseIndex += 1; w.currentSetIndex = 0; if(w.currentExerciseIndex>=w.exercises.length){s.workouts.unshift({programName:w.programName,dayName:w.dayName,exercises:w.exercises,createdAt:new Date().toISOString()}); s.activeWorkout=null; const p=findProgramById(s.selectedProgramId); if(p) s.currentProgramDayIndex=(s.currentProgramDayIndex+1)%p.days.length;} else {s.activeWorkout=w;}} else {w.currentSetIndex += 1; s.activeWorkout=w;} setState(s); renderAll();});
 
 function createExerciseRow(dayIdx, value=""){const options=getAllExercises().map(e=>`<option value="${e.name}" ${e.name===value?"selected":""}>${e.name}</option>`).join(""); return `<div class="exercise-row"><select name="exercise-${dayIdx}">${options}</select><button type="button" class="outline-btn tiny-btn" data-remove-exercise>Ta bort</button></div>`;}

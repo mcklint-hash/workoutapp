@@ -1,3 +1,8 @@
-# Min Träning – version 6.2 cachefix
+# Min Träning – version 7.1
 
-Den här versionen använder en ny CSS-fil med nytt namn för att undvika att GitHub Pages/webbläsaren använder gammal style.css från cache.
+Nytt i denna version:
+- set 3 behålls vid 5–6 reps
+- vid 7 reps eller mer ökas set 3 med 5%, minst 2,5 kg
+- set 2 räknas för 10 reps
+- set 1 räknas för 12 reps
+- CSS-filen har nytt namn för att undvika cacheproblem
