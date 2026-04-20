@@ -14,12 +14,12 @@
         <div><p class="brand-label">Träningsapp</p><h1>Min Träning</h1></div>
       </div>
       <nav class="nav">
-        <button class="nav-btn active" data-view="dashboard">Startsida</button>
-        <button class="nav-btn" data-view="programs">Upplägg</button>
-        <button class="nav-btn" data-view="workout">Starta pass</button>
-        <button class="nav-btn" data-view="library">Övningsbank</button>
-        <button class="nav-btn" data-view="history">Historik</button>
-        <button class="nav-btn" data-view="settings">Inställningar</button>
+        <button class="nav-btn active" data-view="dashboard" type="button">Startsida</button>
+        <button class="nav-btn" data-view="programs" type="button">Upplägg</button>
+        <button class="nav-btn" data-view="workout" type="button">Starta pass</button>
+        <button class="nav-btn" data-view="library" type="button">Övningsbank</button>
+        <button class="nav-btn" data-view="history" type="button">Historik</button>
+        <button class="nav-btn" data-view="settings" type="button">Inställningar</button>
       </nav>
       <div class="sidebar-card"><h3>Snabbinfo</h3><p>All data sparas lokalt i webbläsaren.</p></div>
     </aside>
@@ -39,7 +39,7 @@
           </div>
         </header>
         <div class="dashboard-grid">
-          <article class="card"><h3>Nytt i version 6</h3><ol class="simple-list"><li>Progression på set 3.</li><li>Senaste failure-set visas tydligt.</li><li>Set 1 och 2 blir lägre än set 3.</li><li>Valfritt antal övningar i egna upplägg.</li><li>Egna upplägg går att redigera.</li></ol></article>
+          <article class="card"><h3>Fixar i denna version</h3><ol class="simple-list"><li>Övningslistan i eget upplägg visar riktiga övningar i stället för undefined.</li><li>Valt upplägg visas tydligare även i passvyn.</li><li>Starta pass använder valt upplägg direkt.</li></ol></article>
           <article class="card"><h3>Valt upplägg</h3><div id="dashboardProgram" class="stack muted">Inget upplägg valt ännu.</div></article>
           <article class="card"><h3>Senaste pass</h3><div id="dashboardHistory" class="stack muted">Ingen historik ännu.</div></article>
         </div>
@@ -82,15 +82,14 @@
         </div>
 
         <div class="card">
+          <div id="workoutProgramStatus" class="message">Inget upplägg valt ännu.</div>
           <div id="workoutNotReady" class="message">Välj först ett upplägg under fliken <strong>Upplägg</strong>, och tryck sedan på <strong>Starta dagens pass</strong>.</div>
           <div id="workoutRunner" class="hidden">
             <div class="runner-top">
               <div><p class="eyebrow">Pågående övning</p><h3 id="currentExerciseName">-</h3><p class="muted" id="currentExerciseMeta">-</p></div>
               <div class="progress-box"><span id="exerciseProgress">0 / 0</span></div>
             </div>
-
             <div class="recommend-card"><h4>Rekommendation från senaste loggningen</h4><div id="exerciseRecommendation" class="muted">Ingen tidigare loggning för den här övningen ännu.</div></div>
-
             <div class="card-inner">
               <div class="set-step"><div><p class="eyebrow">Aktuellt set</p><h4 id="currentSetTitle">Set 1 av 3</h4></div><div class="set-pill" id="setStepPill">Set 1</div></div>
               <form id="setLoggerForm" class="form-grid">

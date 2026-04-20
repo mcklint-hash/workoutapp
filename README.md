@@ -1,3 +1,3 @@
-# Min Träning – version 6 full
+# Min Träning – version 6.1 fix
 
-Detta är den riktiga fulla versionen.
+Fixar valt upplägg i passvyn och övningslistan i egna upplägg.
