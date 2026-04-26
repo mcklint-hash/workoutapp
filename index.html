@@ -4,15 +4,12 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Min Träning</title>
-  <link rel="stylesheet" href="app-style-v71.css" />
+  <link rel="stylesheet" href="app-style-v8.css" />
 </head>
 <body>
   <div class="app-shell">
     <aside class="sidebar">
-      <div class="brand">
-        <div class="brand-badge">MT</div>
-        <div><p class="brand-label">Träningsapp</p><h1>Min Träning</h1></div>
-      </div>
+      <div class="brand"><div class="brand-badge">MT</div><div><p class="brand-label">Träningsapp</p><h1>Min Träning</h1></div></div>
       <nav class="nav">
         <button class="nav-btn active" data-view="dashboard" type="button">Startsida</button>
         <button class="nav-btn" data-view="programs" type="button">Upplägg</button>
@@ -21,7 +18,7 @@
         <button class="nav-btn" data-view="history" type="button">Historik</button>
         <button class="nav-btn" data-view="settings" type="button">Inställningar</button>
       </nav>
-      <div class="sidebar-card"><h3>Snabbinfo</h3><p>All data sparas lokalt i webbläsaren.</p></div>
+      <div class="sidebar-card"><h3>Snabbinfo</h3><p>Version 8 innehåller Excelprogrammet som redigerbart upplägg.</p></div>
     </aside>
 
     <main class="content">
@@ -39,30 +36,22 @@
           </div>
         </header>
         <div class="dashboard-grid">
-          <article class="card"><h3>Nytt i version 7.1</h3><ol class="simple-list"><li>Set 3 behålls vid 5–6 reps.</li><li>Vid 7 reps eller mer ökas vikten procentuellt, minst 2,5 kg.</li><li>Set 2 och set 1 räknas bakåt från nya set 3-vikten.</li></ol></article>
+          <article class="card"><h3>Nytt i version 8</h3><ol class="simple-list"><li>Excelprogrammet är inlagt som redigerbart 4-veckorsupplägg.</li><li>Alla övningar från Excel finns i övningsbanken.</li><li>JS och CSS har nya filnamn för att undvika cache.</li></ol></article>
           <article class="card"><h3>Valt upplägg</h3><div id="dashboardProgram" class="stack muted">Inget upplägg valt ännu.</div></article>
           <article class="card"><h3>Senaste pass</h3><div id="dashboardHistory" class="stack muted">Ingen historik ännu.</div></article>
         </div>
       </section>
 
       <section class="view" id="programs">
-        <div class="section-head"><div><p class="eyebrow">Välj upplägg</p><h2>Färdiga upplägg eller eget 2-veckorsupplägg</h2></div></div>
+        <div class="section-head"><div><p class="eyebrow">Välj upplägg</p><h2>Färdiga upplägg eller eget upplägg</h2></div></div>
         <div class="program-grid" id="programGrid"></div>
-
         <div class="card">
           <h3 id="customProgramTitle">Skapa eget 2-veckorsupplägg</h3>
-          <p class="muted">Lägg till och ta bort övningar fritt för varje pass.</p>
+          <p class="muted">Excelprogrammet ligger redan som ett eget redigerbart upplägg. Här kan du även skapa nya egna upplägg.</p>
           <form id="customProgramSetupForm" class="form-grid">
             <label>Namn på upplägg<input type="text" id="customProgramName" placeholder="Till exempel Mitt schema" /></label>
-            <label>Pass per vecka
-              <select id="customProgramFrequency">
-                <option value="2">2 pass</option><option value="3">3 pass</option><option value="4">4 pass</option><option value="5">5 pass</option><option value="6">6 pass</option>
-              </select>
-            </label>
-            <div class="button-row full">
-              <button type="submit">Skapa passmallar</button>
-              <button type="button" class="ghost hidden" id="cancelEditProgramBtn">Avbryt redigering</button>
-            </div>
+            <label>Pass per vecka<select id="customProgramFrequency"><option value="2">2 pass</option><option value="3">3 pass</option><option value="4">4 pass</option><option value="5">5 pass</option><option value="6">6 pass</option></select></label>
+            <div class="button-row full"><button type="submit">Skapa passmallar</button><button type="button" class="ghost hidden" id="cancelEditProgramBtn">Avbryt redigering</button></div>
           </form>
           <form id="customProgramBuilder" class="hidden">
             <div id="customProgramDays" class="custom-days-grid"></div>
@@ -73,22 +62,12 @@
       </section>
 
       <section class="view" id="workout">
-        <div class="section-head">
-          <div><p class="eyebrow">Aktivt pass</p><h2>Starta pass</h2></div>
-          <div class="button-row">
-            <button type="button" class="secondary" id="startWorkoutBtn">Starta dagens pass</button>
-            <button type="button" class="ghost" id="resetCurrentWorkoutBtn">Börja om passet</button>
-          </div>
-        </div>
-
+        <div class="section-head"><div><p class="eyebrow">Aktivt pass</p><h2>Starta pass</h2></div><div class="button-row"><button type="button" class="secondary" id="startWorkoutBtn">Starta dagens pass</button><button type="button" class="ghost" id="resetCurrentWorkoutBtn">Börja om passet</button></div></div>
         <div class="card">
           <div id="workoutProgramStatus" class="message">Inget upplägg valt ännu.</div>
           <div id="workoutNotReady" class="message">Välj först ett upplägg under fliken <strong>Upplägg</strong>, och tryck sedan på <strong>Starta dagens pass</strong>.</div>
           <div id="workoutRunner" class="hidden">
-            <div class="runner-top">
-              <div><p class="eyebrow">Pågående övning</p><h3 id="currentExerciseName">-</h3><p class="muted" id="currentExerciseMeta">-</p></div>
-              <div class="progress-box"><span id="exerciseProgress">0 / 0</span></div>
-            </div>
+            <div class="runner-top"><div><p class="eyebrow">Pågående övning</p><h3 id="currentExerciseName">-</h3><p class="muted" id="currentExerciseMeta">-</p></div><div class="progress-box"><span id="exerciseProgress">0 / 0</span></div></div>
             <div class="recommend-card"><h4>Rekommendation från senaste loggningen</h4><div id="exerciseRecommendation" class="muted">Ingen tidigare loggning för den här övningen ännu.</div></div>
             <div class="card-inner">
               <div class="set-step"><div><p class="eyebrow">Aktuellt set</p><h4 id="currentSetTitle">Set 1 av 3</h4></div><div class="set-pill" id="setStepPill">Set 1</div></div>
@@ -111,47 +90,29 @@
         <div class="card">
           <form id="addExerciseForm" class="form-grid">
             <label>Ny övning<input type="text" id="newExerciseName" placeholder="Till exempel Kabelrodd" /></label>
-            <label>Muskelgrupp
-              <select id="newExerciseMuscle"><option value="Bröst">Bröst</option><option value="Rygg">Rygg</option><option value="Ben">Ben</option><option value="Axlar">Axlar</option><option value="Armar">Armar</option><option value="Mage">Mage</option></select>
-            </label>
+            <label>Muskelgrupp<select id="newExerciseMuscle"><option value="Bröst">Bröst</option><option value="Rygg">Rygg</option><option value="Ben">Ben</option><option value="Axlar">Axlar</option><option value="Armar">Armar</option><option value="Mage">Mage</option></select></label>
             <label class="full">Beskrivning<input type="text" id="newExerciseNote" placeholder="Kort beskrivning av övningen" /></label>
             <div class="button-row full"><button type="submit">Lägg till egen övning</button></div>
           </form>
           <div id="addExerciseMessage" class="message hidden"></div>
         </div>
         <div class="card">
-          <div class="toolbar">
-            <input type="text" id="librarySearch" placeholder="Sök övning..." />
-            <select id="libraryFilter"><option value="Alla">Alla muskelgrupper</option><option value="Bröst">Bröst</option><option value="Rygg">Rygg</option><option value="Ben">Ben</option><option value="Axlar">Axlar</option><option value="Armar">Armar</option><option value="Mage">Mage</option></select>
-            <button type="button" class="secondary" id="resetLibrary">Återställ</button>
-          </div>
+          <div class="toolbar"><input type="text" id="librarySearch" placeholder="Sök övning..." /><select id="libraryFilter"><option value="Alla">Alla muskelgrupper</option><option value="Bröst">Bröst</option><option value="Rygg">Rygg</option><option value="Ben">Ben</option><option value="Axlar">Axlar</option><option value="Armar">Armar</option><option value="Mage">Mage</option></select><button type="button" class="secondary" id="resetLibrary">Återställ</button></div>
           <div id="exerciseLibrary" class="library-grid"></div>
         </div>
       </section>
 
       <section class="view" id="history">
         <div class="section-head"><div><p class="eyebrow">Tidigare träning</p><h2>Historik</h2></div></div>
-        <div class="card">
-          <div class="button-row"><button type="button" class="secondary" id="exportData">Exportera data</button><button type="button" class="danger" id="clearHistory">Rensa historik</button></div>
-          <div id="historyList" class="history-list muted">Ingen historik ännu.</div>
-        </div>
+        <div class="card"><div class="button-row"><button type="button" class="secondary" id="exportData">Exportera data</button><button type="button" class="danger" id="clearHistory">Rensa historik</button></div><div id="historyList" class="history-list muted">Ingen historik ännu.</div></div>
       </section>
 
       <section class="view" id="settings">
         <div class="section-head"><div><p class="eyebrow">Enkla inställningar</p><h2>Inställningar</h2></div></div>
-        <div class="card">
-          <form id="settingsForm" class="form-grid">
-            <label>Ditt namn<input type="text" id="userName" placeholder="Till exempel Alex" /></label>
-            <label>Standardavrundning
-              <select id="defaultRound"><option value="2.5">2,5 kg</option><option value="1.25">1,25 kg</option><option value="5">5 kg</option><option value="0.5">0,5 kg</option></select>
-            </label>
-            <div class="button-row full"><button type="submit">Spara inställningar</button></div>
-          </form>
-          <div id="settingsMessage" class="message hidden"></div>
-        </div>
+        <div class="card"><form id="settingsForm" class="form-grid"><label>Ditt namn<input type="text" id="userName" placeholder="Till exempel Alex" /></label><label>Standardavrundning<select id="defaultRound"><option value="2.5">2,5 kg</option><option value="1.25">1,25 kg</option><option value="5">5 kg</option><option value="0.5">0,5 kg</option></select></label><div class="button-row full"><button type="submit">Spara inställningar</button></div></form><div id="settingsMessage" class="message hidden"></div></div>
       </section>
     </main>
   </div>
-  <script src="script.js"></script>
+  <script src="script-v8.js"></script>
 </body>
 </html>
