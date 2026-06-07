@@ -1,5 +1,15 @@
-# Min Träning – version 8
+# Min Träning – version 8.1
 
-Excelprogrammet från filen är inlagt som ett redigerbart 4-veckorsupplägg.
+Bygger vidare på version 8.
 
-Ladda upp: index.html, app-style-v8.css och script-v8.js.
+Nytt:
+- Excelprogrammet från version 8 finns kvar som redigerbart 4-veckorsupplägg.
+- Nytt 2-veckorsupplägg är tillagt.
+- Statistikflik är tillagd.
+- Statistik visar utveckling senaste 30 och 90 dagar.
+- Per övning visas ungefärlig styrkeutveckling över tid.
+
+Ladda upp:
+- index.html
+- app-style-v81.css
+- script-v81.js

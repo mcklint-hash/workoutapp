@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Min Träning</title>
-  <link rel="stylesheet" href="app-style-v8.css" />
+  <link rel="stylesheet" href="app-style-v81.css" />
 </head>
 <body>
   <div class="app-shell">
@@ -16,9 +16,10 @@
         <button class="nav-btn" data-view="workout" type="button">Starta pass</button>
         <button class="nav-btn" data-view="library" type="button">Övningsbank</button>
         <button class="nav-btn" data-view="history" type="button">Historik</button>
+        <button class="nav-btn" data-view="stats" type="button">Statistik</button>
         <button class="nav-btn" data-view="settings" type="button">Inställningar</button>
       </nav>
-      <div class="sidebar-card"><h3>Snabbinfo</h3><p>Version 8 innehåller Excelprogrammet som redigerbart upplägg.</p></div>
+      <div class="sidebar-card"><h3>Snabbinfo</h3><p>Version 8.1 bygger vidare på Excelprogrammet och lägger till statistik.</p></div>
     </aside>
 
     <main class="content">
@@ -36,7 +37,7 @@
           </div>
         </header>
         <div class="dashboard-grid">
-          <article class="card"><h3>Nytt i version 8</h3><ol class="simple-list"><li>Excelprogrammet är inlagt som redigerbart 4-veckorsupplägg.</li><li>Alla övningar från Excel finns i övningsbanken.</li><li>JS och CSS har nya filnamn för att undvika cache.</li></ol></article>
+          <article class="card"><h3>Nytt i version 8.1</h3><ol class="simple-list"><li>Excelprogrammet finns kvar som redigerbart 4-veckorsupplägg.</li><li>Nytt 2-veckorsupplägg är tillagt.</li><li>Statistik visar utveckling senaste 30 och 90 dagar.</li></ol></article>
           <article class="card"><h3>Valt upplägg</h3><div id="dashboardProgram" class="stack muted">Inget upplägg valt ännu.</div></article>
           <article class="card"><h3>Senaste pass</h3><div id="dashboardHistory" class="stack muted">Ingen historik ännu.</div></article>
         </div>
@@ -107,12 +108,37 @@
         <div class="card"><div class="button-row"><button type="button" class="secondary" id="exportData">Exportera data</button><button type="button" class="danger" id="clearHistory">Rensa historik</button></div><div id="historyList" class="history-list muted">Ingen historik ännu.</div></div>
       </section>
 
+
+      <section class="view" id="stats">
+        <div class="section-head"><div><p class="eyebrow">Utveckling</p><h2>Statistik</h2></div></div>
+        <div class="dashboard-grid">
+          <article class="card">
+            <h3>Senaste 30 dagar</h3>
+            <div class="stat big-stat"><strong id="strength30">-</strong></div>
+            <p class="muted">Beräknat på övningar som har loggats minst två gånger.</p>
+          </article>
+          <article class="card">
+            <h3>Senaste 90 dagar</h3>
+            <div class="stat big-stat"><strong id="strength90">-</strong></div>
+            <p class="muted">Visar ungefär om du blir starkare över tid.</p>
+          </article>
+          <article class="card">
+            <h3>Så räknas det</h3>
+            <p class="muted">Statistiken jämför uppskattad styrka från failure-setet: vikt × (1 + reps / 30). Det visar utveckling, inte PR eller träningsvolym.</p>
+          </article>
+        </div>
+        <div class="card">
+          <h3>Utveckling per övning</h3>
+          <div id="exerciseProgressStats" class="history-list muted">Ingen statistik ännu.</div>
+        </div>
+      </section>
+
       <section class="view" id="settings">
         <div class="section-head"><div><p class="eyebrow">Enkla inställningar</p><h2>Inställningar</h2></div></div>
         <div class="card"><form id="settingsForm" class="form-grid"><label>Ditt namn<input type="text" id="userName" placeholder="Till exempel Alex" /></label><label>Standardavrundning<select id="defaultRound"><option value="2.5">2,5 kg</option><option value="1.25">1,25 kg</option><option value="5">5 kg</option><option value="0.5">0,5 kg</option></select></label><div class="button-row full"><button type="submit">Spara inställningar</button></div></form><div id="settingsMessage" class="message hidden"></div></div>
       </section>
     </main>
   </div>
-  <script src="script-v8.js"></script>
+  <script src="script-v81.js"></script>
 </body>
 </html>
