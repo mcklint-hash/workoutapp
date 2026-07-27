@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Min Träning 9.5.2</title>
-<link rel="stylesheet" href="style.css?v=9.5.2">
+<title>Min Träning 9.6.0</title>
+<link rel="stylesheet" href="style.css?v=9.6.0">
 </head>
 <body>
 <div class="app">
@@ -17,11 +17,11 @@
 <button class="nav" data-view="history">Historik</button>
 <button class="nav" data-view="stats">Statistik</button>
 <button class="nav" data-view="settings">Inställningar</button>
-<p class="version">Version 9.5.2</p>
+<p class="version">Version 9.6.0</p>
 </aside>
 <main>
 <section id="home" class="view active">
-<div class="card hero"><div><span class="pill">VERSION 9.5.2</span><h2 id="todayTitle">Välj ett upplägg</h2><p id="todaySub"></p><div id="todayExercises"></div><button id="startFromHome">Starta dagens pass</button></div><div class="summary"><div><small>Genomförda pass</small><strong id="workoutCount">0</strong></div><div><small>Egna upplägg</small><strong id="customCount">0</strong></div></div></div>
+<div class="card hero"><div><span class="pill">VERSION 9.6.0</span><h2 id="todayTitle">Välj ett upplägg</h2><p id="todaySub"></p><div id="todayExercises"></div><button id="startFromHome">Starta dagens pass</button></div><div class="summary"><div><small>Genomförda pass</small><strong id="workoutCount">0</strong></div><div><small>Egna upplägg</small><strong id="customCount">0</strong></div></div></div>
 </section>
 <section id="programs" class="view"><h2>Upplägg</h2><div id="programList" class="cards"></div>
 <div class="card"><h3>Skapa eller redigera eget upplägg</h3><form id="programSetup" class="form">
@@ -40,9 +40,16 @@
 <form id="setForm" class="form"><label>Vikt<input id="weight" type="number" step="0.5" required></label><label>Reps<input id="reps" type="number" required></label><label id="failureLabel" class="check hidden"><input id="failure" type="checkbox"> Failure-set</label><button type="button" id="fillRecommendation" class="secondary">Fyll rekommendation</button><button>Spara set</button></form><div id="loggedSets"></div></div></div></section>
 <section id="library" class="view"><h2>Övningsbank</h2><div class="card"><form id="exerciseForm" class="form"><label>Övning<input id="exerciseName" required></label><label>Muskelgrupp<select id="muscle"><option>Bröst</option><option>Rygg</option><option>Ben</option><option>Axlar</option><option>Armar</option><option>Mage</option></select></label><button>Lägg till</button></form></div><div class="card"><input id="exerciseSearch" placeholder="Sök övning"><div id="exerciseList" class="cards"></div></div></section>
 <section id="history" class="view"><h2>Historik</h2><div class="card"><button id="clearHistory" class="danger">Rensa historik</button><div id="historyList"></div></div></section>
-<section id="stats" class="view"><div class="statsHeading"><div><span class="pill">VERSION 9.5.2</span><h2>Statistik 2.0</h2><p class="muted">Praktiska insikter om träningsfrekvens, balans och utveckling.</p></div></div>
+<section id="stats" class="view"><div class="statsHeading"><div><span class="pill">VERSION 9.6.0</span><h2>Statistik 2.0</h2><p class="muted">Praktiska insikter om träningsfrekvens, balans och utveckling.</p></div></div>
 <div class="card statsToolbar"><label>Period<select id="statsRange"><option value="30">30 dagar</option><option value="90" selected>90 dagar</option><option value="365">1 år</option><option value="all">Sedan start</option></select></label><p id="statsPeriodText" class="muted"></p></div>
 <div id="statsDashboard" class="statsGrid"></div>
+<div class="card priorityCoachCard">
+  <div class="coachHeading">
+    <div><span class="coachBadge">COACH 2.0</span><h3>Rekommenderat nästa pass</h3></div>
+    <p class="muted">Prioriteras efter återhämtning, träningsvolym, balans och frekvens.</p>
+  </div>
+  <div id="priorityCoach"></div>
+</div>
 <div class="card coachCard"><div class="coachHeading"><div><span class="coachBadge">COACH</span><h3>Insikter</h3></div><p class="muted">Baserat på din registrerade träning.</p></div><div id="coachInsights" class="coachInsights"></div></div>
 <div class="card"><h3>Veckostatistik</h3><div id="weeklyStats"></div></div>
 <div class="card"><h3>Muskelgrupper</h3><div id="muscleStats"></div></div>
@@ -50,5 +57,5 @@
 </section>
 <section id="settings" class="view"><h2>Inställningar</h2><div class="card form"><label>Viktavrundning<select id="rounding"><option value="0.5">0,5 kg</option><option value="1.25">1,25 kg</option><option value="2.5" selected>2,5 kg</option><option value="5">5 kg</option></select></label><label>Ökning vid 7+ reps<select id="increasePercent"><option value="2.5">2,5 %</option><option value="5" selected>5 %</option><option value="7.5">7,5 %</option><option value="10">10 %</option></select></label><label>Standardvila<select id="restSeconds"><option value="60">60 sekunder</option><option value="90" selected>90 sekunder</option><option value="120">120 sekunder</option><option value="180">180 sekunder</option></select></label><label class="check"><input id="soundEnabled" type="checkbox" checked> Ljudsignal när vilan är slut</label><button type="button" id="testSound" class="secondary">Testa ljud</button></div><div class="card"><div class="buttonRow"><button id="exportData">Exportera data</button><label class="upload">Importera data<input id="importData" hidden type="file" accept=".json"></label></div><p id="settingsMessage"></p></div></section>
 </main></div>
-<script src="app.js?v=9.5.2"></script>
+<script src="app.js?v=9.6.0"></script>
 </body></html>

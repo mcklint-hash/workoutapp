@@ -1,32 +1,38 @@
-# Min Träning v9.5.2 – Final
+# Min Träning v9.6.0 – Coach 2.0
 
-Den slutliga versionen i 9.5-serien färdigställer Statistik 2.0 och Coach Edition.
+Version 9.6.0 introducerar den första delen av Coach 2.0: **Prioriteringscoachen**.
 
-## Statistik och coach
-- dashboard med träningsstreak, pass denna vecka och månad
-- korrekt visning av **mest tränade muskelgrupp**
-- separat statistik för **mest utförda övning**
-- coachinsikter som tydligt skiljer mellan muskelgrupper och övningar
-- veckostatistik med pass, set och mest tränade muskelgrupp
-- muskelkort med muskelgrupp, antal pass, antal set, senaste träning och status
-- övningskort med högsta vikt, senast loggade resultat, senaste träning och viktutveckling
-- tydliga tomma vyer när träningshistorik saknas för vald period
+## Nytt i v9.6.0
 
-## Statusfärger för muskelgrupper
-- grön: tränad de senaste 3 dagarna
-- gul: tränad för 4–7 dagar sedan
-- röd: mer än 7 dagar sedan
+- rekommenderat nästa träningspass utifrån det valda upplägget
+- rangordning av de tre muskelgrupper som bör prioriteras
+- prioritetspoäng baserad på:
+  - antal dagar sedan muskelgruppen senast tränades
+  - setvolym under den valda statistikperioden
+  - träningsfrekvens under perioden
+  - balans mellan muskelgrupper
+- balansanalys med statusen Bra balans, Viss obalans eller Tydlig obalans
+- knapp för att välja det rekommenderade passet direkt
+- tomt läge som ger en generell muskelrekommendation när inget upplägg är valt
 
-## Oförändrat
-Träningsloggen, vilotimern, ljudet, uppläggen, historiken och befintlig sparad data är bevarade.
+## Coach Edition från v9.5.2
+
+- träningsstreak samt pass denna vecka och månad
+- mest tränade muskelgrupp och mest utförda övning
+- coachinsikter, veckostatistik, muskelkort och övningskort
+- statusfärger för hur nyligen varje muskelgrupp tränats
+
+## Kompatibilitet
+
+Befintlig sparad data från v9.5-serien bevaras. Lagringsnyckeln är oförändrad för att undvika att historik, upplägg och inställningar försvinner.
 
 ## Installation
+
 Ersätt alla fyra filer på webbservern:
+
 - `index.html`
 - `style.css`
 - `app.js`
 - `README.md`
 
-Kontrollera att sidomenyn visar **Version 9.5.2**. Gör en hård omladdning om webbläsaren visar en äldre version.
-
-Panelen **Nästa pass** ligger kvar i backloggen och ingår inte i v9.5.2.
+Kontrollera att sidomenyn visar **Version 9.6.0**. Gör en hård omladdning om webbläsaren visar en äldre version.
