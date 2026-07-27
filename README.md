@@ -1,10 +1,13 @@
-# Min Träning 9.4.1
+# Min Träning v9.5.0
 
-Buggfix för vilotimern:
-- Timerpanelen ligger permanent i träningsvyn och visas efter sparat set.
-- Sidan rullar automatiskt till timern när den startar.
-- Ljudmotorn aktiveras vid användarens klick för bättre stöd i Chrome, Safari och mobilwebbläsare.
-- Knappen Testa ljud finns under Inställningar.
-- Data migreras från 9.4 och äldre versioner.
+Bygger vidare på v9.4.1 Stable.
 
-Ladda upp index.html, style.css och app.js till samma mapp.
+## Nytt
+- Statistikdashboard med pass, volym, set och reps
+- Veckostatistik för de senaste 12 veckorna i vald period
+- Muskelgruppsstatistik med visuella staplar
+- Övningsstatistik med volym och vikttrend
+- Filter för 30 dagar, 90 dagar, 1 år och sedan start
+- Automatisk migrering från v9.4.1 och äldre versioner
+
+Befintlig träningslogik, vilotimer och ljud är oförändrade.
