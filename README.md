@@ -1,38 +1,59 @@
-# Min Träning v9.6.0 – Coach 2.0
+# Min Träning v9.6.1 – Recovery Coach
 
-Version 9.6.0 introducerar den första delen av Coach 2.0: **Prioriteringscoachen**.
+Version 9.6.1 bygger vidare på Coach 2.0 med en ny lokal återhämtningsanalys.
 
-## Nytt i v9.6.0
+## Nytt i v9.6.1
 
-- rekommenderat nästa träningspass utifrån det valda upplägget
-- rangordning av de tre muskelgrupper som bör prioriteras
-- prioritetspoäng baserad på:
-  - antal dagar sedan muskelgruppen senast tränades
-  - setvolym under den valda statistikperioden
-  - träningsfrekvens under perioden
-  - balans mellan muskelgrupper
-- balansanalys med statusen Bra balans, Viss obalans eller Tydlig obalans
-- knapp för att välja det rekommenderade passet direkt
-- tomt läge som ger en generell muskelrekommendation när inget upplägg är valt
+### Recovery Dashboard
 
-## Coach Edition från v9.5.2
+Varje muskelgrupp får:
 
-- träningsstreak samt pass denna vecka och månad
-- mest tränade muskelgrupp och mest utförda övning
-- coachinsikter, veckostatistik, muskelkort och övningskort
-- statusfärger för hur nyligen varje muskelgrupp tränats
+- Recovery-poäng mellan 0 och 100
+- tydlig status: Redo, Återhämtar sig, Behöver vila eller Ingen historik
+- senaste träningsdatum
+- antal set och pass under de senaste sju dagarna
+- registrerad kg-volym
+- belastningsnivå: låg, normal eller hög
+
+### Dagens rekommendation
+
+Recovery Coach väljer den muskelgrupp som för tillfället bedöms vara mest redo. När ett upplägg är valt föreslås även det pass som bäst matchar återhämtningsläget. Passet kan väljas direkt från statistikvyn.
+
+### Beräkningsmodell
+
+Poängen bygger på appens lokalt sparade träningshistorik:
+
+- dagar sedan senaste träning
+- antal set senaste sju dagarna
+- passfrekvens senaste sju dagarna
+- kg-volym, beräknad från vikt × repetitioner
+
+Beräkningen är en träningsindikator och inte en medicinsk bedömning. Användaren bör alltid väga in smärta, sömn, sjukdom och kroppens egna signaler.
+
+## Befintliga funktioner
+
+- Coach 2.0 och Prioriteringscoach
+- Statistik 2.0
+- träningsupplägg och egna upplägg
+- träningslogg och historik
+- setrekommendationer
+- vilotimer
+- import och export av lokal data
 
 ## Kompatibilitet
 
-Befintlig sparad data från v9.5-serien bevaras. Lagringsnyckeln är oförändrad för att undvika att historik, upplägg och inställningar försvinner.
+Lagringsnyckeln är oförändrad (`minTraningStateV95`). Befintlig träningshistorik, upplägg och inställningar ska därför finnas kvar vid uppdatering.
 
 ## Installation
 
-Ersätt alla fyra filer på webbservern:
+1. Packa upp ZIP-filen.
+2. Ersätt de tidigare filerna med `index.html`, `style.css`, `app.js` och `README.md`.
+3. Öppna `index.html`.
+4. Kontrollera att sidomenyn visar **Version 9.6.1**.
+5. Gör en hård omladdning om webbläsaren visar en äldre version.
 
-- `index.html`
-- `style.css`
-- `app.js`
-- `README.md`
+## Roadmap
 
-Kontrollera att sidomenyn visar **Version 9.6.0**. Gör en hård omladdning om webbläsaren visar en äldre version.
+- v9.6.2 – Veckomål och träningsmål
+
+Personliga rekord och AI Coach ingår inte längre i roadmapen.

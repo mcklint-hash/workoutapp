@@ -2,7 +2,7 @@
 const DB={"programs": [{"id": "p4", "name": "4 dagar", "description": "Upper/Lower, 4 pass", "type": "standard", "frequency": 4, "weeks": 1, "days": [{"name": "Dag 1 – Upper", "exercises": ["Bänkpress", "Latsdrag", "Axelpress", "Bicepscurl"]}, {"name": "Dag 2 – Lower", "exercises": ["Knäböj", "Rumänska marklyft", "Liggande lårcurl", "Vadpress"]}, {"name": "Dag 3 – Upper", "exercises": ["Lutande hantelpress", "Sittande rodd", "Sidolyft", "Triceps pushdown"]}, {"name": "Dag 4 – Lower", "exercises": ["Knäböj", "Rumänska marklyft", "Benspark", "Vadpress"]}]}, {"id": "p5", "name": "5 dagar", "description": "Push/Pull/Legs + Upper + Armar", "type": "standard", "frequency": 5, "weeks": 1, "days": [{"name": "Dag 1 – Push", "exercises": ["Bänkpress", "Lutande hantelpress", "Axelpress", "Triceps pushdown"]}, {"name": "Dag 2 – Pull", "exercises": ["Latsdrag", "Sittande rodd", "Skivstångsrodd", "Hammercurl"]}, {"name": "Dag 3 – Ben", "exercises": ["Knäböj", "Rumänska marklyft", "Liggande lårcurl", "Vadpress"]}, {"name": "Dag 4 – Upper", "exercises": ["Dips", "Pull-ups", "Sidolyft", "Bicepscurl"]}, {"name": "Dag 5 – Armar/Mage", "exercises": ["Preacher curl", "French press", "Overhead rope extension", "Ab wheel"]}]}, {"id": "p6", "name": "6 dagar", "description": "3 veckors rotation", "type": "standard", "frequency": 6, "weeks": 3, "days": [{"name": "Vecka 1 – Rygg", "exercises": ["Latsdrag", "Sittande rodd", "Pullover"]}, {"name": "Vecka 1 – Bröst", "exercises": ["Bänkpress", "Lutande hantelpress", "Pec deck"]}, {"name": "Vecka 1 – Ben/Vader", "exercises": ["Knäböj", "Rumänska marklyft", "Liggande lårcurl", "Vadpress"]}, {"name": "Vecka 1 – Triceps", "exercises": ["Triceps pushdown", "French press", "Close grip bench press"]}, {"name": "Vecka 1 – Biceps/Mage", "exercises": ["Bicepscurl", "Hammercurl", "Preacher curl", "Cable crunch"]}, {"name": "Vecka 1 – Axlar", "exercises": ["Axelpress", "Sidolyft", "Omvänd pec deck"]}, {"name": "Vecka 2 – Rygg", "exercises": ["Pull-ups", "Enarms hantelrodd", "Rakarms pulldown"]}, {"name": "Vecka 2 – Bröst", "exercises": ["Lutande bänkpress", "Hantelpress", "Cable fly"]}, {"name": "Vecka 2 – Ben/Vader", "exercises": ["Knäböj", "Rumänska marklyft", "Liggande lårcurl", "Vadpress"]}, {"name": "Vecka 2 – Triceps", "exercises": ["Overhead rope extension", "Dips", "Triceps kickback"]}, {"name": "Vecka 2 – Biceps/Mage", "exercises": ["Preacher curl", "Incline dumbbell curl", "Hammercurl", "Hängande benlyft"]}, {"name": "Vecka 2 – Axlar", "exercises": ["Arnold press", "Hantellyft åt sidan", "Face pull"]}, {"name": "Vecka 3 – Rygg", "exercises": ["T-bar row", "Smalt latsdrag", "Seal row"]}, {"name": "Vecka 3 – Bröst", "exercises": ["Dips", "Lutande Smithpress", "Pec deck"]}, {"name": "Vecka 3 – Ben/Vader", "exercises": ["Knäböj", "Rumänska marklyft", "Liggande lårcurl", "Vadpress"]}, {"name": "Vecka 3 – Triceps", "exercises": ["Close grip bench press", "Enarms pushdown", "Overhead rope extension"]}, {"name": "Vecka 3 – Biceps/Mage", "exercises": ["EZ-bar curl", "Concentration curl", "Incline dumbbell curl", "Russian twists"]}, {"name": "Vecka 3 – Axlar", "exercises": ["Militärpress", "Kabellyft åt sidan", "Reverse fly"]}]}, {"id": "excel4", "name": "Excelprogram 4 veckor", "description": "Redigerbart 4-veckorsupplägg", "type": "custom", "frequency": 3, "weeks": 4, "days": [{"name": "Vecka 1 – Pass 1", "exercises": ["Bänkpress", "Lutande hantelpress", "Hantelflyes", "Pushdowns", "Overhead extension", "Sidolyft"]}, {"name": "Vecka 1 – Pass 2", "exercises": ["Latsdrag / chins", "Skivstångsrodd", "Kabelrodd", "Skivstångscurl", "Lutande hantelcurl"]}, {"name": "Vecka 1 – Pass 3", "exercises": ["Knäböj", "Rumänska marklyft (RDL)", "Vadpress", "Crunch"]}, {"name": "Vecka 2 – Pass 1", "exercises": ["Bänkpress", "Lutande hantelpress", "Hantelflyes", "Pushdowns", "Overhead extension", "Sidolyft"]}, {"name": "Vecka 2 – Pass 2", "exercises": ["Latsdrag / chins", "Skivstångsrodd", "Kabelrodd", "Skivstångscurl", "Lutande hantelcurl"]}, {"name": "Vecka 2 – Pass 3", "exercises": ["Knäböj", "Rumänska marklyft (RDL)", "Vadpress", "Crunch"]}, {"name": "Vecka 3 – Pass 1", "exercises": ["Smal bänkpress", "Pushdowns", "Overhead extension", "Bänkpress", "Hantelflyes", "Sidolyft"]}, {"name": "Vecka 3 – Pass 2", "exercises": ["Skivstångscurl", "Lutande hantelcurl", "Kabelcurl", "Latsdrag", "Rodd"]}, {"name": "Vecka 3 – Pass 3", "exercises": ["Knäböj", "Rumänska marklyft (RDL)", "Vadpress", "Crunch"]}, {"name": "Vecka 4 – Pass 1", "exercises": ["Axelpress", "Sidolyft", "Omvända flyes", "Lutande bänk", "Hantelflyes", "Pushdowns"]}, {"name": "Vecka 4 – Pass 2", "exercises": ["Skivstångscurl", "Hantelcurl", "Kabelcurl", "Latsdrag", "Rodd"]}, {"name": "Vecka 4 – Pass 3", "exercises": ["Knäböj", "Rumänska marklyft (RDL)", "Vadpress", "Crunch"]}]}], "exercises": [{"name": "Bänkpress", "muscle": "Bröst"}, {"name": "Lutande hantelpress", "muscle": "Bröst"}, {"name": "Pec deck", "muscle": "Bröst"}, {"name": "Dips", "muscle": "Bröst"}, {"name": "Hantelpress", "muscle": "Bröst"}, {"name": "Cable fly", "muscle": "Bröst"}, {"name": "Lutande bänkpress", "muscle": "Bröst"}, {"name": "Lutande Smithpress", "muscle": "Bröst"}, {"name": "Hantelflyes", "muscle": "Bröst"}, {"name": "Lutande bänk", "muscle": "Bröst"}, {"name": "Latsdrag", "muscle": "Rygg"}, {"name": "Sittande rodd", "muscle": "Rygg"}, {"name": "Pull-ups", "muscle": "Rygg"}, {"name": "Enarms hantelrodd", "muscle": "Rygg"}, {"name": "Pullover", "muscle": "Rygg"}, {"name": "Rakarms pulldown", "muscle": "Rygg"}, {"name": "Smalt latsdrag", "muscle": "Rygg"}, {"name": "T-bar row", "muscle": "Rygg"}, {"name": "Seal row", "muscle": "Rygg"}, {"name": "Skivstångsrodd", "muscle": "Rygg"}, {"name": "Kabelrodd", "muscle": "Rygg"}, {"name": "Latsdrag / chins", "muscle": "Rygg"}, {"name": "Rodd", "muscle": "Rygg"}, {"name": "Knäböj", "muscle": "Ben"}, {"name": "Rumänska marklyft", "muscle": "Ben"}, {"name": "Rumänska marklyft (RDL)", "muscle": "Ben"}, {"name": "Benspark", "muscle": "Ben"}, {"name": "Liggande lårcurl", "muscle": "Ben"}, {"name": "Lårcurl", "muscle": "Ben"}, {"name": "Vadpress", "muscle": "Ben"}, {"name": "Raka marklyft", "muscle": "Ben"}, {"name": "Utfall", "muscle": "Ben"}, {"name": "Axelpress", "muscle": "Axlar"}, {"name": "Sidolyft", "muscle": "Axlar"}, {"name": "Omvänd pec deck", "muscle": "Axlar"}, {"name": "Arnold press", "muscle": "Axlar"}, {"name": "Hantellyft åt sidan", "muscle": "Axlar"}, {"name": "Face pull", "muscle": "Axlar"}, {"name": "Militärpress", "muscle": "Axlar"}, {"name": "Kabellyft åt sidan", "muscle": "Axlar"}, {"name": "Reverse fly", "muscle": "Axlar"}, {"name": "Omvända flyes", "muscle": "Axlar"}, {"name": "Triceps pushdown", "muscle": "Armar"}, {"name": "Pushdowns", "muscle": "Armar"}, {"name": "French press", "muscle": "Armar"}, {"name": "Overhead rope extension", "muscle": "Armar"}, {"name": "Overhead extension", "muscle": "Armar"}, {"name": "Close grip bench press", "muscle": "Armar"}, {"name": "Smal bänkpress", "muscle": "Armar"}, {"name": "Triceps kickback", "muscle": "Armar"}, {"name": "Enarms pushdown", "muscle": "Armar"}, {"name": "Bicepscurl", "muscle": "Armar"}, {"name": "Hammercurl", "muscle": "Armar"}, {"name": "Preacher curl", "muscle": "Armar"}, {"name": "Incline dumbbell curl", "muscle": "Armar"}, {"name": "Skivstångscurl", "muscle": "Armar"}, {"name": "Lutande hantelcurl", "muscle": "Armar"}, {"name": "Kabelcurl", "muscle": "Armar"}, {"name": "Hantelcurl", "muscle": "Armar"}, {"name": "EZ-bar curl", "muscle": "Armar"}, {"name": "Concentration curl", "muscle": "Armar"}, {"name": "Cable crunch", "muscle": "Mage"}, {"name": "Ab wheel", "muscle": "Mage"}, {"name": "Hängande benlyft", "muscle": "Mage"}, {"name": "Russian twists", "muscle": "Mage"}, {"name": "Crunch", "muscle": "Mage"}]};
 const KEY="minTraningStateV95";
 const OLD_KEYS=["minTraningStateV941","minTraningStateV94","minTraningStateV932","minTraningStateV93","minTraningStateV92","minTraningStateV8"];
-const defaults={version:"9.6.0",workouts:[],settings:{rounding:"2.5",increasePercent:"5",restSeconds:"90",soundEnabled:true},selectedProgramId:null,dayIndex:0,active:null,customExercises:[],customPrograms:[],editing:null};
+const defaults={version:"9.6.1",workouts:[],settings:{rounding:"2.5",increasePercent:"5",restSeconds:"90",soundEnabled:true},selectedProgramId:null,dayIndex:0,active:null,customExercises:[],customPrograms:[],editing:null};
 
 const byId=id=>document.getElementById(id);
 const todayTitle=byId("todayTitle"), todaySub=byId("todaySub"), todayExercises=byId("todayExercises");
@@ -20,7 +20,7 @@ const pauseTimer=byId("pauseTimer"), restartTimer=byId("restartTimer"), skipTime
 const exerciseForm=byId("exerciseForm"), exerciseName=byId("exerciseName"), muscle=byId("muscle");
 const exerciseSearch=byId("exerciseSearch"), exerciseList=byId("exerciseList");
 const clearHistory=byId("clearHistory"), historyList=byId("historyList");
-const statsRange=byId("statsRange"), statsPeriodText=byId("statsPeriodText"), statsDashboard=byId("statsDashboard"), priorityCoach=byId("priorityCoach"), coachInsights=byId("coachInsights"), weeklyStats=byId("weeklyStats"), exerciseStats=byId("exerciseStats"), muscleStats=byId("muscleStats");
+const statsRange=byId("statsRange"), statsPeriodText=byId("statsPeriodText"), statsDashboard=byId("statsDashboard"), recoveryCoach=byId("recoveryCoach"), priorityCoach=byId("priorityCoach"), coachInsights=byId("coachInsights"), weeklyStats=byId("weeklyStats"), exerciseStats=byId("exerciseStats"), muscleStats=byId("muscleStats");
 const rounding=byId("rounding"), increasePercent=byId("increasePercent");
 const exportData=byId("exportData"), importData=byId("importData"), settingsMessage=byId("settingsMessage");
 const restSeconds=byId("restSeconds"), soundEnabled=byId("soundEnabled"), testSound=byId("testSound");
@@ -31,7 +31,7 @@ function load(){
   if(raw){try{return normalize(JSON.parse(raw));}catch{}}
   for(const oldKey of OLD_KEYS){
     const old=localStorage.getItem(oldKey);
-    if(old){try{localStorage.setItem(oldKey+"-backup-"+Date.now(),old);const migrated=normalize({...defaults,...JSON.parse(old),version:"9.6.0"});localStorage.setItem(KEY,JSON.stringify(migrated));return migrated;}catch{}}
+    if(old){try{localStorage.setItem(oldKey+"-backup-"+Date.now(),old);const migrated=normalize({...defaults,...JSON.parse(old),version:"9.6.1"});localStorage.setItem(KEY,JSON.stringify(migrated));return migrated;}catch{}}
   }
   return clone(defaults);
 }
@@ -118,6 +118,119 @@ function weeklyStreak(workouts){
  if(!trainedWeeks.has(key)){cursor.setDate(cursor.getDate()-7);key=localDayKey(cursor);}
  while(trainedWeeks.has(key)){streak++;cursor.setDate(cursor.getDate()-7);key=localDayKey(cursor);}
  return streak;
+}
+
+
+function clamp(value,min,max){return Math.max(min,Math.min(max,value));}
+function recoveryBaseScore(days){
+ if(days===null)return 92;
+ if(days<=0)return 18;
+ if(days===1)return 34;
+ if(days===2)return 54;
+ if(days===3)return 72;
+ if(days===4)return 84;
+ if(days===5)return 92;
+ return 100;
+}
+function recoveryStatus(score,hasHistory){
+ if(!hasHistory)return {label:"Ingen historik",className:"recoveryNeutral",icon:"⚪"};
+ if(score>=80)return {label:"Redo",className:"recoveryReady",icon:"🟢"};
+ if(score>=50)return {label:"Återhämtar sig",className:"recoveryProgress",icon:"🟡"};
+ return {label:"Behöver vila",className:"recoveryRest",icon:"🔴"};
+}
+function buildRecoveryCoach(allHistory){
+ if(!recoveryCoach)return;
+ const muscleNames=[...new Set(allExercises().map(e=>e.muscle).filter(Boolean).filter(name=>name!=="Övrigt"))];
+ const sevenDaysAgo=Date.now()-7*86400000;
+ const stats=Object.fromEntries(muscleNames.map(name=>[name,{latestDate:0,sets7:0,volume7:0,sessions7:new Set()}]));
+
+ allHistory.forEach((w,workoutIndex)=>{
+   const date=Date.parse(w?.createdAt);if(!Number.isFinite(date))return;
+   const touched=new Set();
+   (w.exercises||[]).forEach(e=>{
+     const muscle=exerciseMuscle(exerciseNameOf(e));if(!stats[muscle])return;
+     const sets=validSets(e);
+     if(sets.length)stats[muscle].latestDate=Math.max(stats[muscle].latestDate,date);
+     if(date>=sevenDaysAgo&&sets.length){
+       stats[muscle].sets7+=sets.length;
+       stats[muscle].volume7+=sets.reduce((sum,set)=>sum+setVolume(set),0);
+       touched.add(muscle);
+     }
+   });
+   touched.forEach(muscle=>stats[muscle].sessions7.add(workoutIndex));
+ });
+
+ const activeVolumes=muscleNames.map(name=>stats[name].volume7).filter(v=>v>0);
+ const avgVolume=activeVolumes.length?activeVolumes.reduce((a,b)=>a+b,0)/activeVolumes.length:0;
+ const activeSets=muscleNames.map(name=>stats[name].sets7).filter(v=>v>0);
+ const avgSets=activeSets.length?activeSets.reduce((a,b)=>a+b,0)/activeSets.length:0;
+
+ const recovery=muscleNames.map(name=>{
+   const data=stats[name],hasHistory=Boolean(data.latestDate);
+   const days=hasHistory?Math.max(0,Math.floor((Date.now()-data.latestDate)/86400000)):null;
+   let score=recoveryBaseScore(days);
+   const volumeRatio=avgVolume>0?data.volume7/avgVolume:0;
+   const setRatio=avgSets>0?data.sets7/avgSets:0;
+   const loadPenalty=Math.max(0,volumeRatio-1)*13+Math.max(0,setRatio-1)*8+Math.max(0,data.sessions7.size-2)*6;
+   score=Math.round(clamp(score-loadPenalty,5,100));
+   if(!hasHistory)score=92;
+   const status=recoveryStatus(score,hasHistory);
+   let loadLabel="Ingen belastning";
+   let loadClass="loadNone";
+   if(data.sets7>0){
+     if(volumeRatio>1.35||data.sessions7.size>=3){loadLabel="Hög belastning";loadClass="loadHigh";}
+     else if(volumeRatio>=.7){loadLabel="Normal belastning";loadClass="loadNormal";}
+     else{loadLabel="Låg belastning";loadClass="loadLow";}
+   }
+   return {name,score,status,days,hasHistory,latestDate:data.latestDate,sets7:data.sets7,volume7:data.volume7,sessions7:data.sessions7.size,loadLabel,loadClass};
+ }).sort((a,b)=>b.score-a.score||(b.days??999)-(a.days??999));
+
+ const recommendedMuscle=recovery[0];
+ const program=findProgram(state().selectedProgramId);
+ let recommendedDay=null;
+ if(program?.days?.length&&recommendedMuscle){
+   recommendedDay=program.days.map((day,index)=>{
+     const muscles=[...new Set((day.exercises||[]).map(exerciseMuscle))];
+     const score=muscles.reduce((sum,muscle)=>{
+       const item=recovery.find(x=>x.name===muscle);
+       return sum+(item?.score||0);
+     },0)/(muscles.length||1);
+     const containsTop=muscles.includes(recommendedMuscle.name);
+     return {index,name:day.name,muscles,score:score+(containsTop?30:0)};
+   }).sort((a,b)=>b.score-a.score)[0];
+ }
+
+ const recommendationHtml=recommendedMuscle?`<section class="recoveryRecommendation">
+   <div>
+     <small>DAGENS REKOMMENDATION</small>
+     <h4>${escapeHtml(recommendedMuscle.name)}</h4>
+     <p>${recommendedMuscle.hasHistory?`Senast tränad: ${daysAgoText(recommendedMuscle.latestDate)}.`:"Ingen tidigare träning registrerad."}
+     Recovery ${recommendedMuscle.score}% · ${escapeHtml(recommendedMuscle.loadLabel.toLowerCase())} senaste 7 dagarna.</p>
+     ${recommendedDay?`<div class="recoveryWorkout">Pass som passar: <b>${escapeHtml(recommendedDay.name)}</b></div>`:""}
+   </div>
+   <div class="recoveryRing" style="--recovery:${recommendedMuscle.score}">
+     <strong>${recommendedMuscle.score}%</strong><span>recovery</span>
+   </div>
+   ${recommendedDay?`<button type="button" id="chooseRecoveryWorkout" data-day-index="${recommendedDay.index}">Välj passet</button>`:""}
+ </section>`:"";
+
+ const cards=recovery.map(item=>`<article class="recoveryCard">
+   <div class="recoveryCardTop">
+     <div><b>${escapeHtml(item.name)}</b><span>${item.hasHistory?daysAgoText(item.latestDate):"Ingen historik"}</span></div>
+     <span class="recoveryStatus ${item.status.className}">${item.status.icon} ${item.status.label}</span>
+   </div>
+   <div class="recoveryMeter"><div style="width:${item.score}%"></div></div>
+   <div class="recoveryScoreRow"><strong>${item.score}%</strong><span class="${item.loadClass}">${escapeHtml(item.loadLabel)}</span></div>
+   <div class="recoveryFacts"><span>${item.sets7} set / 7 dagar</span><span>${item.sessions7} ${item.sessions7===1?"pass":"pass"}</span><span>${formatNumber(item.volume7)} kg-volym</span></div>
+ </article>`).join("");
+
+ recoveryCoach.innerHTML=`${recommendationHtml}<div class="recoveryGrid">${cards}</div>
+ <p class="recoveryNote">Recovery-poängen är en träningsindikator baserad på loggad historik och ersätter inte medicinsk bedömning eller kroppens egna signaler.</p>`;
+
+ const button=byId("chooseRecoveryWorkout");
+ if(button)button.onclick=()=>{
+   const s=state();s.dayIndex=Number(button.dataset.dayIndex)||0;s.active=null;save(s);render();navigate("home");
+ };
 }
 
 function buildPriorityCoach(periodWorkouts,allHistory){
@@ -257,6 +370,7 @@ function renderStats(){
   ["Mest utförda övning",topExercise?escapeHtml(topExercise.name):"–",topExercise?`${topExercise.workoutIds.size} pass under perioden`:"Ingen data","🏋️"],
   ["Senaste pass",latestWorkout?daysAgoText(Date.parse(latestWorkout.createdAt)):"–",latestWorkout?escapeHtml(latestWorkout.dayName||latestWorkout.programName||"Träningspass"):"Ingen historik","🕒"]
  ].map(x=>`<article class="statCard"><div class="statIcon">${x[3]}</div><small>${x[0]}</small><strong>${x[1]}</strong><span>${x[2]}</span></article>`).join(""):`<div class="statsEmpty statsEmptyWide"><b>Ingen träningshistorik för vald period.</b><span>Genomför och spara ett pass för att se statistik och coachinsikter.</span></div>`;
+ buildRecoveryCoach(allHistory);
  buildPriorityCoach(workouts,allHistory);
  const insights=[];
  if(streak>=2)insights.push(`🔥 Du har tränat ${streak} veckor i rad.`);
@@ -297,7 +411,7 @@ skipTimer.onclick=stopRestTimer;
 restSeconds.onchange=()=>{const s=state();s.settings.restSeconds=restSeconds.value;save(s);};
 soundEnabled.onchange=()=>{const s=state();s.settings.soundEnabled=soundEnabled.checked;save(s);unlockAudio();};
 testSound.onclick=()=>{unlockAudio();beep(true);};
-exportData.onclick=()=>{const blob=new Blob([JSON.stringify(state(),null,2)],{type:"application/json"}),url=URL.createObjectURL(blob),a=document.createElement("a");a.href=url;a.download="min-traning-v9.6.0-backup.json";a.click();URL.revokeObjectURL(url);};
+exportData.onclick=()=>{const blob=new Blob([JSON.stringify(state(),null,2)],{type:"application/json"}),url=URL.createObjectURL(blob),a=document.createElement("a");a.href=url;a.download="min-traning-v9.6.1-backup.json";a.click();URL.revokeObjectURL(url);};
 importData.onchange=e=>{const file=e.target.files[0];if(!file)return;const reader=new FileReader();reader.onload=()=>{try{const parsed=JSON.parse(reader.result);if(!Array.isArray(parsed.workouts)||!parsed.settings)throw new Error();localStorage.setItem(KEY+"-backup-"+Date.now(),JSON.stringify(state()));save(normalize(parsed));settingsMessage.textContent="Importen lyckades.";render();}catch{settingsMessage.textContent="Filen är inte en giltig Min Träning-backup.";}};reader.readAsText(file);};
 render();
 if(timerState()&&timerState().pausedRemaining==null)timerInterval=setInterval(updateTimerUI,250);
