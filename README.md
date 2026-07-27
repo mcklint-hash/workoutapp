@@ -1,4 +1,4 @@
-# Min Träning 9.3
+# Min Träning 9.3.1
 
 Filer:
 - index.html
@@ -19,3 +19,8 @@ Viktiga ändringar från 9.2:
 - Muskelgruppsstatistik har lagts till.
 - Egna upplägg kan skapas, redigeras och raderas.
 - Pågående pass kan inte skrivas över utan varning.
+
+## Buggfix 9.3.1
+- Redigering av ett standardupplägg skapar inte längre en separat kopia.
+- Ändringen sparas som en lokal överstyrning av samma upplägg.
+- Radera den redigerade versionen för att återställa originalmallen.
