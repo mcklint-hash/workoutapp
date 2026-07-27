@@ -1,20 +1,10 @@
-# Min Träning 9.4
+# Min Träning 9.4.1
 
-Buggfix för 9.3.1 där JavaScript kunde stanna vid uppstart och göra alla knappar inaktiva.
+Buggfix för vilotimern:
+- Timerpanelen ligger permanent i träningsvyn och visas efter sparat set.
+- Sidan rullar automatiskt till timern när den startar.
+- Ljudmotorn aktiveras vid användarens klick för bättre stöd i Chrome, Safari och mobilwebbläsare.
+- Knappen Testa ljud finns under Inställningar.
+- Data migreras från 9.4 och äldre versioner.
 
-Ändringar:
-- Alla HTML-element kopplas nu explicit med `getElementById`.
-- Redigering av upplägg skapar inte en extra kopia.
-- Versionsnumret har uppdaterats till 9.4.
-
-Ladda upp och ersätt samtliga filer: `index.html`, `style.css` och `app.js`.
-
-
-## Nytt i 9.4
-- Automatisk vilotimer efter sparat set.
-- Valbar standardvila: 60, 90, 120 eller 180 sekunder.
-- Pausa, återuppta, starta om och hoppa över.
-- Valbar ljudsignal när vilan är klar.
-- Timern fortsätter korrekt i bakgrunden genom en sparad sluttid.
-- Tydlig Set 1 av 3-indikator och särskild markering för failure-set.
-- Rekommendationspanelen markeras tydligare.
+Ladda upp index.html, style.css och app.js till samma mapp.
