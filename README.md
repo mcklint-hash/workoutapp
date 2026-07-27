@@ -1,4 +1,4 @@
-# Min Träning v9.6.1 – Recovery Coach
+# Min Träning v9.6.1a – Recovery Coach
 
 Version 9.6.1 bygger vidare på Coach 2.0 med en ny lokal återhämtningsanalys.
 
@@ -57,3 +57,15 @@ Lagringsnyckeln är oförändrad (`minTraningStateV95`). Befintlig träningshist
 - v9.6.2 – Veckomål och träningsmål
 
 Personliga rekord och AI Coach ingår inte längre i roadmapen.
+
+
+## Korrigeringar i v9.6.1a
+
+- Coach och insikter visar nu korrekt muskelgrupp, exempelvis **Bröst**, istället för övningsnamnet **Bänkpress**.
+- Recovery-kurvan är ändrad till:
+  - ingen historik: 100 %
+  - samma dag: 20 %
+  - 24 timmar: 45 %
+  - 48 timmar: 70 %
+  - 72 timmar: 90 %
+  - 96 timmar eller mer: 100 %

@@ -123,13 +123,11 @@ function weeklyStreak(workouts){
 
 function clamp(value,min,max){return Math.max(min,Math.min(max,value));}
 function recoveryBaseScore(days){
- if(days===null)return 92;
- if(days<=0)return 18;
- if(days===1)return 34;
- if(days===2)return 54;
- if(days===3)return 72;
- if(days===4)return 84;
- if(days===5)return 92;
+ if(days===null)return 100;
+ if(days<=0)return 20;
+ if(days===1)return 45;
+ if(days===2)return 70;
+ if(days===3)return 90;
  return 100;
 }
 function recoveryStatus(score,hasHistory){
@@ -173,7 +171,7 @@ function buildRecoveryCoach(allHistory){
    const setRatio=avgSets>0?data.sets7/avgSets:0;
    const loadPenalty=Math.max(0,volumeRatio-1)*13+Math.max(0,setRatio-1)*8+Math.max(0,data.sessions7.size-2)*6;
    score=Math.round(clamp(score-loadPenalty,5,100));
-   if(!hasHistory)score=92;
+   if(!hasHistory)score=100;
    const status=recoveryStatus(score,hasHistory);
    let loadLabel="Ingen belastning";
    let loadClass="loadNone";
@@ -351,7 +349,7 @@ function renderStats(){
      sets.forEach(s=>{ex.maxWeight=Math.max(ex.maxWeight,Number(s.weight||0));});
      const working=[...sets].reverse().find(x=>Number(x.weight)>0);
      if(working){const t=date.getTime(),weight=Number(working.weight);if(ex.firstDate===null||t<ex.firstDate){ex.firstDate=t;ex.firstWeight=weight;}if(ex.lastDate===null||t>ex.lastDate){ex.lastDate=t;ex.lastWeight=weight;}}
-     const m=muscleMap[muscle]||(muscleMap[muscle]={name,workouts:new Set(),sets:0,latestDate:0,exercises:new Set()});
+     const m=muscleMap[muscle]||(muscleMap[muscle]={name:muscle,workouts:new Set(),sets:0,latestDate:0,exercises:new Set()});
      m.workouts.add(`${dayKey}-${workoutIndex}`);m.sets+=sets.length;m.latestDate=Math.max(m.latestDate,date.getTime());m.exercises.add(name);
    });
  });
