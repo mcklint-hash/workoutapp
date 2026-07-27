@@ -1,21 +1,32 @@
-# Min Träning v9.5.2 – Coach Edition
+# Min Träning v9.5.2 – Final
 
-Statistikdelen har uppdaterats med fokus på information som hjälper dig att planera och utvärdera träningen.
+Den slutliga versionen i 9.5-serien färdigställer Statistik 2.0 och Coach Edition.
 
-## Nytt
+## Statistik och coach
 - dashboard med träningsstreak, pass denna vecka och månad
-- mest tränad muskelgrupp och favoritövning
-- senaste träningspass
-- coachkort med automatiska insikter
-- veckostatistik baserad på pass och set i stället för kilogram
-- muskelstatus med grön, gul och röd indikator
-- övningskort med högsta vikt, senaste resultat, senaste träningsdatum och viktutveckling
+- korrekt visning av **mest tränade muskelgrupp**
+- separat statistik för **mest utförda övning**
+- coachinsikter som tydligt skiljer mellan muskelgrupper och övningar
+- veckostatistik med pass, set och mest tränade muskelgrupp
+- muskelkort med muskelgrupp, antal pass, antal set, senaste träning och status
+- övningskort med högsta vikt, senast loggade resultat, senaste träning och viktutveckling
+- tydliga tomma vyer när träningshistorik saknas för vald period
+
+## Statusfärger för muskelgrupper
+- grön: tränad de senaste 3 dagarna
+- gul: tränad för 4–7 dagar sedan
+- röd: mer än 7 dagar sedan
 
 ## Oförändrat
 Träningsloggen, vilotimern, ljudet, uppläggen, historiken och befintlig sparad data är bevarade.
 
-## Viktigt vid uppdatering
-Ersätt alla fyra filer: `index.html`, `style.css`, `app.js` och `README.md`.
+## Installation
+Ersätt alla fyra filer på webbservern:
+- `index.html`
+- `style.css`
+- `app.js`
+- `README.md`
+
 Kontrollera att sidomenyn visar **Version 9.5.2**. Gör en hård omladdning om webbläsaren visar en äldre version.
 
-Idén om panelen **Nästa pass** ligger kvar i projektets backlog och ingår inte i denna version.
+Panelen **Nästa pass** ligger kvar i backloggen och ingår inte i v9.5.2.
