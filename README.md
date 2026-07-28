@@ -1,77 +1,51 @@
-# Min Träning v9.6.2a
+# Min Träning v9.6.3
 
-Version 9.6.2a bygger vidare på Recovery Coach och förenklar statistikvyn.
+Version 9.6.3 lägger till träningskalender, lokal CSV-/Excel-export och valbar återhämtningstid i Recovery Coach.
 
-## Ändringar i v9.6.2a
+## Nytt i v9.6.3
 
-- Veckostatistik är helt borttagen från statistikvyn.
-- Tillhörande JavaScript-rendering och oanvänd CSS är borttagen.
-- Versionsnummer och backupfilnamn är uppdaterade till v9.6.2a.
+### Träningskalender
 
-## Nytt i v9.6.1
+- Ny kalenderflik i sidomenyn.
+- Månadsvy med markerade träningsdagar.
+- Visar antal pass och set direkt i kalendern.
+- Klick på en träningsdag visar pass, övningar, set och total kg-volym.
+- Bläddring mellan månader.
 
-### Recovery Dashboard
+### Export
 
-Varje muskelgrupp får:
+Under **Inställningar → Export och backup** finns nu:
 
-- Recovery-poäng mellan 0 och 100
-- tydlig status: Redo, Återhämtar sig, Behöver vila eller Ingen historik
-- senaste träningsdatum
-- antal set och pass under de senaste sju dagarna
-- registrerad kg-volym
-- belastningsnivå: låg, normal eller hög
+- CSV-export av träningshistoriken.
+- Excel-export i `.xlsx` med bladen **Historik** och **Statistik**.
+- Befintlig JSON-export och JSON-import.
 
-### Dagens rekommendation
+Excel-exporten skapas helt lokalt i webbläsaren och kräver ingen internetanslutning eller extern tjänst.
 
-Recovery Coach väljer den muskelgrupp som för tillfället bedöms vara mest redo. När ett upplägg är valt föreslås även det pass som bäst matchar återhämtningsläget. Passet kan väljas direkt från statistikvyn.
+### Recovery Coach
 
-### Beräkningsmodell
+Under **Inställningar → Recovery Coach** kan användaren välja när en muskel ska anses fullt återhämtad:
 
-Poängen bygger på appens lokalt sparade träningshistorik:
+- 3 dagar
+- 4 dagar (standard)
+- 5 dagar
+- 6 dagar
+- 7 dagar
 
-- dagar sedan senaste träning
-- antal set senaste sju dagarna
-- passfrekvens senaste sju dagarna
-- kg-volym, beräknad från vikt × repetitioner
-
-Beräkningen är en träningsindikator och inte en medicinsk bedömning. Användaren bör alltid väga in smärta, sömn, sjukdom och kroppens egna signaler.
-
-## Befintliga funktioner
-
-- Coach 2.0 och Prioriteringscoach
-- Statistik 2.0
-- träningsupplägg och egna upplägg
-- träningslogg och historik
-- setrekommendationer
-- vilotimer
-- import och export av lokal data
+Recovery-kurvan anpassas efter valet. Belastning, setvolym och passfrekvens påverkar fortfarande den slutliga återhämtningspoängen.
 
 ## Kompatibilitet
 
-Lagringsnyckeln är oförändrad (`minTraningStateV95`). Befintlig träningshistorik, upplägg och inställningar ska därför finnas kvar vid uppdatering.
+Lagringsnyckeln är oförändrad (`minTraningStateV95`). Befintlig träningshistorik, egna upplägg och inställningar behålls. Den nya inställningen för återhämtningstid får standardvärdet fyra dagar för äldre sparad data.
 
 ## Installation
 
 1. Packa upp ZIP-filen.
-2. Ersätt de tidigare filerna med `index.html`, `style.css`, `app.js` och `README.md`.
+2. Ersätt tidigare `index.html`, `style.css`, `app.js` och `README.md`.
 3. Öppna `index.html`.
-4. Kontrollera att sidomenyn visar **Version 9.6.2a**.
-5. Gör en hård omladdning om webbläsaren visar en äldre version.
+4. Kontrollera att sidomenyn visar **Version 9.6.3**.
+5. Gör en hård omladdning om en äldre version visas.
 
-## Roadmap
+## Tidigare ändring i v9.6.2a
 
-- Kommande version – Veckomål och träningsmål
-
-Personliga rekord och AI Coach ingår inte längre i roadmapen.
-
-
-## Korrigeringar i v9.6.1a
-
-- Coach och insikter visar nu korrekt muskelgrupp, exempelvis **Bröst**, istället för övningsnamnet **Bänkpress**.
-- Recovery-kurvan är ändrad till:
-  - ingen historik: 100 %
-  - samma dag: 20 %
-  - 24 timmar: 45 %
-  - 48 timmar: 70 %
-  - 72 timmar: 90 %
-  - 96 timmar eller mer: 100 %
+- Veckostatistik togs bort helt från statistikvyn.

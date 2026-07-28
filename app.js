@@ -2,7 +2,7 @@
 const DB={"programs": [{"id": "p4", "name": "4 dagar", "description": "Upper/Lower, 4 pass", "type": "standard", "frequency": 4, "weeks": 1, "days": [{"name": "Dag 1 – Upper", "exercises": ["Bänkpress", "Latsdrag", "Axelpress", "Bicepscurl"]}, {"name": "Dag 2 – Lower", "exercises": ["Knäböj", "Rumänska marklyft", "Liggande lårcurl", "Vadpress"]}, {"name": "Dag 3 – Upper", "exercises": ["Lutande hantelpress", "Sittande rodd", "Sidolyft", "Triceps pushdown"]}, {"name": "Dag 4 – Lower", "exercises": ["Knäböj", "Rumänska marklyft", "Benspark", "Vadpress"]}]}, {"id": "p5", "name": "5 dagar", "description": "Push/Pull/Legs + Upper + Armar", "type": "standard", "frequency": 5, "weeks": 1, "days": [{"name": "Dag 1 – Push", "exercises": ["Bänkpress", "Lutande hantelpress", "Axelpress", "Triceps pushdown"]}, {"name": "Dag 2 – Pull", "exercises": ["Latsdrag", "Sittande rodd", "Skivstångsrodd", "Hammercurl"]}, {"name": "Dag 3 – Ben", "exercises": ["Knäböj", "Rumänska marklyft", "Liggande lårcurl", "Vadpress"]}, {"name": "Dag 4 – Upper", "exercises": ["Dips", "Pull-ups", "Sidolyft", "Bicepscurl"]}, {"name": "Dag 5 – Armar/Mage", "exercises": ["Preacher curl", "French press", "Overhead rope extension", "Ab wheel"]}]}, {"id": "p6", "name": "6 dagar", "description": "3 veckors rotation", "type": "standard", "frequency": 6, "weeks": 3, "days": [{"name": "Vecka 1 – Rygg", "exercises": ["Latsdrag", "Sittande rodd", "Pullover"]}, {"name": "Vecka 1 – Bröst", "exercises": ["Bänkpress", "Lutande hantelpress", "Pec deck"]}, {"name": "Vecka 1 – Ben/Vader", "exercises": ["Knäböj", "Rumänska marklyft", "Liggande lårcurl", "Vadpress"]}, {"name": "Vecka 1 – Triceps", "exercises": ["Triceps pushdown", "French press", "Close grip bench press"]}, {"name": "Vecka 1 – Biceps/Mage", "exercises": ["Bicepscurl", "Hammercurl", "Preacher curl", "Cable crunch"]}, {"name": "Vecka 1 – Axlar", "exercises": ["Axelpress", "Sidolyft", "Omvänd pec deck"]}, {"name": "Vecka 2 – Rygg", "exercises": ["Pull-ups", "Enarms hantelrodd", "Rakarms pulldown"]}, {"name": "Vecka 2 – Bröst", "exercises": ["Lutande bänkpress", "Hantelpress", "Cable fly"]}, {"name": "Vecka 2 – Ben/Vader", "exercises": ["Knäböj", "Rumänska marklyft", "Liggande lårcurl", "Vadpress"]}, {"name": "Vecka 2 – Triceps", "exercises": ["Overhead rope extension", "Dips", "Triceps kickback"]}, {"name": "Vecka 2 – Biceps/Mage", "exercises": ["Preacher curl", "Incline dumbbell curl", "Hammercurl", "Hängande benlyft"]}, {"name": "Vecka 2 – Axlar", "exercises": ["Arnold press", "Hantellyft åt sidan", "Face pull"]}, {"name": "Vecka 3 – Rygg", "exercises": ["T-bar row", "Smalt latsdrag", "Seal row"]}, {"name": "Vecka 3 – Bröst", "exercises": ["Dips", "Lutande Smithpress", "Pec deck"]}, {"name": "Vecka 3 – Ben/Vader", "exercises": ["Knäböj", "Rumänska marklyft", "Liggande lårcurl", "Vadpress"]}, {"name": "Vecka 3 – Triceps", "exercises": ["Close grip bench press", "Enarms pushdown", "Overhead rope extension"]}, {"name": "Vecka 3 – Biceps/Mage", "exercises": ["EZ-bar curl", "Concentration curl", "Incline dumbbell curl", "Russian twists"]}, {"name": "Vecka 3 – Axlar", "exercises": ["Militärpress", "Kabellyft åt sidan", "Reverse fly"]}]}, {"id": "excel4", "name": "Excelprogram 4 veckor", "description": "Redigerbart 4-veckorsupplägg", "type": "custom", "frequency": 3, "weeks": 4, "days": [{"name": "Vecka 1 – Pass 1", "exercises": ["Bänkpress", "Lutande hantelpress", "Hantelflyes", "Pushdowns", "Overhead extension", "Sidolyft"]}, {"name": "Vecka 1 – Pass 2", "exercises": ["Latsdrag / chins", "Skivstångsrodd", "Kabelrodd", "Skivstångscurl", "Lutande hantelcurl"]}, {"name": "Vecka 1 – Pass 3", "exercises": ["Knäböj", "Rumänska marklyft (RDL)", "Vadpress", "Crunch"]}, {"name": "Vecka 2 – Pass 1", "exercises": ["Bänkpress", "Lutande hantelpress", "Hantelflyes", "Pushdowns", "Overhead extension", "Sidolyft"]}, {"name": "Vecka 2 – Pass 2", "exercises": ["Latsdrag / chins", "Skivstångsrodd", "Kabelrodd", "Skivstångscurl", "Lutande hantelcurl"]}, {"name": "Vecka 2 – Pass 3", "exercises": ["Knäböj", "Rumänska marklyft (RDL)", "Vadpress", "Crunch"]}, {"name": "Vecka 3 – Pass 1", "exercises": ["Smal bänkpress", "Pushdowns", "Overhead extension", "Bänkpress", "Hantelflyes", "Sidolyft"]}, {"name": "Vecka 3 – Pass 2", "exercises": ["Skivstångscurl", "Lutande hantelcurl", "Kabelcurl", "Latsdrag", "Rodd"]}, {"name": "Vecka 3 – Pass 3", "exercises": ["Knäböj", "Rumänska marklyft (RDL)", "Vadpress", "Crunch"]}, {"name": "Vecka 4 – Pass 1", "exercises": ["Axelpress", "Sidolyft", "Omvända flyes", "Lutande bänk", "Hantelflyes", "Pushdowns"]}, {"name": "Vecka 4 – Pass 2", "exercises": ["Skivstångscurl", "Hantelcurl", "Kabelcurl", "Latsdrag", "Rodd"]}, {"name": "Vecka 4 – Pass 3", "exercises": ["Knäböj", "Rumänska marklyft (RDL)", "Vadpress", "Crunch"]}]}], "exercises": [{"name": "Bänkpress", "muscle": "Bröst"}, {"name": "Lutande hantelpress", "muscle": "Bröst"}, {"name": "Pec deck", "muscle": "Bröst"}, {"name": "Dips", "muscle": "Bröst"}, {"name": "Hantelpress", "muscle": "Bröst"}, {"name": "Cable fly", "muscle": "Bröst"}, {"name": "Lutande bänkpress", "muscle": "Bröst"}, {"name": "Lutande Smithpress", "muscle": "Bröst"}, {"name": "Hantelflyes", "muscle": "Bröst"}, {"name": "Lutande bänk", "muscle": "Bröst"}, {"name": "Latsdrag", "muscle": "Rygg"}, {"name": "Sittande rodd", "muscle": "Rygg"}, {"name": "Pull-ups", "muscle": "Rygg"}, {"name": "Enarms hantelrodd", "muscle": "Rygg"}, {"name": "Pullover", "muscle": "Rygg"}, {"name": "Rakarms pulldown", "muscle": "Rygg"}, {"name": "Smalt latsdrag", "muscle": "Rygg"}, {"name": "T-bar row", "muscle": "Rygg"}, {"name": "Seal row", "muscle": "Rygg"}, {"name": "Skivstångsrodd", "muscle": "Rygg"}, {"name": "Kabelrodd", "muscle": "Rygg"}, {"name": "Latsdrag / chins", "muscle": "Rygg"}, {"name": "Rodd", "muscle": "Rygg"}, {"name": "Knäböj", "muscle": "Ben"}, {"name": "Rumänska marklyft", "muscle": "Ben"}, {"name": "Rumänska marklyft (RDL)", "muscle": "Ben"}, {"name": "Benspark", "muscle": "Ben"}, {"name": "Liggande lårcurl", "muscle": "Ben"}, {"name": "Lårcurl", "muscle": "Ben"}, {"name": "Vadpress", "muscle": "Ben"}, {"name": "Raka marklyft", "muscle": "Ben"}, {"name": "Utfall", "muscle": "Ben"}, {"name": "Axelpress", "muscle": "Axlar"}, {"name": "Sidolyft", "muscle": "Axlar"}, {"name": "Omvänd pec deck", "muscle": "Axlar"}, {"name": "Arnold press", "muscle": "Axlar"}, {"name": "Hantellyft åt sidan", "muscle": "Axlar"}, {"name": "Face pull", "muscle": "Axlar"}, {"name": "Militärpress", "muscle": "Axlar"}, {"name": "Kabellyft åt sidan", "muscle": "Axlar"}, {"name": "Reverse fly", "muscle": "Axlar"}, {"name": "Omvända flyes", "muscle": "Axlar"}, {"name": "Triceps pushdown", "muscle": "Armar"}, {"name": "Pushdowns", "muscle": "Armar"}, {"name": "French press", "muscle": "Armar"}, {"name": "Overhead rope extension", "muscle": "Armar"}, {"name": "Overhead extension", "muscle": "Armar"}, {"name": "Close grip bench press", "muscle": "Armar"}, {"name": "Smal bänkpress", "muscle": "Armar"}, {"name": "Triceps kickback", "muscle": "Armar"}, {"name": "Enarms pushdown", "muscle": "Armar"}, {"name": "Bicepscurl", "muscle": "Armar"}, {"name": "Hammercurl", "muscle": "Armar"}, {"name": "Preacher curl", "muscle": "Armar"}, {"name": "Incline dumbbell curl", "muscle": "Armar"}, {"name": "Skivstångscurl", "muscle": "Armar"}, {"name": "Lutande hantelcurl", "muscle": "Armar"}, {"name": "Kabelcurl", "muscle": "Armar"}, {"name": "Hantelcurl", "muscle": "Armar"}, {"name": "EZ-bar curl", "muscle": "Armar"}, {"name": "Concentration curl", "muscle": "Armar"}, {"name": "Cable crunch", "muscle": "Mage"}, {"name": "Ab wheel", "muscle": "Mage"}, {"name": "Hängande benlyft", "muscle": "Mage"}, {"name": "Russian twists", "muscle": "Mage"}, {"name": "Crunch", "muscle": "Mage"}]};
 const KEY="minTraningStateV95";
 const OLD_KEYS=["minTraningStateV941","minTraningStateV94","minTraningStateV932","minTraningStateV93","minTraningStateV92","minTraningStateV8"];
-const defaults={version:"9.6.2a",workouts:[],settings:{rounding:"2.5",increasePercent:"5",restSeconds:"90",soundEnabled:true},selectedProgramId:null,dayIndex:0,active:null,customExercises:[],customPrograms:[],editing:null};
+const defaults={version:"9.6.3",workouts:[],settings:{rounding:"2.5",increasePercent:"5",restSeconds:"90",soundEnabled:true,recoveryDays:"4"},selectedProgramId:null,dayIndex:0,active:null,customExercises:[],customPrograms:[],editing:null};
 
 const byId=id=>document.getElementById(id);
 const todayTitle=byId("todayTitle"), todaySub=byId("todaySub"), todayExercises=byId("todayExercises");
@@ -23,7 +23,9 @@ const clearHistory=byId("clearHistory"), historyList=byId("historyList");
 const statsRange=byId("statsRange"), statsPeriodText=byId("statsPeriodText"), statsDashboard=byId("statsDashboard"), recoveryCoach=byId("recoveryCoach"), priorityCoach=byId("priorityCoach"), coachInsights=byId("coachInsights"), exerciseStats=byId("exerciseStats"), muscleStats=byId("muscleStats");
 const rounding=byId("rounding"), increasePercent=byId("increasePercent");
 const exportData=byId("exportData"), importData=byId("importData"), settingsMessage=byId("settingsMessage");
-const restSeconds=byId("restSeconds"), soundEnabled=byId("soundEnabled"), testSound=byId("testSound");
+const restSeconds=byId("restSeconds"), soundEnabled=byId("soundEnabled"), testSound=byId("testSound"), recoveryDays=byId("recoveryDays");
+const calendarTitle=byId("calendarTitle"), calendarGrid=byId("calendarGrid"), calendarDetails=byId("calendarDetails"), calendarPrev=byId("calendarPrev"), calendarNext=byId("calendarNext");
+const exportCsv=byId("exportCsv"), exportExcel=byId("exportExcel");
 
 const clone=x=>JSON.parse(JSON.stringify(x));
 function load(){
@@ -31,7 +33,7 @@ function load(){
   if(raw){try{return normalize(JSON.parse(raw));}catch{}}
   for(const oldKey of OLD_KEYS){
     const old=localStorage.getItem(oldKey);
-    if(old){try{localStorage.setItem(oldKey+"-backup-"+Date.now(),old);const migrated=normalize({...defaults,...JSON.parse(old),version:"9.6.2a"});localStorage.setItem(KEY,JSON.stringify(migrated));return migrated;}catch{}}
+    if(old){try{localStorage.setItem(oldKey+"-backup-"+Date.now(),old);const migrated=normalize({...defaults,...JSON.parse(old),version:"9.6.3"});localStorage.setItem(KEY,JSON.stringify(migrated));return migrated;}catch{}}
   }
   return clone(defaults);
 }
@@ -123,11 +125,10 @@ function weeklyStreak(workouts){
 function clamp(value,min,max){return Math.max(min,Math.min(max,value));}
 function recoveryBaseScore(days){
  if(days===null)return 100;
+ const fullDays=Math.max(3,Math.min(7,Number(state().settings.recoveryDays||4)));
  if(days<=0)return 20;
- if(days===1)return 45;
- if(days===2)return 70;
- if(days===3)return 90;
- return 100;
+ if(days>=fullDays)return 100;
+ return Math.round(20+(80*days/fullDays));
 }
 function recoveryStatus(score,hasHistory){
  if(!hasHistory)return {label:"Ingen historik",className:"recoveryNeutral",icon:"⚪"};
@@ -382,7 +383,59 @@ function renderStats(){
  exerciseStats.innerHTML=exercises.length?`<div class="exerciseStatsGrid">${exercises.sort((a,b)=>b.workoutIds.size-a.workoutIds.size||b.latestDate-a.latestDate).map(e=>{const hasTrend=e.firstWeight>0&&e.lastWeight>0&&e.firstDate!==e.lastDate,change=hasTrend?percentChange(e.firstWeight,e.lastWeight):0,trend=hasTrend?`${change>0?"+":""}${change.toFixed(1)}%`:"–",trendClass=change>0?"trendUp":change<0?"trendDown":"";const latest=e.latestSets.length?e.latestSets.map(s=>`${formatNumber(s.weight,2)}×${s.reps}`).join(", "):"Ingen registrering";return`<article class="exerciseStatCard"><div class="metricHeader"><div><b>${escapeHtml(e.name)}</b><div class="statsSub">${escapeHtml(e.muscle)}</div></div><span class="${trendClass}">${trend}</span></div><div class="exerciseFacts coachExerciseFacts"><div><small>Pass</small><strong>${e.workoutIds.size}</strong></div><div><small>Högsta vikt</small><strong>${e.maxWeight?formatKg(e.maxWeight):"–"}</strong></div><div><small>Senast tränad</small><strong>${daysAgoText(e.latestDate)}</strong></div></div><div class="latestResult"><small>Senast loggade resultat</small><strong>${escapeHtml(latest)}</strong></div><div class="weightTrend">${hasTrend?`${formatKg(e.firstWeight)} → ${formatKg(e.lastWeight)}`:"Mer data behövs för vikttrend"}</div></article>`;}).join("")}</div>`:'<div class="statsEmpty">Ingen övningsstatistik för vald period.</div>';
 }
 
-function render(){renderHome();renderPrograms();renderWorkout();renderLibrary();renderHistory();renderStats();const s=state();rounding.value=s.settings.rounding;increasePercent.value=s.settings.increasePercent;restSeconds.value=s.settings.restSeconds;soundEnabled.checked=Boolean(s.settings.soundEnabled);updateTimerUI();}
+
+let calendarCursor=new Date(new Date().getFullYear(),new Date().getMonth(),1);
+function workoutsByDay(){
+ const map={};
+ (state().workouts||[]).forEach(w=>{const d=new Date(w?.createdAt);if(Number.isNaN(d.getTime()))return;const key=localDayKey(d);(map[key]||(map[key]=[])).push(w);});
+ return map;
+}
+function workoutVolume(w){return (w.exercises||[]).reduce((sum,e)=>sum+validSets(e).reduce((a,set)=>a+setVolume(set),0),0);}
+function renderCalendarDetails(key){
+ const items=workoutsByDay()[key]||[];
+ if(!items.length){calendarDetails.innerHTML='<div class="statsEmpty">Ingen träning registrerad denna dag.</div>';return;}
+ const date=new Date(key+'T12:00:00');
+ calendarDetails.innerHTML=`<h4>${date.toLocaleDateString("sv-SE",{weekday:"long",day:"numeric",month:"long",year:"numeric"})}</h4>${items.map(w=>`<article class="calendarWorkout"><div class="metricHeader"><div><b>${escapeHtml(w.dayName||"Träningspass")}</b><div class="statsSub">${escapeHtml(w.programName||"")}</div></div><strong>${formatNumber(workoutVolume(w))} kg-volym</strong></div><ul>${(w.exercises||[]).map(e=>`<li><b>${escapeHtml(exerciseNameOf(e))}</b>: ${validSets(e).map((set,i)=>`set ${i+1} ${formatNumber(set.weight,2)}×${set.reps}`).join(", ")}</li>`).join("")}</ul></article>`).join("")}`;
+}
+function renderCalendar(){
+ if(!calendarGrid)return;
+ const year=calendarCursor.getFullYear(),month=calendarCursor.getMonth(),byDay=workoutsByDay();
+ calendarTitle.textContent=calendarCursor.toLocaleDateString("sv-SE",{month:"long",year:"numeric"});
+ const first=new Date(year,month,1),last=new Date(year,month+1,0),offset=(first.getDay()+6)%7,cells=[];
+ for(let i=0;i<offset;i++)cells.push('<div class="calendarDay calendarEmpty" aria-hidden="true"></div>');
+ for(let day=1;day<=last.getDate();day++){
+   const date=new Date(year,month,day),key=localDayKey(date),items=byDay[key]||[],sets=items.reduce((sum,w)=>sum+(w.exercises||[]).reduce((a,e)=>a+validSets(e).length,0),0);
+   cells.push(`<button type="button" class="calendarDay${items.length?" hasWorkout":""}${key===localDayKey(new Date())?" today":""}" data-calendar-day="${key}"><span>${day}</span>${items.length?`<b>${items.length} ${items.length===1?"pass":"pass"}</b><small>${sets} set</small>`:""}</button>`);
+ }
+ calendarGrid.innerHTML=cells.join("");
+ document.querySelectorAll('[data-calendar-day]').forEach(button=>button.onclick=()=>{document.querySelectorAll('[data-calendar-day]').forEach(x=>x.classList.remove('selected'));button.classList.add('selected');renderCalendarDetails(button.dataset.calendarDay);});
+}
+function csvCell(value){const text=String(value??"");return /[;"\n]/.test(text)?`"${text.replace(/"/g,'""')}"`:text;}
+function exportRows(){
+ const rows=[["Datum","Program","Pass","Övning","Muskelgrupp","Set","Vikt (kg)","Reps","Failure-set","Setvolym"]];
+ (state().workouts||[]).slice().sort((a,b)=>Date.parse(a.createdAt)-Date.parse(b.createdAt)).forEach(w=>(w.exercises||[]).forEach(e=>validSets(e).forEach((set,i)=>rows.push([new Date(w.createdAt).toLocaleString("sv-SE"),w.programName||"",w.dayName||"",exerciseNameOf(e),exerciseMuscle(exerciseNameOf(e)),i+1,set.weight,set.reps,e.failure&&i===2?"Ja":"Nej",setVolume(set)]))));
+ return rows;
+}
+function downloadBlob(blob,filename){const url=URL.createObjectURL(blob),a=document.createElement("a");a.href=url;a.download=filename;a.click();setTimeout(()=>URL.revokeObjectURL(url),0);}
+function exportCsvFile(){const csv='\ufeff'+exportRows().map(row=>row.map(csvCell).join(';')).join('\r\n');downloadBlob(new Blob([csv],{type:'text/csv;charset=utf-8'}),'min-traning-v9.6.3-historik.csv');}
+function crc32(bytes){let c=-1;for(const b of bytes){c^=b;for(let k=0;k<8;k++)c=(c>>>1)^((c&1)?0xedb88320:0);}return (c^-1)>>>0;}
+function u16(n){return [n&255,(n>>>8)&255];}function u32(n){return [n&255,(n>>>8)&255,(n>>>16)&255,(n>>>24)&255];}
+function zipStore(files){
+ const enc=new TextEncoder(),chunks=[],central=[];let offset=0;
+ Object.entries(files).forEach(([name,text])=>{const n=enc.encode(name),data=typeof text==='string'?enc.encode(text):text,crc=crc32(data);const local=new Uint8Array([...u32(0x04034b50),...u16(20),...u16(0),...u16(0),...u16(0),...u16(0),...u32(crc),...u32(data.length),...u32(data.length),...u16(n.length),...u16(0),...n]);chunks.push(local,data);central.push(new Uint8Array([...u32(0x02014b50),...u16(20),...u16(20),...u16(0),...u16(0),...u16(0),...u16(0),...u32(crc),...u32(data.length),...u32(data.length),...u16(n.length),...u16(0),...u16(0),...u16(0),...u16(0),...u32(0),...u32(offset),...n]));offset+=local.length+data.length;});
+ const centralSize=central.reduce((s,x)=>s+x.length,0),end=new Uint8Array([...u32(0x06054b50),...u16(0),...u16(0),...u16(central.length),...u16(central.length),...u32(centralSize),...u32(offset),...u16(0)]);return new Blob([...chunks,...central,end],{type:'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'});
+}
+function xmlEscape(v){return String(v??'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
+function sheetXml(rows){return `<?xml version="1.0" encoding="UTF-8" standalone="yes"?><worksheet xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main"><sheetData>${rows.map((row,r)=>`<row r="${r+1}">${row.map((v,c)=>{const ref=String.fromCharCode(65+c)+(r+1);return typeof v==='number'?`<c r="${ref}"><v>${v}</v></c>`:`<c r="${ref}" t="inlineStr"><is><t>${xmlEscape(v)}</t></is></c>`;}).join('')}</row>`).join('')}</sheetData></worksheet>`;}
+function exportExcelFile(){
+ const history=exportRows(),workouts=state().workouts||[],muscle={};let volume=0;
+ workouts.forEach(w=>(w.exercises||[]).forEach(e=>{const m=exerciseMuscle(exerciseNameOf(e));const sets=validSets(e);muscle[m]=(muscle[m]||0)+sets.length;volume+=sets.reduce((s,x)=>s+setVolume(x),0);}));
+ const stats=[["Nyckeltal","Värde"],["Totalt antal pass",workouts.length],["Total träningsvolym",volume],["" ,""],["Muskelgrupp","Antal set"],...Object.entries(muscle).sort((a,b)=>b[1]-a[1])];
+ const files={'[Content_Types].xml':'<?xml version="1.0" encoding="UTF-8"?><Types xmlns="http://schemas.openxmlformats.org/package/2006/content-types"><Default Extension="rels" ContentType="application/vnd.openxmlformats-package.relationships+xml"/><Default Extension="xml" ContentType="application/xml"/><Override PartName="/xl/workbook.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet.main+xml"/><Override PartName="/xl/worksheets/sheet1.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.worksheet+xml"/><Override PartName="/xl/worksheets/sheet2.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.worksheet+xml"/></Types>','_rels/.rels':'<?xml version="1.0" encoding="UTF-8"?><Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships"><Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/officeDocument" Target="xl/workbook.xml"/></Relationships>','xl/workbook.xml':'<?xml version="1.0" encoding="UTF-8"?><workbook xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main" xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships"><sheets><sheet name="Historik" sheetId="1" r:id="rId1"/><sheet name="Statistik" sheetId="2" r:id="rId2"/></sheets></workbook>','xl/_rels/workbook.xml.rels':'<?xml version="1.0" encoding="UTF-8"?><Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships"><Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/worksheet" Target="worksheets/sheet1.xml"/><Relationship Id="rId2" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/worksheet" Target="worksheets/sheet2.xml"/></Relationships>','xl/worksheets/sheet1.xml':sheetXml(history),'xl/worksheets/sheet2.xml':sheetXml(stats)};
+ downloadBlob(zipStore(files),'min-traning-v9.6.3-export.xlsx');
+}
+
+function render(){renderHome();renderPrograms();renderWorkout();renderLibrary();renderHistory();renderCalendar();renderStats();const s=state();rounding.value=s.settings.rounding;increasePercent.value=s.settings.increasePercent;restSeconds.value=s.settings.restSeconds;soundEnabled.checked=Boolean(s.settings.soundEnabled);recoveryDays.value=String(s.settings.recoveryDays||"4");updateTimerUI();}
 programSetup.onsubmit=e=>{e.preventDefault();buildProgram(Number(frequency.value),Number(weeks.value));};
 programBuilder.onsubmit=saveProgram;
 cancelEdit.onclick=()=>{const s=state();s.editing=null;save(s);programBuilder.classList.add("hidden");cancelEdit.classList.add("hidden");};
@@ -398,6 +451,11 @@ clearHistory.onclick=()=>{if(confirm("Rensa hela träningshistoriken?")){const s
 statsRange.onchange=renderStats;
 rounding.onchange=()=>{const s=state();s.settings.rounding=rounding.value;save(s);};
 increasePercent.onchange=()=>{const s=state();s.settings.increasePercent=increasePercent.value;save(s);};
+recoveryDays.onchange=()=>{const s=state();s.settings.recoveryDays=recoveryDays.value;save(s);renderStats();};
+calendarPrev.onclick=()=>{calendarCursor=new Date(calendarCursor.getFullYear(),calendarCursor.getMonth()-1,1);renderCalendar();};
+calendarNext.onclick=()=>{calendarCursor=new Date(calendarCursor.getFullYear(),calendarCursor.getMonth()+1,1);renderCalendar();};
+exportCsv.onclick=exportCsvFile;
+exportExcel.onclick=exportExcelFile;
 
 pauseTimer.onclick=pauseOrResumeTimer;
 restartTimer.onclick=()=>startRestTimer(Number(state().settings.restSeconds||90));
@@ -405,7 +463,7 @@ skipTimer.onclick=stopRestTimer;
 restSeconds.onchange=()=>{const s=state();s.settings.restSeconds=restSeconds.value;save(s);};
 soundEnabled.onchange=()=>{const s=state();s.settings.soundEnabled=soundEnabled.checked;save(s);unlockAudio();};
 testSound.onclick=()=>{unlockAudio();beep(true);};
-exportData.onclick=()=>{const blob=new Blob([JSON.stringify(state(),null,2)],{type:"application/json"}),url=URL.createObjectURL(blob),a=document.createElement("a");a.href=url;a.download="min-traning-v9.6.2a-backup.json";a.click();URL.revokeObjectURL(url);};
+exportData.onclick=()=>{const blob=new Blob([JSON.stringify(state(),null,2)],{type:"application/json"}),url=URL.createObjectURL(blob),a=document.createElement("a");a.href=url;a.download="min-traning-v9.6.3-backup.json";a.click();URL.revokeObjectURL(url);};
 importData.onchange=e=>{const file=e.target.files[0];if(!file)return;const reader=new FileReader();reader.onload=()=>{try{const parsed=JSON.parse(reader.result);if(!Array.isArray(parsed.workouts)||!parsed.settings)throw new Error();localStorage.setItem(KEY+"-backup-"+Date.now(),JSON.stringify(state()));save(normalize(parsed));settingsMessage.textContent="Importen lyckades.";render();}catch{settingsMessage.textContent="Filen är inte en giltig Min Träning-backup.";}};reader.readAsText(file);};
 render();
 if(timerState()&&timerState().pausedRemaining==null)timerInterval=setInterval(updateTimerUI,250);
