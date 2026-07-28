@@ -1,6 +1,12 @@
-# Min Träning v9.6.1a – Recovery Coach
+# Min Träning v9.6.2a
 
-Version 9.6.1 bygger vidare på Coach 2.0 med en ny lokal återhämtningsanalys.
+Version 9.6.2a bygger vidare på Recovery Coach och förenklar statistikvyn.
+
+## Ändringar i v9.6.2a
+
+- Veckostatistik är helt borttagen från statistikvyn.
+- Tillhörande JavaScript-rendering och oanvänd CSS är borttagen.
+- Versionsnummer och backupfilnamn är uppdaterade till v9.6.2a.
 
 ## Nytt i v9.6.1
 
@@ -49,12 +55,12 @@ Lagringsnyckeln är oförändrad (`minTraningStateV95`). Befintlig träningshist
 1. Packa upp ZIP-filen.
 2. Ersätt de tidigare filerna med `index.html`, `style.css`, `app.js` och `README.md`.
 3. Öppna `index.html`.
-4. Kontrollera att sidomenyn visar **Version 9.6.1**.
+4. Kontrollera att sidomenyn visar **Version 9.6.2a**.
 5. Gör en hård omladdning om webbläsaren visar en äldre version.
 
 ## Roadmap
 
-- v9.6.2 – Veckomål och träningsmål
+- Kommande version – Veckomål och träningsmål
 
 Personliga rekord och AI Coach ingår inte längre i roadmapen.
 
