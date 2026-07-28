@@ -1,51 +1,33 @@
-# Min Träning v9.6.3
+# Min Träning v9.6.4
 
-Version 9.6.3 lägger till träningskalender, lokal CSV-/Excel-export och valbar återhämtningstid i Recovery Coach.
+Version 9.6.4 fokuserar på full mobilanpassning och en smartare övningsbank med procentuell muskelpåverkan.
 
-## Nytt i v9.6.3
+## Nytt i v9.6.4
 
-### Träningskalender
+### Mobilanpassning
 
-- Ny kalenderflik i sidomenyn.
-- Månadsvy med markerade träningsdagar.
-- Visar antal pass och set direkt i kalendern.
-- Klick på en träningsdag visar pass, övningar, set och total kg-volym.
-- Bläddring mellan månader.
+- Mobilvänlig, horisontellt rullningsbar navigation.
+- Responsiva kort, formulär, knappar, statistik och träningsvy.
+- Förbättrad kalender på små skärmar.
+- Större tryckytor och formulärfält utan oönskad mobilzoom.
+- Ingen avsiktlig horisontell sidscroll från 320 px skärmbredd.
 
-### Export
+### Övningsbank och muskelpåverkan
 
-Under **Inställningar → Export och backup** finns nu:
+- Inbyggda övningar får procentprofiler för primära och sekundära muskelgrupper.
+- Recovery Coach, Coach 2.0 och muskelstatistiken använder viktade set och viktad kg-volym.
+- En muskel delas aldrig upp i mindre delar: all påverkan räknas på hela muskelgruppen.
+- Egna övningar kan skapas med primär och sekundär muskel. Procentsumman måste vara 100 %.
+- Äldre övningar och historik får automatiskt kompatibla standardprofiler.
 
-- CSV-export av träningshistoriken.
-- Excel-export i `.xlsx` med bladen **Historik** och **Statistik**.
-- Befintlig JSON-export och JSON-import.
+## Muskelgrupper
 
-Excel-exporten skapas helt lokalt i webbläsaren och kräver ingen internetanslutning eller extern tjänst.
-
-### Recovery Coach
-
-Under **Inställningar → Recovery Coach** kan användaren välja när en muskel ska anses fullt återhämtad:
-
-- 3 dagar
-- 4 dagar (standard)
-- 5 dagar
-- 6 dagar
-- 7 dagar
-
-Recovery-kurvan anpassas efter valet. Belastning, setvolym och passfrekvens påverkar fortfarande den slutliga återhämtningspoängen.
+Bröst, Rygg, Axlar, Biceps, Triceps, Framsida lår, Baksida lår, Säte, Vader och Mage/bål.
 
 ## Kompatibilitet
 
-Lagringsnyckeln är oförändrad (`minTraningStateV95`). Befintlig träningshistorik, egna upplägg och inställningar behålls. Den nya inställningen för återhämtningstid får standardvärdet fyra dagar för äldre sparad data.
+LocalStorage-nyckeln är oförändrad: `minTraningStateV95`. Befintlig historik, inställningar och egna upplägg behålls.
 
 ## Installation
 
-1. Packa upp ZIP-filen.
-2. Ersätt tidigare `index.html`, `style.css`, `app.js` och `README.md`.
-3. Öppna `index.html`.
-4. Kontrollera att sidomenyn visar **Version 9.6.3**.
-5. Gör en hård omladdning om en äldre version visas.
-
-## Tidigare ändring i v9.6.2a
-
-- Veckostatistik togs bort helt från statistikvyn.
+Ersätt `index.html`, `style.css`, `app.js` och `README.md`, öppna sedan `index.html` och gör en hård omladdning.

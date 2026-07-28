@@ -1,8 +1,37 @@
 
 const DB={"programs": [{"id": "p4", "name": "4 dagar", "description": "Upper/Lower, 4 pass", "type": "standard", "frequency": 4, "weeks": 1, "days": [{"name": "Dag 1 – Upper", "exercises": ["Bänkpress", "Latsdrag", "Axelpress", "Bicepscurl"]}, {"name": "Dag 2 – Lower", "exercises": ["Knäböj", "Rumänska marklyft", "Liggande lårcurl", "Vadpress"]}, {"name": "Dag 3 – Upper", "exercises": ["Lutande hantelpress", "Sittande rodd", "Sidolyft", "Triceps pushdown"]}, {"name": "Dag 4 – Lower", "exercises": ["Knäböj", "Rumänska marklyft", "Benspark", "Vadpress"]}]}, {"id": "p5", "name": "5 dagar", "description": "Push/Pull/Legs + Upper + Armar", "type": "standard", "frequency": 5, "weeks": 1, "days": [{"name": "Dag 1 – Push", "exercises": ["Bänkpress", "Lutande hantelpress", "Axelpress", "Triceps pushdown"]}, {"name": "Dag 2 – Pull", "exercises": ["Latsdrag", "Sittande rodd", "Skivstångsrodd", "Hammercurl"]}, {"name": "Dag 3 – Ben", "exercises": ["Knäböj", "Rumänska marklyft", "Liggande lårcurl", "Vadpress"]}, {"name": "Dag 4 – Upper", "exercises": ["Dips", "Pull-ups", "Sidolyft", "Bicepscurl"]}, {"name": "Dag 5 – Armar/Mage", "exercises": ["Preacher curl", "French press", "Overhead rope extension", "Ab wheel"]}]}, {"id": "p6", "name": "6 dagar", "description": "3 veckors rotation", "type": "standard", "frequency": 6, "weeks": 3, "days": [{"name": "Vecka 1 – Rygg", "exercises": ["Latsdrag", "Sittande rodd", "Pullover"]}, {"name": "Vecka 1 – Bröst", "exercises": ["Bänkpress", "Lutande hantelpress", "Pec deck"]}, {"name": "Vecka 1 – Ben/Vader", "exercises": ["Knäböj", "Rumänska marklyft", "Liggande lårcurl", "Vadpress"]}, {"name": "Vecka 1 – Triceps", "exercises": ["Triceps pushdown", "French press", "Close grip bench press"]}, {"name": "Vecka 1 – Biceps/Mage", "exercises": ["Bicepscurl", "Hammercurl", "Preacher curl", "Cable crunch"]}, {"name": "Vecka 1 – Axlar", "exercises": ["Axelpress", "Sidolyft", "Omvänd pec deck"]}, {"name": "Vecka 2 – Rygg", "exercises": ["Pull-ups", "Enarms hantelrodd", "Rakarms pulldown"]}, {"name": "Vecka 2 – Bröst", "exercises": ["Lutande bänkpress", "Hantelpress", "Cable fly"]}, {"name": "Vecka 2 – Ben/Vader", "exercises": ["Knäböj", "Rumänska marklyft", "Liggande lårcurl", "Vadpress"]}, {"name": "Vecka 2 – Triceps", "exercises": ["Overhead rope extension", "Dips", "Triceps kickback"]}, {"name": "Vecka 2 – Biceps/Mage", "exercises": ["Preacher curl", "Incline dumbbell curl", "Hammercurl", "Hängande benlyft"]}, {"name": "Vecka 2 – Axlar", "exercises": ["Arnold press", "Hantellyft åt sidan", "Face pull"]}, {"name": "Vecka 3 – Rygg", "exercises": ["T-bar row", "Smalt latsdrag", "Seal row"]}, {"name": "Vecka 3 – Bröst", "exercises": ["Dips", "Lutande Smithpress", "Pec deck"]}, {"name": "Vecka 3 – Ben/Vader", "exercises": ["Knäböj", "Rumänska marklyft", "Liggande lårcurl", "Vadpress"]}, {"name": "Vecka 3 – Triceps", "exercises": ["Close grip bench press", "Enarms pushdown", "Overhead rope extension"]}, {"name": "Vecka 3 – Biceps/Mage", "exercises": ["EZ-bar curl", "Concentration curl", "Incline dumbbell curl", "Russian twists"]}, {"name": "Vecka 3 – Axlar", "exercises": ["Militärpress", "Kabellyft åt sidan", "Reverse fly"]}]}, {"id": "excel4", "name": "Excelprogram 4 veckor", "description": "Redigerbart 4-veckorsupplägg", "type": "custom", "frequency": 3, "weeks": 4, "days": [{"name": "Vecka 1 – Pass 1", "exercises": ["Bänkpress", "Lutande hantelpress", "Hantelflyes", "Pushdowns", "Overhead extension", "Sidolyft"]}, {"name": "Vecka 1 – Pass 2", "exercises": ["Latsdrag / chins", "Skivstångsrodd", "Kabelrodd", "Skivstångscurl", "Lutande hantelcurl"]}, {"name": "Vecka 1 – Pass 3", "exercises": ["Knäböj", "Rumänska marklyft (RDL)", "Vadpress", "Crunch"]}, {"name": "Vecka 2 – Pass 1", "exercises": ["Bänkpress", "Lutande hantelpress", "Hantelflyes", "Pushdowns", "Overhead extension", "Sidolyft"]}, {"name": "Vecka 2 – Pass 2", "exercises": ["Latsdrag / chins", "Skivstångsrodd", "Kabelrodd", "Skivstångscurl", "Lutande hantelcurl"]}, {"name": "Vecka 2 – Pass 3", "exercises": ["Knäböj", "Rumänska marklyft (RDL)", "Vadpress", "Crunch"]}, {"name": "Vecka 3 – Pass 1", "exercises": ["Smal bänkpress", "Pushdowns", "Overhead extension", "Bänkpress", "Hantelflyes", "Sidolyft"]}, {"name": "Vecka 3 – Pass 2", "exercises": ["Skivstångscurl", "Lutande hantelcurl", "Kabelcurl", "Latsdrag", "Rodd"]}, {"name": "Vecka 3 – Pass 3", "exercises": ["Knäböj", "Rumänska marklyft (RDL)", "Vadpress", "Crunch"]}, {"name": "Vecka 4 – Pass 1", "exercises": ["Axelpress", "Sidolyft", "Omvända flyes", "Lutande bänk", "Hantelflyes", "Pushdowns"]}, {"name": "Vecka 4 – Pass 2", "exercises": ["Skivstångscurl", "Hantelcurl", "Kabelcurl", "Latsdrag", "Rodd"]}, {"name": "Vecka 4 – Pass 3", "exercises": ["Knäböj", "Rumänska marklyft (RDL)", "Vadpress", "Crunch"]}]}], "exercises": [{"name": "Bänkpress", "muscle": "Bröst"}, {"name": "Lutande hantelpress", "muscle": "Bröst"}, {"name": "Pec deck", "muscle": "Bröst"}, {"name": "Dips", "muscle": "Bröst"}, {"name": "Hantelpress", "muscle": "Bröst"}, {"name": "Cable fly", "muscle": "Bröst"}, {"name": "Lutande bänkpress", "muscle": "Bröst"}, {"name": "Lutande Smithpress", "muscle": "Bröst"}, {"name": "Hantelflyes", "muscle": "Bröst"}, {"name": "Lutande bänk", "muscle": "Bröst"}, {"name": "Latsdrag", "muscle": "Rygg"}, {"name": "Sittande rodd", "muscle": "Rygg"}, {"name": "Pull-ups", "muscle": "Rygg"}, {"name": "Enarms hantelrodd", "muscle": "Rygg"}, {"name": "Pullover", "muscle": "Rygg"}, {"name": "Rakarms pulldown", "muscle": "Rygg"}, {"name": "Smalt latsdrag", "muscle": "Rygg"}, {"name": "T-bar row", "muscle": "Rygg"}, {"name": "Seal row", "muscle": "Rygg"}, {"name": "Skivstångsrodd", "muscle": "Rygg"}, {"name": "Kabelrodd", "muscle": "Rygg"}, {"name": "Latsdrag / chins", "muscle": "Rygg"}, {"name": "Rodd", "muscle": "Rygg"}, {"name": "Knäböj", "muscle": "Ben"}, {"name": "Rumänska marklyft", "muscle": "Ben"}, {"name": "Rumänska marklyft (RDL)", "muscle": "Ben"}, {"name": "Benspark", "muscle": "Ben"}, {"name": "Liggande lårcurl", "muscle": "Ben"}, {"name": "Lårcurl", "muscle": "Ben"}, {"name": "Vadpress", "muscle": "Ben"}, {"name": "Raka marklyft", "muscle": "Ben"}, {"name": "Utfall", "muscle": "Ben"}, {"name": "Axelpress", "muscle": "Axlar"}, {"name": "Sidolyft", "muscle": "Axlar"}, {"name": "Omvänd pec deck", "muscle": "Axlar"}, {"name": "Arnold press", "muscle": "Axlar"}, {"name": "Hantellyft åt sidan", "muscle": "Axlar"}, {"name": "Face pull", "muscle": "Axlar"}, {"name": "Militärpress", "muscle": "Axlar"}, {"name": "Kabellyft åt sidan", "muscle": "Axlar"}, {"name": "Reverse fly", "muscle": "Axlar"}, {"name": "Omvända flyes", "muscle": "Axlar"}, {"name": "Triceps pushdown", "muscle": "Armar"}, {"name": "Pushdowns", "muscle": "Armar"}, {"name": "French press", "muscle": "Armar"}, {"name": "Overhead rope extension", "muscle": "Armar"}, {"name": "Overhead extension", "muscle": "Armar"}, {"name": "Close grip bench press", "muscle": "Armar"}, {"name": "Smal bänkpress", "muscle": "Armar"}, {"name": "Triceps kickback", "muscle": "Armar"}, {"name": "Enarms pushdown", "muscle": "Armar"}, {"name": "Bicepscurl", "muscle": "Armar"}, {"name": "Hammercurl", "muscle": "Armar"}, {"name": "Preacher curl", "muscle": "Armar"}, {"name": "Incline dumbbell curl", "muscle": "Armar"}, {"name": "Skivstångscurl", "muscle": "Armar"}, {"name": "Lutande hantelcurl", "muscle": "Armar"}, {"name": "Kabelcurl", "muscle": "Armar"}, {"name": "Hantelcurl", "muscle": "Armar"}, {"name": "EZ-bar curl", "muscle": "Armar"}, {"name": "Concentration curl", "muscle": "Armar"}, {"name": "Cable crunch", "muscle": "Mage"}, {"name": "Ab wheel", "muscle": "Mage"}, {"name": "Hängande benlyft", "muscle": "Mage"}, {"name": "Russian twists", "muscle": "Mage"}, {"name": "Crunch", "muscle": "Mage"}]};
+
+const MUSCLE_GROUPS=["Bröst","Rygg","Axlar","Biceps","Triceps","Framsida lår","Baksida lår","Säte","Vader","Mage/bål"];
+function inferredMuscles(name,legacyMuscle){
+ const n=String(name||"").toLowerCase();
+ const profile=(...pairs)=>pairs.map(([muscle,percent])=>({muscle,percent}));
+ if(/bänkpress|hantelpress|smithpress|dips|fly|pec deck|lutande bänk/.test(n))return profile(["Bröst",65],["Triceps",20],["Axlar",15]);
+ if(/axelpress|militärpress|arnold/.test(n))return profile(["Axlar",65],["Triceps",25],["Bröst",10]);
+ if(/sidolyft|kabellyft|omvänd pec|reverse fly|omvända flyes|face pull/.test(n))return profile(["Axlar",80],["Rygg",20]);
+ if(/latsdrag|pull-up|chins|rodd|t-bar|seal row|pullover|pulldown/.test(n))return profile(["Rygg",70],["Biceps",25],["Axlar",5]);
+ if(/knäböj|utfall/.test(n))return profile(["Framsida lår",45],["Säte",35],["Baksida lår",10],["Mage/bål",10]);
+ if(/rumänska|raka marklyft|rdl/.test(n))return profile(["Baksida lår",45],["Säte",35],["Rygg",15],["Mage/bål",5]);
+ if(/benspark/.test(n))return profile(["Framsida lår",100]);
+ if(/lårcurl/.test(n))return profile(["Baksida lår",100]);
+ if(/vadpress/.test(n))return profile(["Vader",100]);
+ if(/triceps|pushdown|french press|overhead extension|overhead rope|kickback|smal bänk|close grip/.test(n))return profile(["Triceps",85],["Bröst",10],["Axlar",5]);
+ if(/biceps|curl|preacher|hammer|ez-bar|concentration/.test(n))return profile(["Biceps",85],["Rygg",15]);
+ if(/crunch|ab wheel|benlyft|russian twist/.test(n))return profile(["Mage/bål",100]);
+ const map={Ben:"Framsida lår",Armar:"Biceps",Mage:"Mage/bål"};
+ return profile([map[legacyMuscle]||legacyMuscle||"Övrigt",100]);
+}
+function normalizeExercise(ex){
+ const muscles=Array.isArray(ex?.muscles)&&ex.muscles.length?ex.muscles:inferredMuscles(ex?.name,ex?.muscle);
+ const cleaned=muscles.map(x=>({muscle:String(x.muscle||"Övrigt"),percent:Math.max(0,Number(x.percent||0))})).filter(x=>x.percent>0);
+ const total=cleaned.reduce((sum,x)=>sum+x.percent,0)||100;
+ const normalized=cleaned.map((x,i)=>({...x,percent:i===cleaned.length-1?100-cleaned.slice(0,-1).reduce((sum,y)=>sum+Math.round(y.percent/total*100),0):Math.round(x.percent/total*100)}));
+ return {...ex,muscle:normalized[0]?.muscle||"Övrigt",muscles:normalized};
+}
+DB.exercises=DB.exercises.map(normalizeExercise);
+
 const KEY="minTraningStateV95";
 const OLD_KEYS=["minTraningStateV941","minTraningStateV94","minTraningStateV932","minTraningStateV93","minTraningStateV92","minTraningStateV8"];
-const defaults={version:"9.6.3",workouts:[],settings:{rounding:"2.5",increasePercent:"5",restSeconds:"90",soundEnabled:true,recoveryDays:"4"},selectedProgramId:null,dayIndex:0,active:null,customExercises:[],customPrograms:[],editing:null};
+const defaults={version:"9.6.4",workouts:[],settings:{rounding:"2.5",increasePercent:"5",restSeconds:"90",soundEnabled:true,recoveryDays:"4"},selectedProgramId:null,dayIndex:0,active:null,customExercises:[],customPrograms:[],editing:null};
 
 const byId=id=>document.getElementById(id);
 const todayTitle=byId("todayTitle"), todaySub=byId("todaySub"), todayExercises=byId("todayExercises");
@@ -17,7 +46,7 @@ const setForm=byId("setForm"), weight=byId("weight"), reps=byId("reps"), failure
 const failure=byId("failure"), fillRecommendation=byId("fillRecommendation"), loggedSets=byId("loggedSets");
 const setStatus=byId("setStatus"), restTimer=byId("restTimer"), timerDisplay=byId("timerDisplay"), timerMessage=byId("timerMessage");
 const pauseTimer=byId("pauseTimer"), restartTimer=byId("restartTimer"), skipTimer=byId("skipTimer");
-const exerciseForm=byId("exerciseForm"), exerciseName=byId("exerciseName"), muscle=byId("muscle");
+const exerciseForm=byId("exerciseForm"), exerciseName=byId("exerciseName"), muscle=byId("muscle"), primaryPercent=byId("primaryPercent"), secondaryMuscle=byId("secondaryMuscle"), secondaryPercent=byId("secondaryPercent");
 const exerciseSearch=byId("exerciseSearch"), exerciseList=byId("exerciseList");
 const clearHistory=byId("clearHistory"), historyList=byId("historyList");
 const statsRange=byId("statsRange"), statsPeriodText=byId("statsPeriodText"), statsDashboard=byId("statsDashboard"), recoveryCoach=byId("recoveryCoach"), priorityCoach=byId("priorityCoach"), coachInsights=byId("coachInsights"), exerciseStats=byId("exerciseStats"), muscleStats=byId("muscleStats");
@@ -33,14 +62,14 @@ function load(){
   if(raw){try{return normalize(JSON.parse(raw));}catch{}}
   for(const oldKey of OLD_KEYS){
     const old=localStorage.getItem(oldKey);
-    if(old){try{localStorage.setItem(oldKey+"-backup-"+Date.now(),old);const migrated=normalize({...defaults,...JSON.parse(old),version:"9.6.3"});localStorage.setItem(KEY,JSON.stringify(migrated));return migrated;}catch{}}
+    if(old){try{localStorage.setItem(oldKey+"-backup-"+Date.now(),old);const migrated=normalize({...defaults,...JSON.parse(old),version:"9.6.4"});localStorage.setItem(KEY,JSON.stringify(migrated));return migrated;}catch{}}
   }
   return clone(defaults);
 }
 function normalize(s){return {...clone(defaults),...s,settings:{...defaults.settings,...(s.settings||{})},customPrograms:Array.isArray(s.customPrograms)?s.customPrograms:[],customExercises:Array.isArray(s.customExercises)?s.customExercises:[],workouts:Array.isArray(s.workouts)?s.workouts:[]};}
 function save(s){localStorage.setItem(KEY,JSON.stringify(normalize(s)));}
 function state(){return load();}
-function allExercises(){const s=state();return [...DB.exercises,...s.customExercises];}
+function allExercises(){const s=state();return [...DB.exercises,...s.customExercises.map(normalizeExercise)];}
 function allPrograms(){const s=state();const built=DB.programs.filter(p=>!s.customPrograms.some(c=>c.id===p.id));return [...built,...s.customPrograms];}
 function findProgram(id){return allPrograms().find(p=>p.id===id);}
 function currentDay(s=state()){const p=findProgram(s.selectedProgramId);return p?.days?.[s.dayIndex]||null;}
@@ -87,13 +116,14 @@ function pauseOrResumeTimer(){const t=timerState();if(!t)return;if(t.pausedRemai
 function updateTimerUI(){const t=timerState();if(!t){restTimer.classList.add("hidden");clearTimerInterval();return;}restTimer.classList.remove("hidden");let remaining=t.pausedRemaining!=null?t.pausedRemaining:(t.endAt-Date.now())/1000;remaining=Math.max(0,remaining);timerDisplay.textContent=formatTime(remaining);pauseTimer.textContent=t.pausedRemaining!=null?"Återuppta":"Pausa";const finished=remaining<=0;restTimer.classList.toggle("finished",finished);timerMessage.textContent=finished?"Vilan är klar – nästa set!":(t.pausedRemaining!=null?"Timern är pausad":"Vila inför nästa set");if(finished&&!t.finishedNotified){t.finishedNotified=true;saveTimer(t);beep();clearTimerInterval();}}
 function renderWorkout(){const s=state(),p=findProgram(s.selectedProgramId),d=currentDay(s);workoutInfo.innerHTML=p?`Valt upplägg: <b>${escapeHtml(p.name)}</b> • ${escapeHtml(d?.name||"")}`:"Inget upplägg valt";if(!s.active){runner.classList.add("hidden");return;}runner.classList.remove("hidden");const w=s.active,e=w.exercises[w.currentExerciseIndex];if(!e){runner.classList.add("hidden");return;}exerciseTitle.textContent=e.exercise;exerciseStep.textContent=`Övning ${w.currentExerciseIndex+1} av ${w.exercises.length}`;const last=lastExerciseResult(e.exercise),rec=recommendation(e.exercise);lastResult.innerHTML=last?resultTable(last.sets):"Ingen tidigare loggning";recommended.innerHTML=rec?resultTable(rec.sets,true):"Ingen rekommendation ännu";recommended.closest(".panel").classList.toggle("recommendedFocus",Boolean(rec));coach.textContent=rec?(rec.change>0?"Vikten höjs.":rec.change<0?"Vikten sänks.":"Vikten behålls."):"Logga ett pass för att få rekommendation.";const idx=w.currentSetIndex;setStatus.textContent=`Set ${idx+1} av 3${idx===2?" – failure-set":""}`;setStatus.classList.toggle("failureMode",idx===2);failureLabel.classList.toggle("hidden",idx!==2);failure.checked=Boolean(e.failure&&idx===2);weight.value=e.sets[idx].weight||"";reps.value=e.sets[idx].reps||"";loggedSets.innerHTML=e.sets.map((x,i)=>x.weight?`<div>Set ${i+1}: ${x.weight} kg × ${x.reps}</div>`:"").join("");}
 function saveSet(e){e.preventDefault();const s=state(),w=s.active;if(!w)return;const item=w.exercises[w.currentExerciseIndex],idx=w.currentSetIndex;item.sets[idx]={weight:Number(weight.value),reps:Number(reps.value)};let completed=false;if(idx===2){item.failure=failure.checked;w.currentExerciseIndex++;w.currentSetIndex=0;if(w.currentExerciseIndex>=w.exercises.length){s.workouts.unshift({programName:w.programName,dayName:w.dayName,createdAt:new Date().toISOString(),exercises:w.exercises});s.active=null;s.restTimer=null;completed=true;const p=findProgram(s.selectedProgramId);if(p)s.dayIndex=(s.dayIndex+1)%p.days.length;}}else w.currentSetIndex++;save(s);if(!completed)startRestTimer();else stopRestTimer();render();}
-function renderLibrary(){const q=exerciseSearch.value.toLowerCase();exerciseList.innerHTML=allExercises().filter(e=>e.name.toLowerCase().includes(q)).map(e=>`<div class="exercise"><b>${escapeHtml(e.name)}</b><br>${escapeHtml(e.muscle)}</div>`).join("");}
+function renderLibrary(){const q=exerciseSearch.value.toLowerCase();exerciseList.innerHTML=allExercises().filter(e=>e.name.toLowerCase().includes(q)).map(e=>`<div class="exercise"><b>${escapeHtml(e.name)}</b><div class="muscleChips">${e.muscles.map(x=>`<span>${escapeHtml(x.muscle)} ${x.percent}%</span>`).join("")}</div></div>`).join("");}
 function renderHistory(){const s=state();historyList.innerHTML=s.workouts.map(w=>`<div class="program"><b>${escapeHtml(w.dayName)}</b><br>${new Date(w.createdAt).toLocaleString("sv-SE")}<ul>${w.exercises.map(e=>`<li>${escapeHtml(e.exercise)}: ${e.sets.map((x,i)=>`set ${i+1} ${x.weight||0}×${x.reps||0}`).join(", ")}</li>`).join("")}</ul></div>`).join("")||"Ingen historik";}
 function percentChange(oldVal,newVal){return oldVal?((newVal-oldVal)/oldVal)*100:0;}
 function validSets(exercise){return (exercise?.sets||[]).filter(s=>Number.isFinite(Number(s?.weight))&&Number(s?.weight)>=0&&Number.isFinite(Number(s?.reps))&&Number(s?.reps)>0);}
 function setVolume(set){return Number(set?.weight||0)*Number(set?.reps||0);}
 function exerciseNameOf(e){return String(e?.exercise||e?.name||"Okänd övning");}
-function exerciseMuscle(name){return allExercises().find(e=>e.name===name)?.muscle||"Övrigt";}
+function exerciseProfile(name){return normalizeExercise(allExercises().find(e=>e.name===name)||{name,muscle:"Övrigt"}).muscles;}
+function exerciseMuscle(name){return exerciseProfile(name)[0]?.muscle||"Övrigt";}
 function localDayKey(date){const d=new Date(date);return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,"0")}-${String(d.getDate()).padStart(2,"0")}`;}
 function startOfWeek(date){const d=new Date(date);d.setHours(0,0,0,0);const day=(d.getDay()+6)%7;d.setDate(d.getDate()-day);return d;}
 function formatNumber(v,digits=0){return new Intl.NumberFormat("sv-SE",{maximumFractionDigits:digits}).format(Number(v||0));}
@@ -138,7 +168,7 @@ function recoveryStatus(score,hasHistory){
 }
 function buildRecoveryCoach(allHistory){
  if(!recoveryCoach)return;
- const muscleNames=[...new Set(allExercises().map(e=>e.muscle).filter(Boolean).filter(name=>name!=="Övrigt"))];
+ const muscleNames=[...new Set(allExercises().flatMap(e=>e.muscles||[]).map(x=>x.muscle).filter(Boolean).filter(name=>name!=="Övrigt"))];
  const sevenDaysAgo=Date.now()-7*86400000;
  const stats=Object.fromEntries(muscleNames.map(name=>[name,{latestDate:0,sets7:0,volume7:0,sessions7:new Set()}]));
 
@@ -146,14 +176,11 @@ function buildRecoveryCoach(allHistory){
    const date=Date.parse(w?.createdAt);if(!Number.isFinite(date))return;
    const touched=new Set();
    (w.exercises||[]).forEach(e=>{
-     const muscle=exerciseMuscle(exerciseNameOf(e));if(!stats[muscle])return;
      const sets=validSets(e);
-     if(sets.length)stats[muscle].latestDate=Math.max(stats[muscle].latestDate,date);
-     if(date>=sevenDaysAgo&&sets.length){
-       stats[muscle].sets7+=sets.length;
-       stats[muscle].volume7+=sets.reduce((sum,set)=>sum+setVolume(set),0);
-       touched.add(muscle);
-     }
+     exerciseProfile(exerciseNameOf(e)).forEach(({muscle,percent})=>{if(!stats[muscle])return;const factor=percent/100;
+       if(sets.length)stats[muscle].latestDate=Math.max(stats[muscle].latestDate,date);
+       if(date>=sevenDaysAgo&&sets.length){stats[muscle].sets7+=sets.length*factor;stats[muscle].volume7+=sets.reduce((sum,set)=>sum+setVolume(set),0)*factor;touched.add(muscle);}
+     });
    });
    touched.forEach(muscle=>stats[muscle].sessions7.add(workoutIndex));
  });
@@ -188,7 +215,7 @@ function buildRecoveryCoach(allHistory){
  let recommendedDay=null;
  if(program?.days?.length&&recommendedMuscle){
    recommendedDay=program.days.map((day,index)=>{
-     const muscles=[...new Set((day.exercises||[]).map(exerciseMuscle))];
+     const muscles=[...new Set((day.exercises||[]).flatMap(name=>exerciseProfile(name).map(x=>x.muscle)))];
      const score=muscles.reduce((sum,muscle)=>{
        const item=recovery.find(x=>x.name===muscle);
        return sum+(item?.score||0);
@@ -232,17 +259,15 @@ function buildRecoveryCoach(allHistory){
 }
 
 function buildPriorityCoach(periodWorkouts,allHistory){
- const muscleNames=[...new Set(allExercises().map(e=>e.muscle).filter(Boolean).filter(name=>name!=="Övrigt"))];
+ const muscleNames=[...new Set(allExercises().flatMap(e=>e.muscles||[]).map(x=>x.muscle).filter(Boolean).filter(name=>name!=="Övrigt"))];
  const periodStats=Object.fromEntries(muscleNames.map(name=>[name,{sets:0,workouts:new Set(),latestDate:0}]));
  const historyLatest=Object.fromEntries(muscleNames.map(name=>[name,0]));
  const addWorkout=(w,index,isPeriod)=>{
    const date=Date.parse(w?.createdAt);if(!Number.isFinite(date))return;
    const touched=new Set();
    (w.exercises||[]).forEach(e=>{
-     const muscle=exerciseMuscle(exerciseNameOf(e));if(!periodStats[muscle])return;
      const sets=validSets(e).length;
-     historyLatest[muscle]=Math.max(historyLatest[muscle]||0,date);
-     if(isPeriod&&sets){periodStats[muscle].sets+=sets;touched.add(muscle);}
+     exerciseProfile(exerciseNameOf(e)).forEach(({muscle,percent})=>{if(!periodStats[muscle])return;const factor=percent/100;historyLatest[muscle]=Math.max(historyLatest[muscle]||0,date);if(isPeriod&&sets){periodStats[muscle].sets+=sets*factor;touched.add(muscle);}});
    });
    if(isPeriod)touched.forEach(muscle=>periodStats[muscle].workouts.add(index));
  };
@@ -280,7 +305,7 @@ function buildPriorityCoach(periodWorkouts,allHistory){
  let recommendedDay=null;
  if(program?.days?.length){
    recommendedDay=program.days.map((day,index)=>{
-     const muscles=[...new Set((day.exercises||[]).map(exerciseMuscle))];
+     const muscles=[...new Set((day.exercises||[]).flatMap(name=>exerciseProfile(name).map(x=>x.muscle)))];
      const score=muscles.reduce((sum,muscle)=>{
        const rank=top.findIndex(item=>item.name===muscle);
        return sum+(rank===0?100:rank===1?65:rank===2?40:0);
@@ -348,8 +373,7 @@ function renderStats(){
      sets.forEach(s=>{ex.maxWeight=Math.max(ex.maxWeight,Number(s.weight||0));});
      const working=[...sets].reverse().find(x=>Number(x.weight)>0);
      if(working){const t=date.getTime(),weight=Number(working.weight);if(ex.firstDate===null||t<ex.firstDate){ex.firstDate=t;ex.firstWeight=weight;}if(ex.lastDate===null||t>ex.lastDate){ex.lastDate=t;ex.lastWeight=weight;}}
-     const m=muscleMap[muscle]||(muscleMap[muscle]={name:muscle,workouts:new Set(),sets:0,latestDate:0,exercises:new Set()});
-     m.workouts.add(`${dayKey}-${workoutIndex}`);m.sets+=sets.length;m.latestDate=Math.max(m.latestDate,date.getTime());m.exercises.add(name);
+     exerciseProfile(name).forEach(({muscle,percent})=>{const factor=percent/100;const m=muscleMap[muscle]||(muscleMap[muscle]={name:muscle,workouts:new Set(),sets:0,latestDate:0,exercises:new Set()});m.workouts.add(`${dayKey}-${workoutIndex}`);m.sets+=sets.length*factor;m.latestDate=Math.max(m.latestDate,date.getTime());m.exercises.add(name);});
    });
  });
  const exercises=Object.values(exerciseMap),muscles=Object.values(muscleMap);
@@ -417,7 +441,7 @@ function exportRows(){
  return rows;
 }
 function downloadBlob(blob,filename){const url=URL.createObjectURL(blob),a=document.createElement("a");a.href=url;a.download=filename;a.click();setTimeout(()=>URL.revokeObjectURL(url),0);}
-function exportCsvFile(){const csv='\ufeff'+exportRows().map(row=>row.map(csvCell).join(';')).join('\r\n');downloadBlob(new Blob([csv],{type:'text/csv;charset=utf-8'}),'min-traning-v9.6.3-historik.csv');}
+function exportCsvFile(){const csv='\ufeff'+exportRows().map(row=>row.map(csvCell).join(';')).join('\r\n');downloadBlob(new Blob([csv],{type:'text/csv;charset=utf-8'}),'min-traning-v9.6.4-historik.csv');}
 function crc32(bytes){let c=-1;for(const b of bytes){c^=b;for(let k=0;k<8;k++)c=(c>>>1)^((c&1)?0xedb88320:0);}return (c^-1)>>>0;}
 function u16(n){return [n&255,(n>>>8)&255];}function u32(n){return [n&255,(n>>>8)&255,(n>>>16)&255,(n>>>24)&255];}
 function zipStore(files){
@@ -432,7 +456,7 @@ function exportExcelFile(){
  workouts.forEach(w=>(w.exercises||[]).forEach(e=>{const m=exerciseMuscle(exerciseNameOf(e));const sets=validSets(e);muscle[m]=(muscle[m]||0)+sets.length;volume+=sets.reduce((s,x)=>s+setVolume(x),0);}));
  const stats=[["Nyckeltal","Värde"],["Totalt antal pass",workouts.length],["Total träningsvolym",volume],["" ,""],["Muskelgrupp","Antal set"],...Object.entries(muscle).sort((a,b)=>b[1]-a[1])];
  const files={'[Content_Types].xml':'<?xml version="1.0" encoding="UTF-8"?><Types xmlns="http://schemas.openxmlformats.org/package/2006/content-types"><Default Extension="rels" ContentType="application/vnd.openxmlformats-package.relationships+xml"/><Default Extension="xml" ContentType="application/xml"/><Override PartName="/xl/workbook.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet.main+xml"/><Override PartName="/xl/worksheets/sheet1.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.worksheet+xml"/><Override PartName="/xl/worksheets/sheet2.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.worksheet+xml"/></Types>','_rels/.rels':'<?xml version="1.0" encoding="UTF-8"?><Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships"><Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/officeDocument" Target="xl/workbook.xml"/></Relationships>','xl/workbook.xml':'<?xml version="1.0" encoding="UTF-8"?><workbook xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main" xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships"><sheets><sheet name="Historik" sheetId="1" r:id="rId1"/><sheet name="Statistik" sheetId="2" r:id="rId2"/></sheets></workbook>','xl/_rels/workbook.xml.rels':'<?xml version="1.0" encoding="UTF-8"?><Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships"><Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/worksheet" Target="worksheets/sheet1.xml"/><Relationship Id="rId2" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/worksheet" Target="worksheets/sheet2.xml"/></Relationships>','xl/worksheets/sheet1.xml':sheetXml(history),'xl/worksheets/sheet2.xml':sheetXml(stats)};
- downloadBlob(zipStore(files),'min-traning-v9.6.3-export.xlsx');
+ downloadBlob(zipStore(files),'min-traning-v9.6.4-export.xlsx');
 }
 
 function render(){renderHome();renderPrograms();renderWorkout();renderLibrary();renderHistory();renderCalendar();renderStats();const s=state();rounding.value=s.settings.rounding;increasePercent.value=s.settings.increasePercent;restSeconds.value=s.settings.restSeconds;soundEnabled.checked=Boolean(s.settings.soundEnabled);recoveryDays.value=String(s.settings.recoveryDays||"4");updateTimerUI();}
@@ -446,7 +470,7 @@ setForm.addEventListener("pointerdown",unlockAudio,{once:false});
 setForm.onsubmit=saveSet;
 fillRecommendation.onclick=()=>{const s=state(),w=s.active;if(!w)return;const item=w.exercises[w.currentExerciseIndex],r=recommendation(item.exercise);if(!r)return;const idx=w.currentSetIndex;weight.value=r.sets[idx].weight;reps.value=idx===0?12:idx===1?10:6;};
 exerciseSearch.oninput=renderLibrary;
-exerciseForm.onsubmit=e=>{e.preventDefault();const name=exerciseName.value.trim();if(!name)return;const s=state();if(allExercises().some(x=>x.name.toLowerCase()===name.toLowerCase())){alert("Övningen finns redan.");return;}s.customExercises.push({name,muscle:muscle.value});save(s);e.target.reset();render();};
+exerciseForm.onsubmit=e=>{e.preventDefault();const name=exerciseName.value.trim();if(!name)return;const s=state();if(allExercises().some(x=>x.name.toLowerCase()===name.toLowerCase())){alert("Övningen finns redan.");return;}const p1=Number(primaryPercent.value),p2=Number(secondaryPercent.value||0);if(p1+p2!==100){alert("Muskelpåverkan måste tillsammans bli 100 %.");return;}const muscles=[{muscle:muscle.value,percent:p1}];if(p2>0&&secondaryMuscle.value)muscles.push({muscle:secondaryMuscle.value,percent:p2});s.customExercises.push(normalizeExercise({name,muscle:muscle.value,muscles}));save(s);e.target.reset();render();};
 clearHistory.onclick=()=>{if(confirm("Rensa hela träningshistoriken?")){const s=state();s.workouts=[];save(s);render();}};
 statsRange.onchange=renderStats;
 rounding.onchange=()=>{const s=state();s.settings.rounding=rounding.value;save(s);};
@@ -463,7 +487,7 @@ skipTimer.onclick=stopRestTimer;
 restSeconds.onchange=()=>{const s=state();s.settings.restSeconds=restSeconds.value;save(s);};
 soundEnabled.onchange=()=>{const s=state();s.settings.soundEnabled=soundEnabled.checked;save(s);unlockAudio();};
 testSound.onclick=()=>{unlockAudio();beep(true);};
-exportData.onclick=()=>{const blob=new Blob([JSON.stringify(state(),null,2)],{type:"application/json"}),url=URL.createObjectURL(blob),a=document.createElement("a");a.href=url;a.download="min-traning-v9.6.3-backup.json";a.click();URL.revokeObjectURL(url);};
+exportData.onclick=()=>{const blob=new Blob([JSON.stringify(state(),null,2)],{type:"application/json"}),url=URL.createObjectURL(blob),a=document.createElement("a");a.href=url;a.download="min-traning-v9.6.4-backup.json";a.click();URL.revokeObjectURL(url);};
 importData.onchange=e=>{const file=e.target.files[0];if(!file)return;const reader=new FileReader();reader.onload=()=>{try{const parsed=JSON.parse(reader.result);if(!Array.isArray(parsed.workouts)||!parsed.settings)throw new Error();localStorage.setItem(KEY+"-backup-"+Date.now(),JSON.stringify(state()));save(normalize(parsed));settingsMessage.textContent="Importen lyckades.";render();}catch{settingsMessage.textContent="Filen är inte en giltig Min Träning-backup.";}};reader.readAsText(file);};
 render();
 if(timerState()&&timerState().pausedRemaining==null)timerInterval=setInterval(updateTimerUI,250);
