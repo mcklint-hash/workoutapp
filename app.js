@@ -31,7 +31,7 @@ DB.exercises=DB.exercises.map(normalizeExercise);
 
 const KEY="minTraningStateV95";
 const OLD_KEYS=["minTraningStateV941","minTraningStateV94","minTraningStateV932","minTraningStateV93","minTraningStateV92","minTraningStateV8"];
-const defaults={version:"9.6.4",workouts:[],settings:{rounding:"2.5",increasePercent:"5",restSeconds:"90",soundEnabled:true,recoveryDays:"4"},selectedProgramId:null,dayIndex:0,active:null,customExercises:[],customPrograms:[],editing:null};
+const defaults={version:"9.6.4a",workouts:[],settings:{rounding:"2.5",increasePercent:"5",restSeconds:"90",soundEnabled:true,recoveryDays:"4"},selectedProgramId:null,dayIndex:0,active:null,customExercises:[],customPrograms:[],editing:null};
 
 const byId=id=>document.getElementById(id);
 const todayTitle=byId("todayTitle"), todaySub=byId("todaySub"), todayExercises=byId("todayExercises");
@@ -62,7 +62,7 @@ function load(){
   if(raw){try{return normalize(JSON.parse(raw));}catch{}}
   for(const oldKey of OLD_KEYS){
     const old=localStorage.getItem(oldKey);
-    if(old){try{localStorage.setItem(oldKey+"-backup-"+Date.now(),old);const migrated=normalize({...defaults,...JSON.parse(old),version:"9.6.4"});localStorage.setItem(KEY,JSON.stringify(migrated));return migrated;}catch{}}
+    if(old){try{localStorage.setItem(oldKey+"-backup-"+Date.now(),old);const migrated=normalize({...defaults,...JSON.parse(old),version:"9.6.4a"});localStorage.setItem(KEY,JSON.stringify(migrated));return migrated;}catch{}}
   }
   return clone(defaults);
 }
@@ -441,7 +441,7 @@ function exportRows(){
  return rows;
 }
 function downloadBlob(blob,filename){const url=URL.createObjectURL(blob),a=document.createElement("a");a.href=url;a.download=filename;a.click();setTimeout(()=>URL.revokeObjectURL(url),0);}
-function exportCsvFile(){const csv='\ufeff'+exportRows().map(row=>row.map(csvCell).join(';')).join('\r\n');downloadBlob(new Blob([csv],{type:'text/csv;charset=utf-8'}),'min-traning-v9.6.4-historik.csv');}
+function exportCsvFile(){const csv='\ufeff'+exportRows().map(row=>row.map(csvCell).join(';')).join('\r\n');downloadBlob(new Blob([csv],{type:'text/csv;charset=utf-8'}),'min-traning-v9.6.4a-historik.csv');}
 function crc32(bytes){let c=-1;for(const b of bytes){c^=b;for(let k=0;k<8;k++)c=(c>>>1)^((c&1)?0xedb88320:0);}return (c^-1)>>>0;}
 function u16(n){return [n&255,(n>>>8)&255];}function u32(n){return [n&255,(n>>>8)&255,(n>>>16)&255,(n>>>24)&255];}
 function zipStore(files){
@@ -456,7 +456,7 @@ function exportExcelFile(){
  workouts.forEach(w=>(w.exercises||[]).forEach(e=>{const m=exerciseMuscle(exerciseNameOf(e));const sets=validSets(e);muscle[m]=(muscle[m]||0)+sets.length;volume+=sets.reduce((s,x)=>s+setVolume(x),0);}));
  const stats=[["Nyckeltal","Värde"],["Totalt antal pass",workouts.length],["Total träningsvolym",volume],["" ,""],["Muskelgrupp","Antal set"],...Object.entries(muscle).sort((a,b)=>b[1]-a[1])];
  const files={'[Content_Types].xml':'<?xml version="1.0" encoding="UTF-8"?><Types xmlns="http://schemas.openxmlformats.org/package/2006/content-types"><Default Extension="rels" ContentType="application/vnd.openxmlformats-package.relationships+xml"/><Default Extension="xml" ContentType="application/xml"/><Override PartName="/xl/workbook.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet.main+xml"/><Override PartName="/xl/worksheets/sheet1.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.worksheet+xml"/><Override PartName="/xl/worksheets/sheet2.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.worksheet+xml"/></Types>','_rels/.rels':'<?xml version="1.0" encoding="UTF-8"?><Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships"><Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/officeDocument" Target="xl/workbook.xml"/></Relationships>','xl/workbook.xml':'<?xml version="1.0" encoding="UTF-8"?><workbook xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main" xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships"><sheets><sheet name="Historik" sheetId="1" r:id="rId1"/><sheet name="Statistik" sheetId="2" r:id="rId2"/></sheets></workbook>','xl/_rels/workbook.xml.rels':'<?xml version="1.0" encoding="UTF-8"?><Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships"><Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/worksheet" Target="worksheets/sheet1.xml"/><Relationship Id="rId2" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/worksheet" Target="worksheets/sheet2.xml"/></Relationships>','xl/worksheets/sheet1.xml':sheetXml(history),'xl/worksheets/sheet2.xml':sheetXml(stats)};
- downloadBlob(zipStore(files),'min-traning-v9.6.4-export.xlsx');
+ downloadBlob(zipStore(files),'min-traning-v9.6.4a-export.xlsx');
 }
 
 function render(){renderHome();renderPrograms();renderWorkout();renderLibrary();renderHistory();renderCalendar();renderStats();const s=state();rounding.value=s.settings.rounding;increasePercent.value=s.settings.increasePercent;restSeconds.value=s.settings.restSeconds;soundEnabled.checked=Boolean(s.settings.soundEnabled);recoveryDays.value=String(s.settings.recoveryDays||"4");updateTimerUI();}
@@ -487,7 +487,7 @@ skipTimer.onclick=stopRestTimer;
 restSeconds.onchange=()=>{const s=state();s.settings.restSeconds=restSeconds.value;save(s);};
 soundEnabled.onchange=()=>{const s=state();s.settings.soundEnabled=soundEnabled.checked;save(s);unlockAudio();};
 testSound.onclick=()=>{unlockAudio();beep(true);};
-exportData.onclick=()=>{const blob=new Blob([JSON.stringify(state(),null,2)],{type:"application/json"}),url=URL.createObjectURL(blob),a=document.createElement("a");a.href=url;a.download="min-traning-v9.6.4-backup.json";a.click();URL.revokeObjectURL(url);};
+exportData.onclick=()=>{const blob=new Blob([JSON.stringify(state(),null,2)],{type:"application/json"}),url=URL.createObjectURL(blob),a=document.createElement("a");a.href=url;a.download="min-traning-v9.6.4a-backup.json";a.click();URL.revokeObjectURL(url);};
 importData.onchange=e=>{const file=e.target.files[0];if(!file)return;const reader=new FileReader();reader.onload=()=>{try{const parsed=JSON.parse(reader.result);if(!Array.isArray(parsed.workouts)||!parsed.settings)throw new Error();localStorage.setItem(KEY+"-backup-"+Date.now(),JSON.stringify(state()));save(normalize(parsed));settingsMessage.textContent="Importen lyckades.";render();}catch{settingsMessage.textContent="Filen är inte en giltig Min Träning-backup.";}};reader.readAsText(file);};
 render();
 if(timerState()&&timerState().pausedRemaining==null)timerInterval=setInterval(updateTimerUI,250);

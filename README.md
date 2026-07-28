@@ -1,8 +1,8 @@
-# Min Träning v9.6.4
+# Min Träning v9.6.4a
 
-Version 9.6.4 fokuserar på full mobilanpassning och en smartare övningsbank med procentuell muskelpåverkan.
+Version 9.6.4a fokuserar på full mobilanpassning och en smartare övningsbank med procentuell muskelpåverkan.
 
-## Nytt i v9.6.4
+## Nytt i v9.6.4a
 
 ### Mobilanpassning
 
