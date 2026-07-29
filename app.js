@@ -31,7 +31,7 @@ DB.exercises=DB.exercises.map(normalizeExercise);
 
 const KEY="minTraningStateV95";
 const OLD_KEYS=["minTraningStateV941","minTraningStateV94","minTraningStateV932","minTraningStateV93","minTraningStateV92","minTraningStateV8"];
-const defaults={version:"9.6.4a",workouts:[],settings:{rounding:"2.5",increasePercent:"5",restSeconds:"90",soundEnabled:true,recoveryDays:"4"},selectedProgramId:null,dayIndex:0,active:null,customExercises:[],customPrograms:[],editing:null};
+const defaults={version:"9.6.5a",workouts:[],settings:{rounding:"2.5",increasePercent:"5",restSeconds:"90",soundEnabled:true,recoveryDays:"4"},selectedProgramId:null,dayIndex:0,active:null,customExercises:[],customPrograms:[],editing:null};
 
 const byId=id=>document.getElementById(id);
 const todayTitle=byId("todayTitle"), todaySub=byId("todaySub"), todayExercises=byId("todayExercises");
@@ -49,7 +49,7 @@ const pauseTimer=byId("pauseTimer"), restartTimer=byId("restartTimer"), skipTime
 const exerciseForm=byId("exerciseForm"), exerciseName=byId("exerciseName"), muscle=byId("muscle"), primaryPercent=byId("primaryPercent"), secondaryMuscle=byId("secondaryMuscle"), secondaryPercent=byId("secondaryPercent");
 const exerciseSearch=byId("exerciseSearch"), exerciseList=byId("exerciseList");
 const clearHistory=byId("clearHistory"), historyList=byId("historyList");
-const statsRange=byId("statsRange"), statsPeriodText=byId("statsPeriodText"), statsDashboard=byId("statsDashboard"), recoveryCoach=byId("recoveryCoach"), priorityCoach=byId("priorityCoach"), coachInsights=byId("coachInsights"), exerciseStats=byId("exerciseStats"), muscleStats=byId("muscleStats");
+const statsRange=byId("statsRange"), statsPeriodText=byId("statsPeriodText"), recoveryCoach=byId("recoveryCoach"), priorityCoach=byId("priorityCoach"), coachInsights=byId("coachInsights"), exerciseStats=byId("exerciseStats"), muscleStats=byId("muscleStats");
 const rounding=byId("rounding"), increasePercent=byId("increasePercent");
 const exportData=byId("exportData"), importData=byId("importData"), settingsMessage=byId("settingsMessage");
 const restSeconds=byId("restSeconds"), soundEnabled=byId("soundEnabled"), testSound=byId("testSound"), recoveryDays=byId("recoveryDays");
@@ -62,7 +62,7 @@ function load(){
   if(raw){try{return normalize(JSON.parse(raw));}catch{}}
   for(const oldKey of OLD_KEYS){
     const old=localStorage.getItem(oldKey);
-    if(old){try{localStorage.setItem(oldKey+"-backup-"+Date.now(),old);const migrated=normalize({...defaults,...JSON.parse(old),version:"9.6.4a"});localStorage.setItem(KEY,JSON.stringify(migrated));return migrated;}catch{}}
+    if(old){try{localStorage.setItem(oldKey+"-backup-"+Date.now(),old);const migrated=normalize({...defaults,...JSON.parse(old),version:"9.6.5a"});localStorage.setItem(KEY,JSON.stringify(migrated));return migrated;}catch{}}
   }
   return clone(defaults);
 }
@@ -82,7 +82,7 @@ function lastExerciseResult(name){for(const w of state().workouts){const found=w
 function recommendation(name){
   const last=lastExerciseResult(name); if(!last)return null;
   const final=last.sets?.[2]; if(!final?.weight||!final?.reps)return null;
-  const settings=state().settings; const minStep=2.5; const pct=Number(settings.increasePercent||5)/100;
+  const settings=state().settings; const minStep=Number(settings.rounding||2.5); const pct=Number(settings.increasePercent||5)/100;
   let target=Number(final.weight);
   if(Number(final.reps)>=7) target=roundWeight(target+Math.max(target*pct,minStep));
   else if(Number(final.reps)<5) target=Math.max(0,roundWeight(target-minStep));
@@ -168,7 +168,8 @@ function recoveryStatus(score,hasHistory){
 }
 function buildRecoveryCoach(allHistory){
  if(!recoveryCoach)return;
- const muscleNames=[...new Set(allExercises().flatMap(e=>e.muscles||[]).map(x=>x.muscle).filter(Boolean).filter(name=>name!=="Övrigt"))];
+ const excludedMuscles=new Set(["Övrigt","Säte"]);
+ const muscleNames=[...new Set(allExercises().flatMap(e=>e.muscles||[]).map(x=>x.muscle).filter(Boolean).filter(name=>!excludedMuscles.has(name)))];
  const sevenDaysAgo=Date.now()-7*86400000;
  const stats=Object.fromEntries(muscleNames.map(name=>[name,{latestDate:0,sets7:0,volume7:0,sessions7:new Set()}]));
 
@@ -177,9 +178,15 @@ function buildRecoveryCoach(allHistory){
    const touched=new Set();
    (w.exercises||[]).forEach(e=>{
      const sets=validSets(e);
-     exerciseProfile(exerciseNameOf(e)).forEach(({muscle,percent})=>{if(!stats[muscle])return;const factor=percent/100;
+     exerciseProfile(exerciseNameOf(e)).forEach(({muscle,percent})=>{
+       if(!stats[muscle])return;
+       const factor=percent/100;
        if(sets.length)stats[muscle].latestDate=Math.max(stats[muscle].latestDate,date);
-       if(date>=sevenDaysAgo&&sets.length){stats[muscle].sets7+=sets.length*factor;stats[muscle].volume7+=sets.reduce((sum,set)=>sum+setVolume(set),0)*factor;touched.add(muscle);}
+       if(date>=sevenDaysAgo&&sets.length){
+         stats[muscle].sets7+=sets.length*factor;
+         stats[muscle].volume7+=sets.reduce((sum,set)=>sum+setVolume(set),0)*factor;
+         touched.add(muscle);
+       }
      });
    });
    touched.forEach(muscle=>stats[muscle].sessions7.add(workoutIndex));
@@ -210,28 +217,44 @@ function buildRecoveryCoach(allHistory){
    return {name,score,status,days,hasHistory,latestDate:data.latestDate,sets7:data.sets7,volume7:data.volume7,sessions7:data.sessions7.size,loadLabel,loadClass};
  }).sort((a,b)=>b.score-a.score||(b.days??999)-(a.days??999));
 
- const recommendedMuscle=recovery[0];
+ const topRecovered=recovery.slice(0,3);
+ const recommendedMuscle=topRecovered[0];
  const program=findProgram(state().selectedProgramId);
  let recommendedDay=null;
  if(program?.days?.length&&recommendedMuscle){
    recommendedDay=program.days.map((day,index)=>{
-     const muscles=[...new Set((day.exercises||[]).flatMap(name=>exerciseProfile(name).map(x=>x.muscle)))];
-     const score=muscles.reduce((sum,muscle)=>{
+     const weightedMuscles=(day.exercises||[]).flatMap(name=>exerciseProfile(name)).filter(x=>!excludedMuscles.has(x.muscle));
+     const totalWeight=weightedMuscles.reduce((sum,x)=>sum+x.percent,0)||1;
+     const score=weightedMuscles.reduce((sum,{muscle,percent})=>{
        const item=recovery.find(x=>x.name===muscle);
-       return sum+(item?.score||0);
-     },0)/(muscles.length||1);
-     const containsTop=muscles.includes(recommendedMuscle.name);
-     return {index,name:day.name,muscles,score:score+(containsTop?30:0)};
+       return sum+(item?.score||0)*percent;
+     },0)/totalWeight;
+     const primaryShare=weightedMuscles.filter(x=>x.muscle===recommendedMuscle.name).reduce((sum,x)=>sum+x.percent,0);
+     return {index,name:day.name,exercises:day.exercises,score:score+primaryShare*.5};
    }).sort((a,b)=>b.score-a.score)[0];
  }
 
+ const exerciseSuggestions=recommendedMuscle
+   ?allExercises()
+      .map(ex=>({name:ex.name,share:(ex.muscles||[]).filter(x=>x.muscle===recommendedMuscle.name).reduce((sum,x)=>sum+x.percent,0)}))
+      .filter(x=>x.share>0)
+      .sort((a,b)=>b.share-a.share||a.name.localeCompare(b.name,"sv"))
+      .slice(0,4)
+   :[];
+
+ const whyText=recommendedMuscle
+   ?(!recommendedMuscle.hasHistory
+      ?`${recommendedMuscle.name} saknar tidigare loggad träning och får därför högst återhämtningspoäng.`
+      :`${recommendedMuscle.name} har ${recommendedMuscle.score}% återhämtning, tränades ${daysAgoText(recommendedMuscle.latestDate).toLowerCase()} och har ${recommendedMuscle.loadLabel.toLowerCase()} senaste sju dagarna.`)
+   :"Logga träningspass för att få en personlig rekommendation.";
+
  const recommendationHtml=recommendedMuscle?`<section class="recoveryRecommendation">
-   <div>
-     <small>DAGENS REKOMMENDATION</small>
+   <div class="recoveryRecommendationMain">
+     <small>DAGENS MUSKELGRUPP</small>
      <h4>${escapeHtml(recommendedMuscle.name)}</h4>
-     <p>${recommendedMuscle.hasHistory?`Senast tränad: ${daysAgoText(recommendedMuscle.latestDate)}.`:"Ingen tidigare träning registrerad."}
-     Recovery ${recommendedMuscle.score}% · ${escapeHtml(recommendedMuscle.loadLabel.toLowerCase())} senaste 7 dagarna.</p>
-     ${recommendedDay?`<div class="recoveryWorkout">Pass som passar: <b>${escapeHtml(recommendedDay.name)}</b></div>`:""}
+     <p>${escapeHtml(whyText)}</p>
+     ${recommendedDay?`<div class="recoveryWorkout">Bäst matchande pass: <b>${escapeHtml(recommendedDay.name)}</b></div>`:""}
+     ${!recommendedDay&&exerciseSuggestions.length?`<div class="recoveryExercises"><b>Föreslagna övningar</b><span>${exerciseSuggestions.map(x=>escapeHtml(x.name)).join(" · ")}</span></div>`:""}
    </div>
    <div class="recoveryRing" style="--recovery:${recommendedMuscle.score}">
      <strong>${recommendedMuscle.score}%</strong><span>recovery</span>
@@ -239,27 +262,34 @@ function buildRecoveryCoach(allHistory){
    ${recommendedDay?`<button type="button" id="chooseRecoveryWorkout" data-day-index="${recommendedDay.index}">Välj passet</button>`:""}
  </section>`:"";
 
- const cards=recovery.map(item=>`<article class="recoveryCard">
+ const cards=topRecovered.map((item,index)=>`<article class="recoveryCard">
    <div class="recoveryCardTop">
-     <div><b>${escapeHtml(item.name)}</b><span>${item.hasHistory?daysAgoText(item.latestDate):"Ingen historik"}</span></div>
+     <div><small class="recoveryRank">#${index+1}</small><b>${escapeHtml(item.name)}</b><span>${item.hasHistory?daysAgoText(item.latestDate):"Ingen historik"}</span></div>
      <span class="recoveryStatus ${item.status.className}">${item.status.icon} ${item.status.label}</span>
    </div>
    <div class="recoveryMeter"><div style="width:${item.score}%"></div></div>
    <div class="recoveryScoreRow"><strong>${item.score}%</strong><span class="${item.loadClass}">${escapeHtml(item.loadLabel)}</span></div>
-   <div class="recoveryFacts"><span>${item.sets7} set / 7 dagar</span><span>${item.sessions7} ${item.sessions7===1?"pass":"pass"}</span><span>${formatNumber(item.volume7)} kg-volym</span></div>
+   <div class="recoveryFacts"><span>${formatNumber(item.sets7,1)} set / 7 dagar</span><span>${item.sessions7} pass</span><span>${formatNumber(item.volume7)} kg-volym</span></div>
  </article>`).join("");
 
- recoveryCoach.innerHTML=`${recommendationHtml}<div class="recoveryGrid">${cards}</div>
+ recoveryCoach.innerHTML=`${recommendationHtml}
+ <div class="recoveryTopHeading"><div><small>TOPP 3 ÅTERHÄMTADE</small><h4>Mest redo för träning</h4></div></div>
+ <div class="recoveryGrid recoveryTopGrid">${cards}</div>
  <p class="recoveryNote">Recovery-poängen är en träningsindikator baserad på loggad historik och ersätter inte medicinsk bedömning eller kroppens egna signaler.</p>`;
 
  const button=byId("chooseRecoveryWorkout");
  if(button)button.onclick=()=>{
-   const s=state();s.dayIndex=Number(button.dataset.dayIndex)||0;s.active=null;save(s);render();navigate("home");
+   const s=state();
+   s.dayIndex=Number(button.dataset.dayIndex)||0;
+   s.active=null;
+   save(s);
+   render();
+   navigate("home");
  };
 }
 
 function buildPriorityCoach(periodWorkouts,allHistory){
- const muscleNames=[...new Set(allExercises().flatMap(e=>e.muscles||[]).map(x=>x.muscle).filter(Boolean).filter(name=>name!=="Övrigt"))];
+ const muscleNames=[...new Set(allExercises().flatMap(e=>e.muscles||[]).map(x=>x.muscle).filter(Boolean).filter(name=>name!=="Övrigt"&&name!=="Säte"))];
  const periodStats=Object.fromEntries(muscleNames.map(name=>[name,{sets:0,workouts:new Set(),latestDate:0}]));
  const historyLatest=Object.fromEntries(muscleNames.map(name=>[name,0]));
  const addWorkout=(w,index,isPeriod)=>{
@@ -305,7 +335,7 @@ function buildPriorityCoach(periodWorkouts,allHistory){
  let recommendedDay=null;
  if(program?.days?.length){
    recommendedDay=program.days.map((day,index)=>{
-     const muscles=[...new Set((day.exercises||[]).flatMap(name=>exerciseProfile(name).map(x=>x.muscle)))];
+     const muscles=[...new Set((day.exercises||[]).flatMap(name=>exerciseProfile(name).map(x=>x.muscle)).filter(muscle=>muscle!=="Säte"))];
      const score=muscles.reduce((sum,muscle)=>{
        const rank=top.findIndex(item=>item.name===muscle);
        return sum+(rank===0?100:rank===1?65:rank===2?40:0);
@@ -358,7 +388,6 @@ function renderStats(){
  const range=String(statsRange?.value||"90");
  const periodLabel=range==="all"?"hela träningshistoriken":`de senaste ${range} dagarna`;
  statsPeriodText.textContent=`Visar ${periodLabel}. ${workouts.length} pass hittades.`;
- const now=new Date(),weekStart=startOfWeek(now),monthStart=new Date(now.getFullYear(),now.getMonth(),1);
  const exerciseMap={},muscleMap={};
  let totalSets=0;
  workouts.forEach((w,workoutIndex)=>{
@@ -379,18 +408,9 @@ function renderStats(){
  const exercises=Object.values(exerciseMap),muscles=Object.values(muscleMap);
  const topExercise=[...exercises].sort((a,b)=>b.workoutIds.size-a.workoutIds.size||b.sets-a.sets)[0];
  const topMuscle=[...muscles].sort((a,b)=>b.sets-a.sets)[0];
- const weekCount=allHistory.filter(w=>new Date(w.createdAt)>=weekStart).length;
- const monthCount=allHistory.filter(w=>new Date(w.createdAt)>=monthStart).length;
  const latestWorkout=[...allHistory].sort((a,b)=>Date.parse(b.createdAt)-Date.parse(a.createdAt))[0];
  const streak=weeklyStreak(allHistory);
- statsDashboard.innerHTML=workouts.length?[
-  ["Träningsstreak",`${streak} ${streak===1?"vecka":"veckor"}`,streak?"Minst ett pass per vecka":"Börja med ett pass","🔥"],
-  ["Pass denna vecka",formatNumber(weekCount),weekCount===1?"träningspass":"träningspass","📅"],
-  ["Pass denna månad",formatNumber(monthCount),monthCount===1?"träningspass":"träningspass","🗓️"],
-  ["Mest tränade muskelgrupp",topMuscle?escapeHtml(topMuscle.name):"–",topMuscle?`${topMuscle.sets} set under perioden`:"Ingen data","💪"],
-  ["Mest utförda övning",topExercise?escapeHtml(topExercise.name):"–",topExercise?`${topExercise.workoutIds.size} pass under perioden`:"Ingen data","🏋️"],
-  ["Senaste pass",latestWorkout?daysAgoText(Date.parse(latestWorkout.createdAt)):"–",latestWorkout?escapeHtml(latestWorkout.dayName||latestWorkout.programName||"Träningspass"):"Ingen historik","🕒"]
- ].map(x=>`<article class="statCard"><div class="statIcon">${x[3]}</div><small>${x[0]}</small><strong>${x[1]}</strong><span>${x[2]}</span></article>`).join(""):`<div class="statsEmpty statsEmptyWide"><b>Ingen träningshistorik för vald period.</b><span>Genomför och spara ett pass för att se statistik och coachinsikter.</span></div>`;
+
  buildRecoveryCoach(allHistory);
  buildPriorityCoach(workouts,allHistory);
  const insights=[];
@@ -441,7 +461,7 @@ function exportRows(){
  return rows;
 }
 function downloadBlob(blob,filename){const url=URL.createObjectURL(blob),a=document.createElement("a");a.href=url;a.download=filename;a.click();setTimeout(()=>URL.revokeObjectURL(url),0);}
-function exportCsvFile(){const csv='\ufeff'+exportRows().map(row=>row.map(csvCell).join(';')).join('\r\n');downloadBlob(new Blob([csv],{type:'text/csv;charset=utf-8'}),'min-traning-v9.6.4a-historik.csv');}
+function exportCsvFile(){const csv='\ufeff'+exportRows().map(row=>row.map(csvCell).join(';')).join('\r\n');downloadBlob(new Blob([csv],{type:'text/csv;charset=utf-8'}),'min-traning-v9.6.5a-historik.csv');}
 function crc32(bytes){let c=-1;for(const b of bytes){c^=b;for(let k=0;k<8;k++)c=(c>>>1)^((c&1)?0xedb88320:0);}return (c^-1)>>>0;}
 function u16(n){return [n&255,(n>>>8)&255];}function u32(n){return [n&255,(n>>>8)&255,(n>>>16)&255,(n>>>24)&255];}
 function zipStore(files){
@@ -456,7 +476,7 @@ function exportExcelFile(){
  workouts.forEach(w=>(w.exercises||[]).forEach(e=>{const m=exerciseMuscle(exerciseNameOf(e));const sets=validSets(e);muscle[m]=(muscle[m]||0)+sets.length;volume+=sets.reduce((s,x)=>s+setVolume(x),0);}));
  const stats=[["Nyckeltal","Värde"],["Totalt antal pass",workouts.length],["Total träningsvolym",volume],["" ,""],["Muskelgrupp","Antal set"],...Object.entries(muscle).sort((a,b)=>b[1]-a[1])];
  const files={'[Content_Types].xml':'<?xml version="1.0" encoding="UTF-8"?><Types xmlns="http://schemas.openxmlformats.org/package/2006/content-types"><Default Extension="rels" ContentType="application/vnd.openxmlformats-package.relationships+xml"/><Default Extension="xml" ContentType="application/xml"/><Override PartName="/xl/workbook.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet.main+xml"/><Override PartName="/xl/worksheets/sheet1.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.worksheet+xml"/><Override PartName="/xl/worksheets/sheet2.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.worksheet+xml"/></Types>','_rels/.rels':'<?xml version="1.0" encoding="UTF-8"?><Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships"><Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/officeDocument" Target="xl/workbook.xml"/></Relationships>','xl/workbook.xml':'<?xml version="1.0" encoding="UTF-8"?><workbook xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main" xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships"><sheets><sheet name="Historik" sheetId="1" r:id="rId1"/><sheet name="Statistik" sheetId="2" r:id="rId2"/></sheets></workbook>','xl/_rels/workbook.xml.rels':'<?xml version="1.0" encoding="UTF-8"?><Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships"><Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/worksheet" Target="worksheets/sheet1.xml"/><Relationship Id="rId2" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/worksheet" Target="worksheets/sheet2.xml"/></Relationships>','xl/worksheets/sheet1.xml':sheetXml(history),'xl/worksheets/sheet2.xml':sheetXml(stats)};
- downloadBlob(zipStore(files),'min-traning-v9.6.4a-export.xlsx');
+ downloadBlob(zipStore(files),'min-traning-v9.6.5a-export.xlsx');
 }
 
 function render(){renderHome();renderPrograms();renderWorkout();renderLibrary();renderHistory();renderCalendar();renderStats();const s=state();rounding.value=s.settings.rounding;increasePercent.value=s.settings.increasePercent;restSeconds.value=s.settings.restSeconds;soundEnabled.checked=Boolean(s.settings.soundEnabled);recoveryDays.value=String(s.settings.recoveryDays||"4");updateTimerUI();}
@@ -487,7 +507,7 @@ skipTimer.onclick=stopRestTimer;
 restSeconds.onchange=()=>{const s=state();s.settings.restSeconds=restSeconds.value;save(s);};
 soundEnabled.onchange=()=>{const s=state();s.settings.soundEnabled=soundEnabled.checked;save(s);unlockAudio();};
 testSound.onclick=()=>{unlockAudio();beep(true);};
-exportData.onclick=()=>{const blob=new Blob([JSON.stringify(state(),null,2)],{type:"application/json"}),url=URL.createObjectURL(blob),a=document.createElement("a");a.href=url;a.download="min-traning-v9.6.4a-backup.json";a.click();URL.revokeObjectURL(url);};
+exportData.onclick=()=>{const blob=new Blob([JSON.stringify(state(),null,2)],{type:"application/json"}),url=URL.createObjectURL(blob),a=document.createElement("a");a.href=url;a.download="min-traning-v9.6.5a-backup.json";a.click();URL.revokeObjectURL(url);};
 importData.onchange=e=>{const file=e.target.files[0];if(!file)return;const reader=new FileReader();reader.onload=()=>{try{const parsed=JSON.parse(reader.result);if(!Array.isArray(parsed.workouts)||!parsed.settings)throw new Error();localStorage.setItem(KEY+"-backup-"+Date.now(),JSON.stringify(state()));save(normalize(parsed));settingsMessage.textContent="Importen lyckades.";render();}catch{settingsMessage.textContent="Filen är inte en giltig Min Träning-backup.";}};reader.readAsText(file);};
 render();
 if(timerState()&&timerState().pausedRemaining==null)timerInterval=setInterval(updateTimerUI,250);

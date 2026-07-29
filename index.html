@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Min Träning 9.6.4a</title>
-<link rel="stylesheet" href="style.css?v=9.6.4a">
+<title>Min Träning 9.6.5a</title>
+<link rel="stylesheet" href="style.css?v=9.6.5a">
 </head>
 <body>
 <div class="app">
@@ -18,11 +18,11 @@
 <button class="nav" data-view="calendar">Kalender</button>
 <button class="nav" data-view="stats">Statistik</button>
 <button class="nav" data-view="settings">Inställningar</button>
-<p class="version">Version 9.6.4a</p>
+<p class="version">Version 9.6.5a</p>
 </aside>
 <main>
 <section id="home" class="view active">
-<div class="card hero"><div><span class="pill">VERSION 9.6.4a</span><h2 id="todayTitle">Välj ett upplägg</h2><p id="todaySub"></p><div id="todayExercises"></div><button id="startFromHome">Starta dagens pass</button></div><div class="summary"><div><small>Genomförda pass</small><strong id="workoutCount">0</strong></div><div><small>Egna upplägg</small><strong id="customCount">0</strong></div></div></div>
+<div class="card hero"><div><span class="pill">VERSION 9.6.5a</span><h2 id="todayTitle">Välj ett upplägg</h2><p id="todaySub"></p><div id="todayExercises"></div><button id="startFromHome">Starta dagens pass</button></div><div class="summary"><div><small>Genomförda pass</small><strong id="workoutCount">0</strong></div><div><small>Egna upplägg</small><strong id="customCount">0</strong></div></div></div>
 </section>
 <section id="programs" class="view"><h2>Upplägg</h2><div id="programList" class="cards"></div>
 <div class="card"><h3>Skapa eller redigera eget upplägg</h3><form id="programSetup" class="form">
@@ -42,7 +42,7 @@
 <section id="library" class="view"><h2>Övningsbank</h2><div class="card"><p class="muted">Muskelpåverkan räknas på hela muskelgruppen och ska tillsammans bli 100 %.</p><form id="exerciseForm" class="form exerciseMuscleForm"><label>Övning<input id="exerciseName" required></label><label>Primär muskel<select id="muscle"><option>Bröst</option><option>Rygg</option><option>Axlar</option><option>Biceps</option><option>Triceps</option><option>Framsida lår</option><option>Baksida lår</option><option>Säte</option><option>Vader</option><option>Mage/bål</option></select></label><label>Primär påverkan<input id="primaryPercent" type="number" min="1" max="100" value="100" required></label><label>Sekundär muskel<select id="secondaryMuscle"><option value="">Ingen</option><option>Bröst</option><option>Rygg</option><option>Axlar</option><option>Biceps</option><option>Triceps</option><option>Framsida lår</option><option>Baksida lår</option><option>Säte</option><option>Vader</option><option>Mage/bål</option></select></label><label>Sekundär påverkan<input id="secondaryPercent" type="number" min="0" max="99" value="0" required></label><button>Lägg till</button></form></div><div class="card"><input id="exerciseSearch" placeholder="Sök övning"><div id="exerciseList" class="cards"></div></div></section>
 <section id="history" class="view"><h2>Historik</h2><div class="card"><button id="clearHistory" class="danger">Rensa historik</button><div id="historyList"></div></div></section>
 
-<section id="calendar" class="view"><div class="statsHeading"><div><span class="pill">VERSION 9.6.4a</span><h2>Träningskalender</h2><p class="muted">Se genomförda pass månad för månad.</p></div></div>
+<section id="calendar" class="view"><div class="statsHeading"><div><span class="pill">VERSION 9.6.5a</span><h2>Träningskalender</h2><p class="muted">Se genomförda pass månad för månad.</p></div></div>
 <div class="card calendarCard">
   <div class="calendarToolbar"><button type="button" id="calendarPrev" class="secondary" aria-label="Föregående månad">←</button><h3 id="calendarTitle"></h3><button type="button" id="calendarNext" class="secondary" aria-label="Nästa månad">→</button></div>
   <div class="calendarWeekdays"><span>Mån</span><span>Tis</span><span>Ons</span><span>Tor</span><span>Fre</span><span>Lör</span><span>Sön</span></div>
@@ -50,9 +50,9 @@
 </div>
 <div class="card"><h3>Vald dag</h3><div id="calendarDetails" class="statsEmpty">Välj en träningsdag i kalendern.</div></div>
 </section>
-<section id="stats" class="view"><div class="statsHeading"><div><span class="pill">VERSION 9.6.4a</span><h2>Statistik 2.0</h2><p class="muted">Praktiska insikter om träningsfrekvens, balans och utveckling.</p></div></div>
+<section id="stats" class="view"><div class="statsHeading"><div><span class="pill">VERSION 9.6.5a</span><h2>Statistik 2.0</h2><p class="muted">Praktiska insikter om träningsfrekvens, balans och utveckling.</p></div></div>
 <div class="card statsToolbar"><label>Period<select id="statsRange"><option value="30">30 dagar</option><option value="90" selected>90 dagar</option><option value="365">1 år</option><option value="all">Sedan start</option></select></label><p id="statsPeriodText" class="muted"></p></div>
-<div id="statsDashboard" class="statsGrid"></div>
+<div class="card weeklyGoalsPlaceholder"><span class="pill">KOMMER SENARE</span><h3>Veckomål</h3><p class="muted">Här finns plats för personliga veckomål i en kommande version.</p></div>
 
 <div class="card recoveryCoachCard">
   <div class="coachHeading">
@@ -77,5 +77,5 @@
 <div class="card"><h3>Recovery Coach</h3><div class="form"><label>Muskel anses fullt återhämtad efter<select id="recoveryDays"><option value="3">3 dagar</option><option value="4" selected>4 dagar</option><option value="5">5 dagar</option><option value="6">6 dagar</option><option value="7">7 dagar</option></select></label></div><p class="muted">Recovery-kurvan anpassas efter ditt val. Belastning, volym och frekvens påverkar fortfarande slutpoängen.</p></div>
 <div class="card"><h3>Export och backup</h3><div class="buttonRow"><button id="exportCsv">Exportera CSV</button><button id="exportExcel">Exportera Excel</button><button id="exportData" class="secondary">Exportera JSON</button><label class="upload">Importera JSON<input id="importData" hidden type="file" accept=".json"></label></div><p id="settingsMessage"></p></div></section>
 </main></div>
-<script src="app.js?v=9.6.4a"></script>
+<script src="app.js?v=9.6.5a"></script>
 </body></html>

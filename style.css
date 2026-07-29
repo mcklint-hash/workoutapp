@@ -93,7 +93,21 @@
 @media(max-width:650px){.calendarWeekdays{display:none}.calendarGrid{grid-template-columns:repeat(2,minmax(0,1fr))}.calendarEmpty{display:none}.calendarDay{min-height:90px}}
 
 
-/* Mobil och muskelprofiler – v9.6.4a */
+/* Mobil och muskelprofiler – v9.6.5a */
 .muscleChips{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}.muscleChips span{padding:5px 8px;border-radius:999px;background:#dbeafe;color:#1d4ed8;font-size:.78rem;font-weight:800}.exerciseMuscleForm{margin-top:14px}
 @media(max-width:900px){body{background:#f1f5f9}.app{width:100%;margin:0;gap:0}.sidebar{position:sticky;top:0;z-index:30;border-radius:0;padding:8px;display:flex;align-items:center;gap:6px;overflow-x:auto;box-shadow:0 4px 16px rgba(15,23,42,.12)}.sidebar .brand{min-width:42px;width:42px;height:42px}.sidebar h1,.sidebar .version{display:none}.nav{width:auto;min-width:max-content;margin:0;padding:10px 12px}.nav.active{box-shadow:none}main{padding:12px;min-width:0}.view.active{gap:12px}.card{border-radius:16px;padding:15px}.timerCard{top:64px}}
 @media(max-width:600px){main{padding:10px}.hero,.two,.cards,.form,.summary{grid-template-columns:1fr}.buttonRow{display:grid;grid-template-columns:1fr}.buttonRow button,.buttonRow .upload,form button{width:100%}.dataRow{grid-template-columns:.7fr 1fr 1fr;font-size:.9rem}.calendarGrid{grid-template-columns:1fr}.calendarDay{min-height:auto;display:grid;grid-template-columns:auto 1fr auto;align-items:center}.calendarDay b{margin:0}.calendarToolbar button{padding:10px}.statsTable{max-width:100%}.recoveryRecommendation,.nextWorkout{padding:14px}.recoveryFacts{grid-template-columns:1fr}.exerciseRow{grid-template-columns:1fr}.exerciseRow button{width:100%}input,select,button,.upload{min-height:44px;font-size:16px}}
+
+
+/* Recovery Coach och veckomål – v9.6.5a */
+.recoveryRecommendationMain{min-width:0}
+.recoveryExercises{display:grid;gap:5px;margin-top:10px;padding:10px 12px;border-radius:11px;background:#f0fdf4;color:#166534}
+.recoveryExercises span{color:#475569;line-height:1.5}
+.recoveryTopHeading{display:flex;align-items:end;justify-content:space-between;margin:4px 0 10px}
+.recoveryTopHeading small{color:#15803d;font-size:.72rem;font-weight:800;letter-spacing:.08em}
+.recoveryTopHeading h4{margin:4px 0 0;font-size:1.15rem}
+.recoveryRank{color:#15803d!important;font-weight:800;letter-spacing:.04em}
+.recoveryTopGrid{grid-template-columns:repeat(3,minmax(0,1fr))}
+.weeklyGoalsPlaceholder{border:1px dashed #93c5fd;background:linear-gradient(135deg,#eff6ff,#fff)}
+.weeklyGoalsPlaceholder h3{margin:.8rem 0 .35rem}
+@media(max-width:900px){.recoveryTopGrid{grid-template-columns:1fr}}
