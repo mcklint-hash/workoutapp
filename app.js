@@ -31,7 +31,7 @@ DB.exercises=DB.exercises.map(normalizeExercise);
 
 const KEY="minTraningStateV95";
 const OLD_KEYS=["minTraningStateV941","minTraningStateV94","minTraningStateV932","minTraningStateV93","minTraningStateV92","minTraningStateV8"];
-const defaults={version:"9.6.5a",workouts:[],settings:{rounding:"2.5",increasePercent:"5",restSeconds:"90",soundEnabled:true,recoveryDays:"4"},selectedProgramId:null,dayIndex:0,active:null,customExercises:[],customPrograms:[],editing:null};
+const defaults={version:"9.6.5b",workouts:[],settings:{rounding:"2.5",increasePercent:"5",restSeconds:"90",soundEnabled:true,recoveryDays:"4"},selectedProgramId:null,dayIndex:0,active:null,customExercises:[],customPrograms:[],editing:null};
 
 const byId=id=>document.getElementById(id);
 const todayTitle=byId("todayTitle"), todaySub=byId("todaySub"), todayExercises=byId("todayExercises");
@@ -62,7 +62,7 @@ function load(){
   if(raw){try{return normalize(JSON.parse(raw));}catch{}}
   for(const oldKey of OLD_KEYS){
     const old=localStorage.getItem(oldKey);
-    if(old){try{localStorage.setItem(oldKey+"-backup-"+Date.now(),old);const migrated=normalize({...defaults,...JSON.parse(old),version:"9.6.5a"});localStorage.setItem(KEY,JSON.stringify(migrated));return migrated;}catch{}}
+    if(old){try{localStorage.setItem(oldKey+"-backup-"+Date.now(),old);const migrated=normalize({...defaults,...JSON.parse(old),version:"9.6.5b"});localStorage.setItem(KEY,JSON.stringify(migrated));return migrated;}catch{}}
   }
   return clone(defaults);
 }
@@ -289,7 +289,8 @@ function buildRecoveryCoach(allHistory){
 }
 
 function buildPriorityCoach(periodWorkouts,allHistory){
- const muscleNames=[...new Set(allExercises().flatMap(e=>e.muscles||[]).map(x=>x.muscle).filter(Boolean).filter(name=>name!=="Övrigt"&&name!=="Säte"))];
+ const excludedMuscles=new Set(["Övrigt","Säte"]);
+ const muscleNames=[...new Set(allExercises().flatMap(e=>e.muscles||[]).map(x=>x.muscle).filter(Boolean).filter(name=>!excludedMuscles.has(name)))];
  const periodStats=Object.fromEntries(muscleNames.map(name=>[name,{sets:0,workouts:new Set(),latestDate:0}]));
  const historyLatest=Object.fromEntries(muscleNames.map(name=>[name,0]));
  const addWorkout=(w,index,isPeriod)=>{
@@ -297,7 +298,12 @@ function buildPriorityCoach(periodWorkouts,allHistory){
    const touched=new Set();
    (w.exercises||[]).forEach(e=>{
      const sets=validSets(e).length;
-     exerciseProfile(exerciseNameOf(e)).forEach(({muscle,percent})=>{if(!periodStats[muscle])return;const factor=percent/100;historyLatest[muscle]=Math.max(historyLatest[muscle]||0,date);if(isPeriod&&sets){periodStats[muscle].sets+=sets*factor;touched.add(muscle);}});
+     exerciseProfile(exerciseNameOf(e)).forEach(({muscle,percent})=>{
+       if(!periodStats[muscle])return;
+       const factor=percent/100;
+       historyLatest[muscle]=Math.max(historyLatest[muscle]||0,date);
+       if(isPeriod&&sets){periodStats[muscle].sets+=sets*factor;touched.add(muscle);}
+     });
    });
    if(isPeriod)touched.forEach(muscle=>periodStats[muscle].workouts.add(index));
  };
@@ -306,7 +312,6 @@ function buildPriorityCoach(periodWorkouts,allHistory){
 
  const totalSets=Object.values(periodStats).reduce((sum,m)=>sum+m.sets,0);
  const averageSets=muscleNames.length?totalSets/muscleNames.length:0;
- const totalWorkouts=Math.max(1,periodWorkouts.length);
  const averageFrequency=muscleNames.length
    ?Object.values(periodStats).reduce((sum,m)=>sum+m.workouts.size,0)/muscleNames.length
    :0;
@@ -319,7 +324,7 @@ function buildPriorityCoach(periodWorkouts,allHistory){
    const volumeScore=Math.min(30,volumeDeficit*30);
    const frequencyDeficit=averageFrequency>0?Math.max(0,(averageFrequency-data.workouts.size)/averageFrequency):1;
    const frequencyScore=Math.min(15,frequencyDeficit*15);
-   const score=Math.round(recencyScore+volumeScore+frequencyScore);
+   const score=Math.round(clamp(recencyScore+volumeScore+frequencyScore,0,100));
    const reasons=[];
    if(!latestDate)reasons.push("aldrig registrerad");
    else if(days>7)reasons.push(`${days} dagar sedan`);
@@ -331,18 +336,25 @@ function buildPriorityCoach(periodWorkouts,allHistory){
  }).sort((a,b)=>b.score-a.score||b.days-a.days||a.sets-b.sets);
 
  const top=priorities.slice(0,3);
+ const priorityByMuscle=Object.fromEntries(priorities.map(item=>[item.name,item.score]));
  const program=findProgram(state().selectedProgramId);
- let recommendedDay=null;
- if(program?.days?.length){
-   recommendedDay=program.days.map((day,index)=>{
-     const muscles=[...new Set((day.exercises||[]).flatMap(name=>exerciseProfile(name).map(x=>x.muscle)).filter(muscle=>muscle!=="Säte"))];
-     const score=muscles.reduce((sum,muscle)=>{
-       const rank=top.findIndex(item=>item.name===muscle);
-       return sum+(rank===0?100:rank===1?65:rank===2?40:0);
-     },0);
-     return {index,name:day.name,exercises:day.exercises,muscles,score};
-   }).sort((a,b)=>b.score-a.score)[0];
- }
+ const matchedDays=program?.days?.map((day,index)=>{
+   const profile=(day.exercises||[]).flatMap(name=>exerciseProfile(name)).filter(x=>!excludedMuscles.has(x.muscle));
+   const totalWeight=profile.reduce((sum,x)=>sum+x.percent,0)||1;
+   const weightedScore=profile.reduce((sum,{muscle,percent})=>sum+(priorityByMuscle[muscle]||0)*percent,0)/totalWeight;
+   const topCoverage=top.reduce((sum,item,rank)=>{
+     const share=profile.filter(x=>x.muscle===item.name).reduce((a,x)=>a+x.percent,0);
+     return sum+Math.min(1,share/100)*(rank===0?12:rank===1?8:5);
+   },0);
+   const match=Math.round(clamp(weightedScore+topCoverage,0,100));
+   const status=match>=70
+     ?{icon:"🟢",label:"Bra match",className:"matchGood"}
+     :match>=40
+       ?{icon:"🟡",label:"OK match",className:"matchOkay"}
+       :{icon:"🔴",label:"Låg match",className:"matchLow"};
+   const focus=[...new Set(profile.sort((a,b)=>b.percent-a.percent).map(x=>x.muscle))].slice(0,3);
+   return {index,name:day.name,exercises:day.exercises,match,status,focus};
+ }).sort((a,b)=>b.match-a.match||a.index-b.index)||[];
 
  const trainedValues=muscleNames.map(name=>periodStats[name].sets);
  const maxSets=Math.max(0,...trainedValues),minSets=Math.min(...trainedValues);
@@ -360,26 +372,33 @@ function buildPriorityCoach(periodWorkouts,allHistory){
    <div class="priorityScore"><strong>${item.score}</strong><small>prioritet</small></div>
  </article>`).join("");
 
- const workoutHtml=recommendedDay&&recommendedDay.score>0
-   ?`<div class="nextWorkout">
-      <div><small>FÖRSLAG FRÅN DITT UPPLÄGG</small><h4>${escapeHtml(recommendedDay.name)}</h4>
-      <p>${recommendedDay.exercises.map(escapeHtml).join(" · ")}</p></div>
-      <button type="button" id="chooseRecommendedWorkout" data-day-index="${recommendedDay.index}">Välj passet</button>
-    </div>`
-   :`<div class="nextWorkout">
-      <div><small>REKOMMENDATION</small><h4>Träna ${top.map(x=>escapeHtml(x.name)).join(", ")||"hela kroppen"}</h4>
-      <p>${program?"Inget pass i upplägget matchar prioriteringen tydligt.":"Välj ett upplägg för att få ett konkret passförslag."}</p></div>
-    </div>`;
+ const workoutHtml=program
+   ?`<div class="workoutMatchesHeader"><div><small>ALLA PASS I ${escapeHtml(program.name).toUpperCase()}</small><h4>Matchning mot dagens behov</h4></div><span>${matchedDays.length} pass</span></div>
+     <div class="workoutMatchList">${matchedDays.map((day,rank)=>`<article class="workoutMatch ${day.status.className}">
+       <div class="workoutMatchRank">#${rank+1}</div>
+       <div class="workoutMatchMain">
+         <div class="workoutMatchTitle"><h4>${escapeHtml(day.name)}</h4><span class="matchStatus">${day.status.icon} ${day.status.label}</span></div>
+         <p>${day.exercises.map(escapeHtml).join(" · ")}</p>
+         ${day.focus.length?`<small>Fokus: ${day.focus.map(escapeHtml).join(", ")}</small>`:""}
+       </div>
+       <div class="workoutMatchScore"><strong>${day.match}%</strong><span>matchning</span></div>
+       <button type="button" class="chooseMatchedWorkout" data-day-index="${day.index}">Välj passet</button>
+     </article>`).join("")}</div>`
+   :`<div class="nextWorkout"><div><small>REKOMMENDATION</small><h4>Träna ${top.map(x=>escapeHtml(x.name)).join(", ")||"hela kroppen"}</h4><p>Välj ett upplägg för att jämföra alla pass och få matchningsgrad.</p></div></div>`;
 
- priorityCoach.innerHTML=`<div class="priorityCoachGrid">
-   <section>${workoutHtml}<div class="balanceSummary ${balance.className}"><b>${balance.label}</b><span>${balance.text}</span></div></section>
+ priorityCoach.innerHTML=`<div class="priorityCoachLayout">
+   <section class="priorityWorkoutSection">${workoutHtml}<div class="balanceSummary ${balance.className}"><b>${balance.label}</b><span>${balance.text}</span></div></section>
    <section><div class="priorityList">${priorityHtml}</div></section>
  </div>`;
 
- const chooseButton=byId("chooseRecommendedWorkout");
- if(chooseButton)chooseButton.onclick=()=>{
-   const s=state();s.dayIndex=Number(chooseButton.dataset.dayIndex)||0;s.active=null;save(s);render();navigate("home");
- };
+ document.querySelectorAll(".chooseMatchedWorkout").forEach(button=>button.onclick=()=>{
+   const s=state();
+   s.dayIndex=Number(button.dataset.dayIndex)||0;
+   s.active=null;
+   save(s);
+   render();
+   navigate("home");
+ });
 }
 
 function renderStats(){
@@ -461,7 +480,7 @@ function exportRows(){
  return rows;
 }
 function downloadBlob(blob,filename){const url=URL.createObjectURL(blob),a=document.createElement("a");a.href=url;a.download=filename;a.click();setTimeout(()=>URL.revokeObjectURL(url),0);}
-function exportCsvFile(){const csv='\ufeff'+exportRows().map(row=>row.map(csvCell).join(';')).join('\r\n');downloadBlob(new Blob([csv],{type:'text/csv;charset=utf-8'}),'min-traning-v9.6.5a-historik.csv');}
+function exportCsvFile(){const csv='\ufeff'+exportRows().map(row=>row.map(csvCell).join(';')).join('\r\n');downloadBlob(new Blob([csv],{type:'text/csv;charset=utf-8'}),'min-traning-v9.6.5b-historik.csv');}
 function crc32(bytes){let c=-1;for(const b of bytes){c^=b;for(let k=0;k<8;k++)c=(c>>>1)^((c&1)?0xedb88320:0);}return (c^-1)>>>0;}
 function u16(n){return [n&255,(n>>>8)&255];}function u32(n){return [n&255,(n>>>8)&255,(n>>>16)&255,(n>>>24)&255];}
 function zipStore(files){
@@ -476,7 +495,7 @@ function exportExcelFile(){
  workouts.forEach(w=>(w.exercises||[]).forEach(e=>{const m=exerciseMuscle(exerciseNameOf(e));const sets=validSets(e);muscle[m]=(muscle[m]||0)+sets.length;volume+=sets.reduce((s,x)=>s+setVolume(x),0);}));
  const stats=[["Nyckeltal","Värde"],["Totalt antal pass",workouts.length],["Total träningsvolym",volume],["" ,""],["Muskelgrupp","Antal set"],...Object.entries(muscle).sort((a,b)=>b[1]-a[1])];
  const files={'[Content_Types].xml':'<?xml version="1.0" encoding="UTF-8"?><Types xmlns="http://schemas.openxmlformats.org/package/2006/content-types"><Default Extension="rels" ContentType="application/vnd.openxmlformats-package.relationships+xml"/><Default Extension="xml" ContentType="application/xml"/><Override PartName="/xl/workbook.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet.main+xml"/><Override PartName="/xl/worksheets/sheet1.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.worksheet+xml"/><Override PartName="/xl/worksheets/sheet2.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.worksheet+xml"/></Types>','_rels/.rels':'<?xml version="1.0" encoding="UTF-8"?><Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships"><Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/officeDocument" Target="xl/workbook.xml"/></Relationships>','xl/workbook.xml':'<?xml version="1.0" encoding="UTF-8"?><workbook xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main" xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships"><sheets><sheet name="Historik" sheetId="1" r:id="rId1"/><sheet name="Statistik" sheetId="2" r:id="rId2"/></sheets></workbook>','xl/_rels/workbook.xml.rels':'<?xml version="1.0" encoding="UTF-8"?><Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships"><Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/worksheet" Target="worksheets/sheet1.xml"/><Relationship Id="rId2" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/worksheet" Target="worksheets/sheet2.xml"/></Relationships>','xl/worksheets/sheet1.xml':sheetXml(history),'xl/worksheets/sheet2.xml':sheetXml(stats)};
- downloadBlob(zipStore(files),'min-traning-v9.6.5a-export.xlsx');
+ downloadBlob(zipStore(files),'min-traning-v9.6.5b-export.xlsx');
 }
 
 function render(){renderHome();renderPrograms();renderWorkout();renderLibrary();renderHistory();renderCalendar();renderStats();const s=state();rounding.value=s.settings.rounding;increasePercent.value=s.settings.increasePercent;restSeconds.value=s.settings.restSeconds;soundEnabled.checked=Boolean(s.settings.soundEnabled);recoveryDays.value=String(s.settings.recoveryDays||"4");updateTimerUI();}
@@ -507,7 +526,7 @@ skipTimer.onclick=stopRestTimer;
 restSeconds.onchange=()=>{const s=state();s.settings.restSeconds=restSeconds.value;save(s);};
 soundEnabled.onchange=()=>{const s=state();s.settings.soundEnabled=soundEnabled.checked;save(s);unlockAudio();};
 testSound.onclick=()=>{unlockAudio();beep(true);};
-exportData.onclick=()=>{const blob=new Blob([JSON.stringify(state(),null,2)],{type:"application/json"}),url=URL.createObjectURL(blob),a=document.createElement("a");a.href=url;a.download="min-traning-v9.6.5a-backup.json";a.click();URL.revokeObjectURL(url);};
+exportData.onclick=()=>{const blob=new Blob([JSON.stringify(state(),null,2)],{type:"application/json"}),url=URL.createObjectURL(blob),a=document.createElement("a");a.href=url;a.download="min-traning-v9.6.5b-backup.json";a.click();URL.revokeObjectURL(url);};
 importData.onchange=e=>{const file=e.target.files[0];if(!file)return;const reader=new FileReader();reader.onload=()=>{try{const parsed=JSON.parse(reader.result);if(!Array.isArray(parsed.workouts)||!parsed.settings)throw new Error();localStorage.setItem(KEY+"-backup-"+Date.now(),JSON.stringify(state()));save(normalize(parsed));settingsMessage.textContent="Importen lyckades.";render();}catch{settingsMessage.textContent="Filen är inte en giltig Min Träning-backup.";}};reader.readAsText(file);};
 render();
 if(timerState()&&timerState().pausedRemaining==null)timerInterval=setInterval(updateTimerUI,250);

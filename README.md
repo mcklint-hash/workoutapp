@@ -1,8 +1,16 @@
-# Min Träning v9.6.5a
+# Min Träning v9.6.5b
 
-Version 9.6.5a gör Recovery Coach tydligare, förbättrar passrekommendationerna och rättar viktavrundningen.
+Version 9.6.5b visar nu alla pass i valt upplägg med matchningsgrad och tydlig trafikljusstatus.
 
-## Nytt i v9.6.5a
+## Nytt i v9.6.5b
+
+### Passmatchning i Coach 2.0
+
+- Alla pass i valt upplägg visas och sorteras med bästa match överst.
+- Varje pass får en matchningsprocent baserad på muskelprioritet, träningsvolym, frekvens och senaste träning.
+- Matchningen markeras med **🟢 Bra match**, **🟡 OK match** eller **🔴 Låg match**.
+- Varje pass har en egen knapp för **Välj passet**.
+- Den tidigare fallback-texten om att inget pass matchar tydligt är borttagen.
 
 ### Recovery Coach
 
