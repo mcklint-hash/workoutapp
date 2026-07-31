@@ -1,49 +1,40 @@
-# Min Träning v9.6.5b
+# Min Träning v9.6.6
 
-Version 9.6.5b visar nu alla pass i valt upplägg med matchningsgrad och tydlig trafikljusstatus.
+Version 9.6.6 introducerar en komplett Recovery Dashboard med samtliga relevanta muskelgrupper.
 
-## Nytt i v9.6.5b
+## Nytt i v9.6.6
 
-### Passmatchning i Coach 2.0
+### Recovery Dashboard
 
-- Alla pass i valt upplägg visas och sorteras med bästa match överst.
-- Varje pass får en matchningsprocent baserad på muskelprioritet, träningsvolym, frekvens och senaste träning.
-- Matchningen markeras med **🟢 Bra match**, **🟡 OK match** eller **🔴 Låg match**.
-- Varje pass har en egen knapp för **Välj passet**.
-- Den tidigare fallback-texten om att inget pass matchar tydligt är borttagen.
+- Den tidigare listan **Topp 3 återhämtade** är ersatt.
+- Alla muskelgrupper som används av Recovery Coach visas i en sammanhängande dashboard.
+- Säte och Övrigt är fortsatt undantagna från coachens beräkningar.
+- Muskelgrupperna sorteras efter högst återhämtningspoäng.
+- Varje muskelgrupp visar:
+  - recovery i procent,
+  - grön, gul eller röd status,
+  - tydlig progressbar,
+  - när muskeln senast tränades,
+  - viktade set under de senaste 7 dagarna,
+  - antal pass under de senaste 30 dagarna,
+  - aktuell belastningsnivå.
+- **Dagens muskelgrupp** och knappen **Välj passet** finns kvar.
+- När inget upplägg är valt visas fortfarande förslag på lämpliga övningar.
 
-### Recovery Coach
+### Design och mobil
 
-- **Säte** visas inte längre i Recovery Coach och påverkar inte coachens rekommendationer.
-- **Dagens muskelgrupp** visas med en tydlig motivering baserad på återhämtning, senaste träning och belastning.
-- De tre mest återhämtade muskelgrupperna visas som **Topp 3**.
-- När ett upplägg är valt rekommenderas det pass som bäst matchar dagens muskelgrupp.
-- Knappen **Välj passet** aktiverar rätt träningsdag, avslutar ett eventuellt aktivt pass och går direkt till startsidan.
-- När inget upplägg är valt visas i stället förslag på lämpliga övningar.
+- Recovery-vyn har fått en kompakt tabelliknande layout för dator.
+- Dashboarden anpassas till två kolumner på mindre skärmar och en kolumn på mobil.
+- Trafikljus, progressbar och belastningsstatus är tydligare separerade.
 
 ### Coach 2.0
 
-- Säte har tagits bort ur prioriterings- och passrekommendationerna.
-- Passmatchningen fortsätter att prioritera återhämtning, träningsvolym, balans och frekvens.
-
-### Viktavrundning
-
-- Progressionsförslagen använder nu viktsteget som valts under Inställningar.
-- Den tidigare hårdkodade gränsen på 2,5 kg är borttagen.
-
-### Statistik
-
-- Den tidigare veckostatistiken är borttagen.
-- En tydlig plats är förberedd för framtida **Veckomål**.
-
-## Muskelgrupper
-
-Övningsbanken kan fortfarande innehålla Bröst, Rygg, Axlar, Biceps, Triceps, Framsida lår, Baksida lår, Säte, Vader och Mage/bål. Säte räknas dock inte i Recovery Coach eller coachens passprioritering.
+- Befintlig passmatchning, matchningsprocent, trafikljus och **Välj passet** är oförändrade.
 
 ## Kompatibilitet
 
-LocalStorage-nyckeln är oförändrad: `minTraningStateV95`. Befintlig historik, inställningar, egna övningar och egna upplägg behålls.
+LocalStorage-nyckeln är oförändrad: `minTraningStateV95`. Befintlig historik, inställningar, egna övningar och egna upplägg behålls automatiskt.
 
 ## Installation
 
-Ersätt `index.html`, `style.css`, `app.js` och `README.md`, öppna sedan `index.html` och gör en hård omladdning.
+Ersätt `index.html`, `style.css`, `app.js` och `README.md`. Öppna därefter `index.html` och gör en hård omladdning i webbläsaren.
