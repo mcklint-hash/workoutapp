@@ -35,7 +35,7 @@ const defaults={version:"9.6.6",workouts:[],settings:{rounding:"2.5",increasePer
 
 const byId=id=>document.getElementById(id);
 const todayTitle=byId("todayTitle"), todaySub=byId("todaySub"), todayExercises=byId("todayExercises");
-const workoutCount=byId("workoutCount"), customCount=byId("customCount"), startFromHome=byId("startFromHome"), homeCoach=byId("homeCoach");
+const workoutCount=byId("workoutCount"), customCount=byId("customCount"), startFromHome=byId("startFromHome");
 const programList=byId("programList"), programSetup=byId("programSetup"), programName=byId("programName");
 const frequency=byId("frequency"), weeks=byId("weeks"), cancelEdit=byId("cancelEdit");
 const programBuilder=byId("programBuilder"), builderDays=byId("builderDays");
@@ -90,38 +90,7 @@ function recommendation(name){
   return {change,sets:[{weight:roundWeight(target*0.8),label:"12 reps"},{weight:roundWeight(target*0.9),label:"10 reps"},{weight:target,label:"5–7 reps"}]};
 }
 function resultTable(sets,labels=false){if(!sets)return"Ingen data";return '<div class="dataRow"><b>Set</b><b>Vikt</b><b>Reps</b></div>'+sets.map((s,i)=>`<div class="dataRow"><span>Set ${i+1}</span><span>${formatKg(s.weight)}</span><span>${labels?s.label:(s.reps||0)+" reps"}</span></div>`).join("");}
-function renderHome(){
- const s=state(),p=findProgram(s.selectedProgramId),d=currentDay(s);
- todayTitle.textContent=d?d.name:"Välj ett upplägg";
- todaySub.textContent=p?`Upplägg: ${p.name}`:"";
- todayExercises.innerHTML=d?`<ul>${d.exercises.map(x=>`<li>${escapeHtml(x)}</li>`).join("")}</ul>`:"";
- workoutCount.textContent=s.workouts.length;
- customCount.textContent=s.customPrograms.length;
- if(!homeCoach)return;
- const allHistory=(s.workouts||[]).filter(w=>Number.isFinite(Date.parse(w?.createdAt)));
- const recovery=calculateRecovery(allHistory);
- const bestMuscle=recovery[0]||null;
- const matchedDays=scoreProgramDays(p,recovery);
- const bestDay=matchedDays[0]||null;
- const currentMatch=matchedDays.find(x=>x.index===s.dayIndex)||null;
- if(!p){
-   homeCoach.innerHTML=`<div class="homeCoachEmpty"><span class="recoveryBadge">RECOVERY COACH</span><div><h3>Välj ett upplägg</h3><p>Välj ett träningsupplägg så kan coachen rekommendera vilket pass som passar bäst idag.</p></div></div>`;
-   return;
- }
- const sameDay=bestDay&&bestDay.index===s.dayIndex;
- const muscleText=bestMuscle?`${bestMuscle.name} ${bestMuscle.score}%`:"Ingen data";
- homeCoach.innerHTML=`<div class="homeCoachHeading"><div><span class="recoveryBadge">DAGENS COACH</span><h3>${sameDay?"Dagens plan ser bra ut":"Ett annat pass matchar bättre idag"}</h3></div><span class="homeRecoveryBadge">${escapeHtml(muscleText)}</span></div>
- <div class="homeCoachGrid">
-   <div class="homeCoachCurrent"><small>PLANERAT PASS</small><b>${escapeHtml(d?.name||"–")}</b><strong>${currentMatch?currentMatch.match+"%":"–"}</strong><span>matchning</span></div>
-   <div class="homeCoachArrow">→</div>
-   <div class="homeCoachBest"><small>BÄST MATCH JUST NU</small><b>${escapeHtml(bestDay?.name||d?.name||"–")}</b><strong>${bestDay?bestDay.match+"%":"–"}</strong><span>${bestDay?escapeHtml(bestDay.reason):"Ingen matchning ännu"}</span></div>
- </div>
- ${bestDay&&!sameDay?`<div class="homeCoachActions"><button type="button" id="chooseHomeRecommended" data-day-index="${bestDay.index}">Välj rekommenderat pass</button><button type="button" id="keepHomePlanned" class="secondary">Behåll planerat pass</button></div>`:`<div class="homeCoachGood">🟢 Planerat pass är redan det bästa alternativet utifrån aktuell recovery.</div>`}`;
- const choose=byId("chooseHomeRecommended");
- if(choose)choose.onclick=()=>{const next=state();next.dayIndex=Number(choose.dataset.dayIndex)||0;next.active=null;save(next);render();};
- const keep=byId("keepHomePlanned");
- if(keep)keep.onclick=()=>homeCoach.classList.add("homeCoachConfirmed");
-}
+function renderHome(){const s=state(),p=findProgram(s.selectedProgramId),d=currentDay(s);todayTitle.textContent=d?d.name:"Välj ett upplägg";todaySub.textContent=p?`Upplägg: ${p.name}`:"";todayExercises.innerHTML=d?`<ul>${d.exercises.map(x=>`<li>${escapeHtml(x)}</li>`).join("")}</ul>`:"";workoutCount.textContent=s.workouts.length;customCount.textContent=s.customPrograms.length;}
 function renderPrograms(){const s=state();programList.innerHTML=allPrograms().map(p=>`<div class="program"><h3>${escapeHtml(p.name)}</h3><p>${escapeHtml(p.description||"")}</p><p>${p.days.length} pass</p><div class="buttonRow"><button data-select="${p.id}">${s.selectedProgramId===p.id?"Valt":"Välj"}</button><button class="secondary" data-edit="${p.id}">Redigera</button>${p.type==="custom"?`<button class="danger" data-delete="${p.id}">Radera</button>`:""}</div></div>`).join("");
 document.querySelectorAll("[data-select]").forEach(b=>b.onclick=()=>{const s=state();s.selectedProgramId=b.dataset.select;s.dayIndex=0;s.active=null;save(s);render();});
 document.querySelectorAll("[data-edit]").forEach(b=>b.onclick=()=>editProgram(b.dataset.edit));
@@ -394,7 +363,7 @@ function renderStats(){
  if(!insights.length)insights.push(workouts.length?"💡 Fortsätt logga pass så blir coachens insikter tydligare.":"💡 Logga ditt första pass för att få personliga insikter.");
  coachInsights.innerHTML=insights.slice(0,4).map(x=>`<div class="coachInsight">${x}</div>`).join("");
  const maxMuscle=Math.max(1,...muscles.map(m=>m.sets));
- muscleStats.innerHTML=muscles.length?`<div class="muscleGrid">${muscles.sort((a,b)=>b.sets-a.sets).map(m=>{const status=muscleStatus(m.latestDate);return`<article class="metricCard"><div class="metricHeader"><div><small class="metricLabel">Muskelgrupp</small><b>${escapeHtml(m.name)}</b><div class="statsSub">Senast tränad: ${daysAgoText(m.latestDate)}</div></div><span class="muscleStatus ${status.className}">${status.icon} ${status.label}</span></div><div class="barTrack"><div class="barFill" style="width:${Math.max(4,m.sets/maxMuscle*100)}%"></div></div><div class="metricFacts"><span><b>${m.workouts.size}</b> pass</span><span><b>${m.sets}</b> set</span><span><b>${m.exercises.size}</b> olika övningar</span></div></article>`;}).join("")}</div>`:'<div class="statsEmpty">Ingen muskelgruppsstatistik för vald period.</div>';
+ muscleStats.innerHTML=muscles.length?`<div class="muscleGrid">${muscles.sort((a,b)=>b.sets-a.sets).map(m=>{const status=muscleStatus(m.latestDate);return`<article class="metricCard"><div class="metricHeader"><div><small class="metricLabel">Muskelgrupp</small><b>${escapeHtml(m.name)}</b><div class="statsSub">Senast tränad: ${daysAgoText(m.latestDate)}</div></div><span class="muscleStatus ${status.className}">${status.icon} ${status.label}</span></div><div class="barTrack"><div class="barFill" style="width:${Math.max(4,m.sets/maxMuscle*100)}%"></div></div><div class="metricFacts"><span><b>${m.workouts.size}</b> pass</span><span><b>${formatNumber(m.sets,1)}</b> set</span><span><b>${m.exercises.size}</b> olika övningar</span></div></article>`;}).join("")}</div>`:'<div class="statsEmpty">Ingen muskelgruppsstatistik för vald period.</div>';
  exerciseStats.innerHTML=exercises.length?`<div class="exerciseStatsGrid">${exercises.sort((a,b)=>b.workoutIds.size-a.workoutIds.size||b.latestDate-a.latestDate).map(e=>{const hasTrend=e.firstWeight>0&&e.lastWeight>0&&e.firstDate!==e.lastDate,change=hasTrend?percentChange(e.firstWeight,e.lastWeight):0,trend=hasTrend?`${change>0?"+":""}${change.toFixed(1)}%`:"–",trendClass=change>0?"trendUp":change<0?"trendDown":"";const latest=e.latestSets.length?e.latestSets.map(s=>`${formatNumber(s.weight,2)}×${s.reps}`).join(", "):"Ingen registrering";return`<article class="exerciseStatCard"><div class="metricHeader"><div><b>${escapeHtml(e.name)}</b><div class="statsSub">${escapeHtml(e.muscle)}</div></div><span class="${trendClass}">${trend}</span></div><div class="exerciseFacts coachExerciseFacts"><div><small>Pass</small><strong>${e.workoutIds.size}</strong></div><div><small>Högsta vikt</small><strong>${e.maxWeight?formatKg(e.maxWeight):"–"}</strong></div><div><small>Senast tränad</small><strong>${daysAgoText(e.latestDate)}</strong></div></div><div class="latestResult"><small>Senast loggade resultat</small><strong>${escapeHtml(latest)}</strong></div><div class="weightTrend">${hasTrend?`${formatKg(e.firstWeight)} → ${formatKg(e.lastWeight)}`:"Mer data behövs för vikttrend"}</div></article>`;}).join("")}</div>`:'<div class="statsEmpty">Ingen övningsstatistik för vald period.</div>';
 }
 

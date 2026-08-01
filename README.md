@@ -57,11 +57,7 @@ Ersätt `index.html`, `style.css`, `app.js` och `README.md`. Öppna därefter `i
 - Äldre CSS för den borttagna Topp 3-vyn har rensats bort.
 
 
-## Fas 4 – Dagens Coach på startsidan
+## Korrigering – Statistik muskelgrupper
 
-- Recovery Coach är nu kopplad direkt till startsidan.
-- Startsidan visar planerat pass och dess aktuella matchningsprocent.
-- Bäst matchande pass visas bredvid med en kort motivering.
-- Om ett annat pass passar bättre kan det väljas direkt från startsidan.
-- Om det planerade passet redan är bäst visas en tydlig grön bekräftelse.
-- Samma `calculateRecovery()` och `scoreProgramDays()` används, så startsidan, Recovery Coach och Coach 2.0 ger samma rekommendation.
+- Viktade set i Muskelgrupper formateras nu med högst en decimal.
+- Flyttalsfel som `3.6000000000000005 set` visas nu korrekt som `3,6 set`.
