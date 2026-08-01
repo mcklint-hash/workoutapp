@@ -166,8 +166,7 @@ function recoveryStatus(score,hasHistory){
  if(score>=50)return {label:"Återhämtar sig",className:"recoveryProgress",icon:"🟡"};
  return {label:"Behöver vila",className:"recoveryRest",icon:"🔴"};
 }
-function buildRecoveryCoach(allHistory){
- if(!recoveryCoach)return;
+function calculateRecovery(allHistory){
  const excludedMuscles=new Set(["Övrigt","Säte"]);
  const muscleNames=[...new Set(allExercises().flatMap(e=>e.muscles||[]).map(x=>x.muscle).filter(Boolean).filter(name=>!excludedMuscles.has(name)))];
  const sevenDaysAgo=Date.now()-7*86400000;
@@ -220,6 +219,13 @@ function buildRecoveryCoach(allHistory){
    return {name,score,status,days,hasHistory,latestDate:data.latestDate,sets7:data.sets7,volume7:data.volume7,sessions7:data.sessions7.size,sessions30:data.sessions30.size,loadLabel,loadClass};
  }).sort((a,b)=>b.score-a.score||(b.days??999)-(a.days??999)||a.name.localeCompare(b.name,"sv"));
 
+ return recovery;
+}
+
+function buildRecoveryCoach(allHistory){
+ if(!recoveryCoach)return;
+ const excludedMuscles=new Set(["Övrigt","Säte"]);
+ const recovery=calculateRecovery(allHistory);
  const recommendedMuscle=recovery[0];
  const program=findProgram(state().selectedProgramId);
  let recommendedDay=null;
@@ -284,115 +290,35 @@ function buildRecoveryCoach(allHistory){
 
 function buildPriorityCoach(periodWorkouts,allHistory){
  const excludedMuscles=new Set(["Övrigt","Säte"]);
- const muscleNames=[...new Set(allExercises().flatMap(e=>e.muscles||[]).map(x=>x.muscle).filter(Boolean).filter(name=>!excludedMuscles.has(name)))];
- const periodStats=Object.fromEntries(muscleNames.map(name=>[name,{sets:0,workouts:new Set(),latestDate:0}]));
- const historyLatest=Object.fromEntries(muscleNames.map(name=>[name,0]));
- const addWorkout=(w,index,isPeriod)=>{
-   const date=Date.parse(w?.createdAt);if(!Number.isFinite(date))return;
-   const touched=new Set();
-   (w.exercises||[]).forEach(e=>{
-     const sets=validSets(e).length;
-     exerciseProfile(exerciseNameOf(e)).forEach(({muscle,percent})=>{
-       if(!periodStats[muscle])return;
-       const factor=percent/100;
-       historyLatest[muscle]=Math.max(historyLatest[muscle]||0,date);
-       if(isPeriod&&sets){periodStats[muscle].sets+=sets*factor;touched.add(muscle);}
-     });
-   });
-   if(isPeriod)touched.forEach(muscle=>periodStats[muscle].workouts.add(index));
- };
- allHistory.forEach((w,index)=>addWorkout(w,index,false));
- periodWorkouts.forEach((w,index)=>addWorkout(w,index,true));
-
- const totalSets=Object.values(periodStats).reduce((sum,m)=>sum+m.sets,0);
- const averageSets=muscleNames.length?totalSets/muscleNames.length:0;
- const averageFrequency=muscleNames.length
-   ?Object.values(periodStats).reduce((sum,m)=>sum+m.workouts.size,0)/muscleNames.length
-   :0;
-
- const priorities=muscleNames.map(name=>{
-   const data=periodStats[name],latestDate=historyLatest[name]||0;
-   const days=latestDate?Math.max(0,Math.floor((Date.now()-latestDate)/86400000)):999;
-   const recencyScore=latestDate?Math.min(55,days*5.5):55;
-   const volumeDeficit=averageSets>0?Math.max(0,(averageSets-data.sets)/averageSets):1;
-   const volumeScore=Math.min(30,volumeDeficit*30);
-   const frequencyDeficit=averageFrequency>0?Math.max(0,(averageFrequency-data.workouts.size)/averageFrequency):1;
-   const frequencyScore=Math.min(15,frequencyDeficit*15);
-   const score=Math.round(clamp(recencyScore+volumeScore+frequencyScore,0,100));
-   const reasons=[];
-   if(!latestDate)reasons.push("aldrig registrerad");
-   else if(days>7)reasons.push(`${days} dagar sedan`);
-   else if(days>3)reasons.push("börjar bli dags");
-   else reasons.push("nyligen tränad");
-   if(averageSets>0&&data.sets<averageSets*.65)reasons.push("låg setvolym");
-   if(averageFrequency>0&&data.workouts.size<averageFrequency*.65)reasons.push("låg frekvens");
-   return {name,score,days,sets:data.sets,workouts:data.workouts.size,latestDate,reasons};
- }).sort((a,b)=>b.score-a.score||b.days-a.days||a.sets-b.sets);
-
- const top=priorities.slice(0,3);
- const priorityByMuscle=Object.fromEntries(priorities.map(item=>[item.name,item.score]));
+ const recovery=calculateRecovery(allHistory);
+ const recoveryByMuscle=Object.fromEntries(recovery.map(item=>[item.name,item]));
+ const top=recovery.slice(0,3);
  const program=findProgram(state().selectedProgramId);
  const matchedDays=program?.days?.map((day,index)=>{
    const profile=(day.exercises||[]).flatMap(name=>exerciseProfile(name)).filter(x=>!excludedMuscles.has(x.muscle));
    const totalWeight=profile.reduce((sum,x)=>sum+x.percent,0)||1;
-   const weightedScore=profile.reduce((sum,{muscle,percent})=>sum+(priorityByMuscle[muscle]||0)*percent,0)/totalWeight;
+   const weightedRecovery=profile.reduce((sum,{muscle,percent})=>sum+(recoveryByMuscle[muscle]?.score||0)*percent,0)/totalWeight;
    const topCoverage=top.reduce((sum,item,rank)=>{
      const share=profile.filter(x=>x.muscle===item.name).reduce((a,x)=>a+x.percent,0);
-     return sum+Math.min(1,share/100)*(rank===0?12:rank===1?8:5);
+     return sum+Math.min(1,share/100)*(rank===0?10:rank===1?6:3);
    },0);
-   const match=Math.round(clamp(weightedScore+topCoverage,0,100));
-   const status=match>=70
-     ?{icon:"🟢",label:"Bra match",className:"matchGood"}
-     :match>=40
-       ?{icon:"🟡",label:"OK match",className:"matchOkay"}
-       :{icon:"🔴",label:"Låg match",className:"matchLow"};
-   const focus=[...new Set(profile.sort((a,b)=>b.percent-a.percent).map(x=>x.muscle))].slice(0,3);
+   const match=Math.round(clamp(weightedRecovery+topCoverage,0,100));
+   const status=match>=80?{icon:"🟢",label:"Bra match",className:"matchGood"}:match>=55?{icon:"🟡",label:"OK match",className:"matchOkay"}:{icon:"🔴",label:"Låg match",className:"matchLow"};
+   const focus=[...new Set(profile.map(x=>({muscle:x.muscle,score:recoveryByMuscle[x.muscle]?.score||0,percent:x.percent})).sort((a,b)=>b.score-a.score||b.percent-a.percent).map(x=>x.muscle))].slice(0,3);
    return {index,name:day.name,exercises:day.exercises,match,status,focus};
  }).sort((a,b)=>b.match-a.match||a.index-b.index)||[];
 
- const trainedValues=muscleNames.map(name=>periodStats[name].sets);
- const maxSets=Math.max(0,...trainedValues),minSets=Math.min(...trainedValues);
- const balanceRatio=maxSets?minSets/maxSets:1;
- const balance=balanceRatio>=.7
-   ?{label:"Bra balans",className:"balanceGood",text:"Setvolymen är relativt jämnt fördelad."}
-   :balanceRatio>=.4
-     ?{label:"Viss obalans",className:"balanceOkay",text:"Några muskelgrupper får tydligt mindre träning."}
-     :{label:"Tydlig obalans",className:"balanceNeedsWork",text:"Prioritera de lägst tränade muskelgrupperna."};
+ const trainedSets=Object.fromEntries(recovery.map(item=>[item.name,0]));
+ periodWorkouts.forEach(w=>(w.exercises||[]).forEach(e=>{const sets=validSets(e).length;exerciseProfile(exerciseNameOf(e)).forEach(({muscle,percent})=>{if(muscle in trainedSets)trainedSets[muscle]+=sets*(percent/100);});}));
+ const values=Object.values(trainedSets),maxSets=Math.max(0,...values),minSets=Math.min(...values),balanceRatio=maxSets?minSets/maxSets:1;
+ const balance=balanceRatio>=.7?{label:"Bra balans",className:"balanceGood",text:"Setvolymen är relativt jämnt fördelad."}:balanceRatio>=.4?{label:"Viss obalans",className:"balanceOkay",text:"Några muskelgrupper får tydligt mindre träning."}:{label:"Tydlig obalans",className:"balanceNeedsWork",text:"Prioritera återhämtade muskelgrupper som fått mindre träning."};
 
  const medals=["🥇","🥈","🥉"];
- const priorityHtml=top.map((item,index)=>`<article class="priorityItem">
-   <div class="priorityRank">${medals[index]}</div>
-   <div class="priorityMain"><b>${escapeHtml(item.name)}</b><span>${escapeHtml(item.reasons.join(" · "))}</span></div>
-   <div class="priorityScore"><strong>${item.score}</strong><small>prioritet</small></div>
- </article>`).join("");
-
- const workoutHtml=program
-   ?`<div class="workoutMatchesHeader"><div><small>ALLA PASS I ${escapeHtml(program.name).toUpperCase()}</small><h4>Matchning mot dagens behov</h4></div><span>${matchedDays.length} pass</span></div>
-     <div class="workoutMatchList">${matchedDays.map((day,rank)=>`<article class="workoutMatch ${day.status.className}">
-       <div class="workoutMatchRank">#${rank+1}</div>
-       <div class="workoutMatchMain">
-         <div class="workoutMatchTitle"><h4>${escapeHtml(day.name)}</h4><span class="matchStatus">${day.status.icon} ${day.status.label}</span></div>
-         <p>${day.exercises.map(escapeHtml).join(" · ")}</p>
-         ${day.focus.length?`<small>Fokus: ${day.focus.map(escapeHtml).join(", ")}</small>`:""}
-       </div>
-       <div class="workoutMatchScore"><strong>${day.match}%</strong><span>matchning</span></div>
-       <button type="button" class="chooseMatchedWorkout" data-day-index="${day.index}">Välj passet</button>
-     </article>`).join("")}</div>`
-   :`<div class="nextWorkout"><div><small>REKOMMENDATION</small><h4>Träna ${top.map(x=>escapeHtml(x.name)).join(", ")||"hela kroppen"}</h4><p>Välj ett upplägg för att jämföra alla pass och få matchningsgrad.</p></div></div>`;
-
- priorityCoach.innerHTML=`<div class="priorityCoachLayout">
-   <section class="priorityWorkoutSection">${workoutHtml}<div class="balanceSummary ${balance.className}"><b>${balance.label}</b><span>${balance.text}</span></div></section>
-   <section><div class="priorityList">${priorityHtml}</div></section>
- </div>`;
-
- document.querySelectorAll(".chooseMatchedWorkout").forEach(button=>button.onclick=()=>{
-   const s=state();
-   s.dayIndex=Number(button.dataset.dayIndex)||0;
-   s.active=null;
-   save(s);
-   render();
-   navigate("home");
- });
+ const priorityHtml=top.map((item,index)=>{const reason=!item.hasHistory?"Ingen tidigare träning registrerad":`${item.score}% återhämtad · ${daysAgoText(item.latestDate)} · ${item.loadLabel}`;return `<article class="priorityItem"><div class="priorityRank">${medals[index]}</div><div class="priorityMain"><b>${escapeHtml(item.name)}</b><span>${escapeHtml(reason)}</span></div><div class="priorityScore"><strong>${item.score}%</strong><small>recovery</small></div></article>`;}).join("");
+ const bestDay=matchedDays[0]||null;
+ const workoutHtml=program?`<div class="coachTodaySummary"><div><small>REKOMMENDERAT IDAG</small><h4>${bestDay?escapeHtml(bestDay.name):"Inget pass tillgängligt"}</h4><p>${bestDay?"Passet matchar bäst mot de mest återhämtade muskelgrupperna just nu.":""}</p></div>${bestDay?`<div class="coachTodayScore"><strong>${bestDay.match}%</strong><span>matchning</span></div>`:""}</div><div class="workoutMatchesHeader"><div><small>ALLA PASS I ${escapeHtml(program.name).toUpperCase()}</small><h4>Matchning mot återhämtningen</h4></div><span>${matchedDays.length} pass</span></div><div class="workoutMatchList">${matchedDays.map((day,rank)=>`<article class="workoutMatch ${day.status.className}"><div class="workoutMatchRank">#${rank+1}</div><div class="workoutMatchMain"><div class="workoutMatchTitle"><h4>${escapeHtml(day.name)}</h4><span class="matchStatus">${day.status.icon} ${day.status.label}</span></div><p>${day.exercises.map(escapeHtml).join(" · ")}</p>${day.focus.length?`<small>Bäst återhämtat i passet: ${day.focus.map(escapeHtml).join(", ")}</small>`:""}</div><div class="workoutMatchScore"><strong>${day.match}%</strong><span>matchning</span></div><button type="button" class="chooseMatchedWorkout" data-day-index="${day.index}">Välj passet</button></article>`).join("")}</div>`:`<div class="nextWorkout"><div><small>REKOMMENDATION</small><h4>Träna ${top.map(x=>escapeHtml(x.name)).join(", ")||"hela kroppen"}</h4><p>Välj ett upplägg för att jämföra passen mot din aktuella återhämtning.</p></div></div>`;
+ priorityCoach.innerHTML=`<div class="priorityCoachLayout"><section class="priorityWorkoutSection">${workoutHtml}<div class="balanceSummary ${balance.className}"><b>${balance.label}</b><span>${balance.text}</span></div></section><section><div class="coachRecoveryLink"><small>MEST ÅTERHÄMTADE</small><h4>Recovery-prioritet</h4><p>Samma återhämtningsdata används här som i Recovery Coach ovan.</p></div><div class="priorityList">${priorityHtml}</div></section></div>`;
+ document.querySelectorAll(".chooseMatchedWorkout").forEach(button=>button.onclick=()=>{const s=state();s.dayIndex=Number(button.dataset.dayIndex)||0;s.active=null;save(s);render();navigate("home");});
 }
 
 function renderStats(){
@@ -428,7 +354,7 @@ function renderStats(){
  buildPriorityCoach(workouts,allHistory);
  const insights=[];
  if(streak>=2)insights.push(`🔥 Du har tränat ${streak} veckor i rad.`);
- if(topMuscle)insights.push(`💪 Mest tränade muskelgrupp: ${escapeHtml(topMuscle.name)} (${topMuscle.sets} set under perioden).`);
+ if(topMuscle)insights.push(`💪 Mest tränade muskelgrupp: ${escapeHtml(topMuscle.name)} (${formatNumber(topMuscle.sets,1)} set under perioden).`);
  const improving=exercises.filter(e=>e.firstWeight>0&&e.lastWeight>e.firstWeight&&e.firstDate!==e.lastDate).sort((a,b)=>percentChange(a.firstWeight,a.lastWeight)-percentChange(b.firstWeight,b.lastWeight)).pop();
  if(improving)insights.push(`📈 ${escapeHtml(improving.name)} har ökat från ${formatKg(improving.firstWeight)} till ${formatKg(improving.lastWeight)}.`);
  const stale=[...muscles].filter(m=>(Date.now()-m.latestDate)/86400000>7).sort((a,b)=>a.latestDate-b.latestDate)[0];

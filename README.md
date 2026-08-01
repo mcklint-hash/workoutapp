@@ -38,3 +38,11 @@ LocalStorage-nyckeln är oförändrad: `minTraningStateV95`. Befintlig historik,
 ## Installation
 
 Ersätt `index.html`, `style.css`, `app.js` och `README.md`. Öppna därefter `index.html` och gör en hård omladdning i webbläsaren.
+
+## Fas 2 – Recovery Coach och passval
+
+- Coach 2.0 använder nu samma återhämtningsdata som Recovery Coach.
+- Passens matchningsprocent baseras på aktuell recovery för musklerna som passet tränar.
+- Det bäst matchande passet markeras som rekommenderat idag.
+- Topp 3 i Coach 2.0 visar recovery-prioritet.
+- Settal i Coach-insikter formateras utan flyttalsrester.
