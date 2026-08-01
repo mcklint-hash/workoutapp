@@ -103,14 +103,9 @@
 .recoveryRecommendationMain{min-width:0}
 .recoveryExercises{display:grid;gap:5px;margin-top:10px;padding:10px 12px;border-radius:11px;background:#f0fdf4;color:#166534}
 .recoveryExercises span{color:#475569;line-height:1.5}
-.recoveryTopHeading{display:flex;align-items:end;justify-content:space-between;margin:4px 0 10px}
-.recoveryTopHeading small{color:#15803d;font-size:.72rem;font-weight:800;letter-spacing:.08em}
-.recoveryTopHeading h4{margin:4px 0 0;font-size:1.15rem}
-.recoveryRank{color:#15803d!important;font-weight:800;letter-spacing:.04em}
-.recoveryTopGrid{grid-template-columns:repeat(3,minmax(0,1fr))}
 .weeklyGoalsPlaceholder{border:1px dashed #93c5fd;background:linear-gradient(135deg,#eff6ff,#fff)}
 .weeklyGoalsPlaceholder h3{margin:.8rem 0 .35rem}
-@media(max-width:900px){.recoveryTopGrid{grid-template-columns:1fr}}
+@media(max-width:900px){}
 
 
 /* Passmatchning – v9.6.5b */
@@ -175,3 +170,13 @@
 
 /* Fas 2 – Recovery Coach-koppling */
 .coachTodaySummary{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:15px 16px;border-radius:15px;background:#eff6ff;border:1px solid #bfdbfe}.coachTodaySummary small,.coachRecoveryLink small{color:#2563eb;font-size:.72rem;font-weight:800;letter-spacing:.08em}.coachTodaySummary h4,.coachRecoveryLink h4{margin:5px 0;font-size:1.15rem}.coachTodaySummary p,.coachRecoveryLink p{margin:0;color:#64748b;line-height:1.45}.coachTodayScore{text-align:center;min-width:82px}.coachTodayScore strong{display:block;font-size:1.5rem;color:#1d4ed8}.coachTodayScore span{font-size:.72rem;color:#64748b}.coachRecoveryLink{padding:13px 14px;margin-bottom:10px;border-radius:14px;background:#fff;border:1px solid #dbeafe}@media(max-width:650px){.coachTodaySummary{align-items:flex-start;flex-direction:column}.coachTodayScore{text-align:left}}
+
+/* Fas 3 – gemensam passmatchning och tydligare motivering */
+.recoveryWorkout{display:grid;gap:3px}
+.recoveryWorkout>span{font-size:.72rem;font-weight:800;letter-spacing:.05em;text-transform:uppercase;color:#15803d}
+.recoveryWorkout>b{color:#166534}
+.recoveryWorkout>small{color:#475569;line-height:1.4}
+.matchReason{margin:7px 0;padding:7px 9px;border-radius:9px;background:#f8fafc;color:#475569;font-size:.8rem;line-height:1.4;border:1px solid #e2e8f0}
+.workoutMatch.matchGood .matchReason{background:#f0fdf4;border-color:#bbf7d0}
+.workoutMatch.matchOkay .matchReason{background:#fffbeb;border-color:#fde68a}
+.workoutMatch.matchLow .matchReason{background:#fff1f2;border-color:#fecdd3}

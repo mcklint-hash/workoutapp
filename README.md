@@ -46,3 +46,12 @@ Ersätt `index.html`, `style.css`, `app.js` och `README.md`. Öppna därefter `i
 - Det bäst matchande passet markeras som rekommenderat idag.
 - Topp 3 i Coach 2.0 visar recovery-prioritet.
 - Settal i Coach-insikter formateras utan flyttalsrester.
+
+## Fas 3 – Gemensam coachlogik och tydligare motivering
+
+- Recovery Coach och Coach 2.0 använder nu exakt samma funktion för att poängsätta passen.
+- Bäst matchande pass kan därför inte längre skilja sig mellan de två coachvyerna.
+- Recovery Coach visar matchningsprocent direkt vid dagens rekommenderade pass.
+- Varje pass i Coach 2.0 visar en kort motivering till matchningen.
+- Fokusmusklerna visar även aktuell recovery-procent.
+- Äldre CSS för den borttagna Topp 3-vyn har rensats bort.
