@@ -55,3 +55,13 @@ Ersätt `index.html`, `style.css`, `app.js` och `README.md`. Öppna därefter `i
 - Varje pass i Coach 2.0 visar en kort motivering till matchningen.
 - Fokusmusklerna visar även aktuell recovery-procent.
 - Äldre CSS för den borttagna Topp 3-vyn har rensats bort.
+
+
+## Fas 4 – Dagens Coach på startsidan
+
+- Recovery Coach är nu kopplad direkt till startsidan.
+- Startsidan visar planerat pass och dess aktuella matchningsprocent.
+- Bäst matchande pass visas bredvid med en kort motivering.
+- Om ett annat pass passar bättre kan det väljas direkt från startsidan.
+- Om det planerade passet redan är bäst visas en tydlig grön bekräftelse.
+- Samma `calculateRecovery()` och `scoreProgramDays()` används, så startsidan, Recovery Coach och Coach 2.0 ger samma rekommendation.

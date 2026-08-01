@@ -35,7 +35,7 @@ const defaults={version:"9.6.6",workouts:[],settings:{rounding:"2.5",increasePer
 
 const byId=id=>document.getElementById(id);
 const todayTitle=byId("todayTitle"), todaySub=byId("todaySub"), todayExercises=byId("todayExercises");
-const workoutCount=byId("workoutCount"), customCount=byId("customCount"), startFromHome=byId("startFromHome");
+const workoutCount=byId("workoutCount"), customCount=byId("customCount"), startFromHome=byId("startFromHome"), homeCoach=byId("homeCoach");
 const programList=byId("programList"), programSetup=byId("programSetup"), programName=byId("programName");
 const frequency=byId("frequency"), weeks=byId("weeks"), cancelEdit=byId("cancelEdit");
 const programBuilder=byId("programBuilder"), builderDays=byId("builderDays");
@@ -90,7 +90,38 @@ function recommendation(name){
   return {change,sets:[{weight:roundWeight(target*0.8),label:"12 reps"},{weight:roundWeight(target*0.9),label:"10 reps"},{weight:target,label:"5–7 reps"}]};
 }
 function resultTable(sets,labels=false){if(!sets)return"Ingen data";return '<div class="dataRow"><b>Set</b><b>Vikt</b><b>Reps</b></div>'+sets.map((s,i)=>`<div class="dataRow"><span>Set ${i+1}</span><span>${formatKg(s.weight)}</span><span>${labels?s.label:(s.reps||0)+" reps"}</span></div>`).join("");}
-function renderHome(){const s=state(),p=findProgram(s.selectedProgramId),d=currentDay(s);todayTitle.textContent=d?d.name:"Välj ett upplägg";todaySub.textContent=p?`Upplägg: ${p.name}`:"";todayExercises.innerHTML=d?`<ul>${d.exercises.map(x=>`<li>${escapeHtml(x)}</li>`).join("")}</ul>`:"";workoutCount.textContent=s.workouts.length;customCount.textContent=s.customPrograms.length;}
+function renderHome(){
+ const s=state(),p=findProgram(s.selectedProgramId),d=currentDay(s);
+ todayTitle.textContent=d?d.name:"Välj ett upplägg";
+ todaySub.textContent=p?`Upplägg: ${p.name}`:"";
+ todayExercises.innerHTML=d?`<ul>${d.exercises.map(x=>`<li>${escapeHtml(x)}</li>`).join("")}</ul>`:"";
+ workoutCount.textContent=s.workouts.length;
+ customCount.textContent=s.customPrograms.length;
+ if(!homeCoach)return;
+ const allHistory=(s.workouts||[]).filter(w=>Number.isFinite(Date.parse(w?.createdAt)));
+ const recovery=calculateRecovery(allHistory);
+ const bestMuscle=recovery[0]||null;
+ const matchedDays=scoreProgramDays(p,recovery);
+ const bestDay=matchedDays[0]||null;
+ const currentMatch=matchedDays.find(x=>x.index===s.dayIndex)||null;
+ if(!p){
+   homeCoach.innerHTML=`<div class="homeCoachEmpty"><span class="recoveryBadge">RECOVERY COACH</span><div><h3>Välj ett upplägg</h3><p>Välj ett träningsupplägg så kan coachen rekommendera vilket pass som passar bäst idag.</p></div></div>`;
+   return;
+ }
+ const sameDay=bestDay&&bestDay.index===s.dayIndex;
+ const muscleText=bestMuscle?`${bestMuscle.name} ${bestMuscle.score}%`:"Ingen data";
+ homeCoach.innerHTML=`<div class="homeCoachHeading"><div><span class="recoveryBadge">DAGENS COACH</span><h3>${sameDay?"Dagens plan ser bra ut":"Ett annat pass matchar bättre idag"}</h3></div><span class="homeRecoveryBadge">${escapeHtml(muscleText)}</span></div>
+ <div class="homeCoachGrid">
+   <div class="homeCoachCurrent"><small>PLANERAT PASS</small><b>${escapeHtml(d?.name||"–")}</b><strong>${currentMatch?currentMatch.match+"%":"–"}</strong><span>matchning</span></div>
+   <div class="homeCoachArrow">→</div>
+   <div class="homeCoachBest"><small>BÄST MATCH JUST NU</small><b>${escapeHtml(bestDay?.name||d?.name||"–")}</b><strong>${bestDay?bestDay.match+"%":"–"}</strong><span>${bestDay?escapeHtml(bestDay.reason):"Ingen matchning ännu"}</span></div>
+ </div>
+ ${bestDay&&!sameDay?`<div class="homeCoachActions"><button type="button" id="chooseHomeRecommended" data-day-index="${bestDay.index}">Välj rekommenderat pass</button><button type="button" id="keepHomePlanned" class="secondary">Behåll planerat pass</button></div>`:`<div class="homeCoachGood">🟢 Planerat pass är redan det bästa alternativet utifrån aktuell recovery.</div>`}`;
+ const choose=byId("chooseHomeRecommended");
+ if(choose)choose.onclick=()=>{const next=state();next.dayIndex=Number(choose.dataset.dayIndex)||0;next.active=null;save(next);render();};
+ const keep=byId("keepHomePlanned");
+ if(keep)keep.onclick=()=>homeCoach.classList.add("homeCoachConfirmed");
+}
 function renderPrograms(){const s=state();programList.innerHTML=allPrograms().map(p=>`<div class="program"><h3>${escapeHtml(p.name)}</h3><p>${escapeHtml(p.description||"")}</p><p>${p.days.length} pass</p><div class="buttonRow"><button data-select="${p.id}">${s.selectedProgramId===p.id?"Valt":"Välj"}</button><button class="secondary" data-edit="${p.id}">Redigera</button>${p.type==="custom"?`<button class="danger" data-delete="${p.id}">Radera</button>`:""}</div></div>`).join("");
 document.querySelectorAll("[data-select]").forEach(b=>b.onclick=()=>{const s=state();s.selectedProgramId=b.dataset.select;s.dayIndex=0;s.active=null;save(s);render();});
 document.querySelectorAll("[data-edit]").forEach(b=>b.onclick=()=>editProgram(b.dataset.edit));
